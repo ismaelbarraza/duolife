@@ -1,0 +1,257 @@
+{
+  "nav": {
+    "home": "Home",
+    "planner": "Planner",
+    "expenses": "Expenses",
+    "rewards": "Rewards",
+    "games": "Games"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "new": "New",
+    "add": "Add",
+    "delete": "Delete",
+    "done": "Done",
+    "paid": "paid",
+    "all": "All",
+    "soon": "Soon",
+    "markPaid": "Mark paid",
+    "owes": "owes",
+    "by": "by"
+  },
+  "dashboard": {
+    "invite": "Invite",
+    "recentActivities": "Recent Activities",
+    "coinHistory": "Coin History",
+    "stats": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "rewardsWon": "Rewards Won",
+      "coinsEarned": "Coins Earned"
+    },
+    "empty": {
+      "title": "No activities yet",
+      "subtitle": "Create your first activity and start earning coins!"
+    }
+  },
+  "planner": {
+    "today": "Today",
+    "addActivity": "Add Activity",
+    "addSomething": "+ Add something",
+    "noActivities": "No activities for this day",
+    "allPlannedDays": "All Planned Days",
+    "jumpTo": {
+      "title": "Jump to date",
+      "go": "Go"
+    }
+  },
+  "rewards": {
+    "title": "Rewards",
+    "newReward": "New Reward",
+    "redeemingAs": "Redeeming as",
+    "redeemed": "Redeemed",
+    "redeemedOn": "Redeemed {{date}}",
+    "notYours": "Not yours",
+    "notEnough": "Not enough",
+    "redeem": "Redeem 🎉",
+    "noRewardsInCategory": "No rewards in this category",
+    "belongsTo": "This reward belongs to {{name}}",
+    "redeemedToast": "🎉 \"{{name}}\" redeemed!",
+    "categoryLabels": {
+      "All": "All",
+      "Wellness": "Wellness",
+      "Food": "Food",
+      "Fun": "Fun",
+      "Entertainment": "Entertainment",
+      "Travel": "Travel",
+      "Other": "Other"
+    },
+    "errors": {
+      "alreadyRedeemed": "Already redeemed",
+      "notEnoughCoins": "Not enough coins"
+    }
+  },
+  "games": {
+    "title": "Mini Games",
+    "subtitle": "Play together, win together",
+    "comingSoonBanner": {
+      "title": "Games are coming!",
+      "subtitle": "We're building fun mini-games for you two. Stay tuned!"
+    },
+    "historyPlaceholder": "Game history will appear here once you start playing.",
+    "items": {
+      "slot-machine": {
+        "name": "Slot Machine",
+        "description": "Spin for bonus coins and surprises"
+      },
+      "flip-cards": {
+        "name": "Flip Cards",
+        "description": "Match cards, win coin multipliers"
+      },
+      "wheel": {
+        "name": "Spin the Wheel",
+        "description": "Let fate decide your next date"
+      },
+      "trivia": {
+        "name": "Couple Trivia",
+        "description": "How well do you know each other?"
+      }
+    }
+  },
+  "expenses": {
+    "title": "Expenses",
+    "pendingDebts_one": "{{count}} pending debt",
+    "pendingDebts_other": "{{count}} pending debts",
+    "allSettled": "All settled up",
+    "paidByLine": "paid by {{name}}",
+    "deleteExpense": "Delete expense",
+    "cardShare": "{{amount}} each",
+    "noExpenses": {
+      "title": "No expenses yet.",
+      "subtitle": "Tap Add to log your first shared expense."
+    },
+    "debtSummary": {
+      "noneNeeded": "No debts",
+      "allSettled": "All collected ✓",
+      "one": "{{debtor}} owes {{payer}} {{amount}}",
+      "many": "{{count}} people owe {{payer}} {{amount}} each"
+    },
+    "labels": {
+      "total": "Total",
+      "paidBy": "Paid by",
+      "participants": "Participants",
+      "eachPays": "Each pays",
+      "note": "Note",
+      "debts": "Debts",
+      "noDebts": "No debts — payer is the only participant."
+    },
+    "settlement": {
+      "title": "Settlement Summary",
+      "payerShare": "Payer's share",
+      "toReceive": "To receive back",
+      "received": "Already received",
+      "pending": "Still pending"
+    }
+  },
+  "onboarding": {
+    "next": "Next →",
+    "getStarted": "Get Started ✨",
+    "skip": "Skip for now",
+    "dontShow": "Don't show again",
+    "steps": {
+      "welcome": {
+        "title": "Welcome to DuoLife ♾",
+        "subtitle": "Your shared universe",
+        "body": "DuoLife is your couple's gamified planning space. Plan activities, earn coins, redeem rewards, and play together. Everything you do here brings you closer."
+      },
+      "activities": {
+        "title": "Activities",
+        "subtitle": "Plan & do things together",
+        "body": "Create activities for any day — morning walks, dinner dates, surprise gestures. Assign them to either partner and watch your shared calendar come alive."
+      },
+      "coins": {
+        "title": "Coins 🪙",
+        "subtitle": "Earn by doing",
+        "body": "Every completed activity earns coins for the assigned partner. The harder the task, the more coins it's worth. Keep an eye on each other's balance!"
+      },
+      "rewards": {
+        "title": "Rewards",
+        "subtitle": "Spend your coins",
+        "body": "Create custom rewards that can be redeemed with coins — a massage, a special dinner, a lazy Sunday. Make them personal and meaningful."
+      },
+      "games": {
+        "title": "Mini Games",
+        "subtitle": "Coming soon",
+        "body": "Slot machines, flip cards, and more — play mini games together for bonus coins and special prizes. Launching soon!"
+      }
+    }
+  },
+  "activity": {
+    "status": {
+      "pending": "pending",
+      "completed": "completed",
+      "cancelled": "cancelled"
+    },
+    "done": "Done",
+    "by": "by"
+  },
+  "modals": {
+    "createActivity": {
+      "title": "New Activity",
+      "subtitle": "Plan something together",
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "assignTo": "Assign to",
+        "date": "Date",
+        "coinReward": "Coin Reward 🪙",
+        "createdBy": "Created by"
+      },
+      "placeholders": {
+        "title": "e.g. Morning walk, Cook dinner...",
+        "description": "Optional details...",
+        "customAmount": "Custom amount"
+      },
+      "submit": "Create Activity",
+      "errors": {
+        "noTitle": "Please enter a title",
+        "noAssignee": "Please assign to a partner",
+        "noDate": "Please pick a date"
+      }
+    },
+    "createReward": {
+      "title": "New Reward",
+      "subtitle": "Something worth earning",
+      "labels": {
+        "icon": "Icon",
+        "name": "Reward Name",
+        "owner": "Owner",
+        "category": "Category",
+        "cost": "Cost (coins) 🪙"
+      },
+      "placeholders": {
+        "name": "e.g. Full back massage, Dinner pick..."
+      },
+      "submit": "Create Reward",
+      "errors": {
+        "noName": "Please enter a reward name"
+      }
+    },
+    "createExpense": {
+      "title": "New Expense",
+      "subtitle": "Split it equally",
+      "labels": {
+        "title": "Title",
+        "amount": "Amount",
+        "currency": "Currency",
+        "paidBy": "Paid by",
+        "date": "Date",
+        "participants": "Participants",
+        "note": "Note (optional)"
+      },
+      "placeholders": {
+        "title": "e.g. Dinner, Taxi, Groceries…",
+        "note": "Any details…"
+      },
+      "eachPaysPreview": "Each pays: {{symbol}} {{amount}}",
+      "submit": "Save Expense",
+      "errors": {
+        "noTitle": "Please enter a title",
+        "noAmount": "Please enter a valid amount",
+        "noPaidBy": "Please select who paid",
+        "noParticipants": "Select at least one participant",
+        "noDate": "Please pick a date"
+      }
+    },
+    "invite": {
+      "title": "Invite Partner",
+      "heading": "Share your space",
+      "body": "Send this invite code to your partner so they can join",
+      "codeLabel": "Invite Code",
+      "copyCode": "Copy Code",
+      "copied": "Copied!",
+      "emailSoon": "📧 Email invitations coming soon"
+    }
+  }
+}

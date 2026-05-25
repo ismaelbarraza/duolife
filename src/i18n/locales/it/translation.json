@@ -1,0 +1,257 @@
+{
+  "nav": {
+    "home": "Home",
+    "planner": "Planner",
+    "expenses": "Spese",
+    "rewards": "Premi",
+    "games": "Giochi"
+  },
+  "common": {
+    "cancel": "Annulla",
+    "save": "Salva",
+    "new": "Nuovo",
+    "add": "Aggiungi",
+    "delete": "Elimina",
+    "done": "Fatto",
+    "paid": "pagato",
+    "all": "Tutti",
+    "soon": "Presto",
+    "markPaid": "Segna pagato",
+    "owes": "deve a",
+    "by": "da"
+  },
+  "dashboard": {
+    "invite": "Invita",
+    "recentActivities": "Attività Recenti",
+    "coinHistory": "Storico Monete",
+    "stats": {
+      "completed": "Completate",
+      "pending": "In attesa",
+      "rewardsWon": "Premi vinti",
+      "coinsEarned": "Monete guadagnate"
+    },
+    "empty": {
+      "title": "Nessuna attività ancora",
+      "subtitle": "Crea la tua prima attività e inizia a guadagnare monete!"
+    }
+  },
+  "planner": {
+    "today": "Oggi",
+    "addActivity": "Aggiungi Attività",
+    "addSomething": "+ Aggiungi qualcosa",
+    "noActivities": "Nessuna attività per questo giorno",
+    "allPlannedDays": "Tutti i giorni pianificati",
+    "jumpTo": {
+      "title": "Vai a data",
+      "go": "Vai"
+    }
+  },
+  "rewards": {
+    "title": "Premi",
+    "newReward": "Nuovo Premio",
+    "redeemingAs": "Riscatto come",
+    "redeemed": "Riscattati",
+    "redeemedOn": "Riscattato il {{date}}",
+    "notYours": "Non è tuo",
+    "notEnough": "Non basta",
+    "redeem": "Riscatta 🎉",
+    "noRewardsInCategory": "Nessun premio in questa categoria",
+    "belongsTo": "Questo premio appartiene a {{name}}",
+    "redeemedToast": "🎉 \"{{name}}\" riscattato!",
+    "categoryLabels": {
+      "All": "Tutti",
+      "Wellness": "Benessere",
+      "Food": "Cibo",
+      "Fun": "Divertimento",
+      "Entertainment": "Intrattenimento",
+      "Travel": "Viaggi",
+      "Other": "Altro"
+    },
+    "errors": {
+      "alreadyRedeemed": "Già riscattato",
+      "notEnoughCoins": "Monete insufficienti"
+    }
+  },
+  "games": {
+    "title": "Mini Giochi",
+    "subtitle": "Giocate insieme, vincete insieme",
+    "comingSoonBanner": {
+      "title": "I giochi stanno arrivando!",
+      "subtitle": "Stiamo costruendo mini giochi divertenti per voi due. Restate sintonizzati!"
+    },
+    "historyPlaceholder": "La cronologia dei giochi apparirà qui quando inizierete a giocare.",
+    "items": {
+      "slot-machine": {
+        "name": "Slot Machine",
+        "description": "Gira per monete bonus e sorprese"
+      },
+      "flip-cards": {
+        "name": "Carte Scoperte",
+        "description": "Abbina le carte, vinci moltiplicatori"
+      },
+      "wheel": {
+        "name": "Ruota della Fortuna",
+        "description": "Lascia che il destino decida il tuo prossimo appuntamento"
+      },
+      "trivia": {
+        "name": "Trivia di Coppia",
+        "description": "Quanto vi conoscete?"
+      }
+    }
+  },
+  "expenses": {
+    "title": "Spese",
+    "pendingDebts_one": "{{count}} debito in sospeso",
+    "pendingDebts_other": "{{count}} debiti in sospeso",
+    "allSettled": "Tutto saldato",
+    "paidByLine": "pagato da {{name}}",
+    "deleteExpense": "Elimina spesa",
+    "cardShare": "{{amount}} cad.",
+    "noExpenses": {
+      "title": "Nessuna spesa ancora.",
+      "subtitle": "Tocca Aggiungi per registrare la prima spesa condivisa."
+    },
+    "debtSummary": {
+      "noneNeeded": "Nessun debito",
+      "allSettled": "Tutto riscosso ✓",
+      "one": "{{debtor}} deve {{amount}} a {{payer}}",
+      "many": "{{count}} persone devono {{amount}} cad. a {{payer}}"
+    },
+    "labels": {
+      "total": "Totale",
+      "paidBy": "Pagato da",
+      "participants": "Partecipanti",
+      "eachPays": "Ognuno paga",
+      "note": "Nota",
+      "debts": "Debiti",
+      "noDebts": "Nessun debito — chi ha pagato è l'unico partecipante."
+    },
+    "settlement": {
+      "title": "Riepilogo Liquidazione",
+      "payerShare": "Quota del pagatore",
+      "toReceive": "Da ricevere",
+      "received": "Già ricevuto",
+      "pending": "Ancora in sospeso"
+    }
+  },
+  "onboarding": {
+    "next": "Avanti →",
+    "getStarted": "Inizia ✨",
+    "skip": "Salta per ora",
+    "dontShow": "Non mostrare più",
+    "steps": {
+      "welcome": {
+        "title": "Benvenuto su DuoLife ♾",
+        "subtitle": "Il vostro universo condiviso",
+        "body": "DuoLife è il vostro spazio di pianificazione gamificato di coppia. Pianificate attività, guadagnate monete, riscattate premi e giocate insieme. Tutto ciò che fate qui vi avvicina."
+      },
+      "activities": {
+        "title": "Attività",
+        "subtitle": "Pianificate e fate cose insieme",
+        "body": "Crea attività per qualsiasi giorno — passeggiate mattutine, cene romantiche, gesti sorpresa. Assegnale a uno dei partner e guarda il vostro calendario condiviso prendere vita."
+      },
+      "coins": {
+        "title": "Monete 🪙",
+        "subtitle": "Guadagna facendo",
+        "body": "Ogni attività completata guadagna monete per il partner assegnato. Più difficile è il compito, più monete vale. Tieni d'occhio il saldo di entrambi!"
+      },
+      "rewards": {
+        "title": "Premi",
+        "subtitle": "Spendi le tue monete",
+        "body": "Crea premi personalizzati che possono essere riscattati con le monete — un massaggio, una cena speciale, una domenica pigra. Rendili personali e significativi."
+      },
+      "games": {
+        "title": "Mini Giochi",
+        "subtitle": "Prossimamente",
+        "body": "Slot machine, carte e altro ancora — giocate a mini giochi insieme per monete bonus e premi speciali. In arrivo!"
+      }
+    }
+  },
+  "activity": {
+    "status": {
+      "pending": "in attesa",
+      "completed": "completata",
+      "cancelled": "annullata"
+    },
+    "done": "Fatto",
+    "by": "da"
+  },
+  "modals": {
+    "createActivity": {
+      "title": "Nuova Attività",
+      "subtitle": "Pianificate qualcosa insieme",
+      "labels": {
+        "title": "Titolo",
+        "description": "Descrizione",
+        "assignTo": "Assegna a",
+        "date": "Data",
+        "coinReward": "Ricompensa in Monete 🪙",
+        "createdBy": "Creato da"
+      },
+      "placeholders": {
+        "title": "es. Passeggiata mattutina, Cucinare insieme...",
+        "description": "Dettagli opzionali...",
+        "customAmount": "Importo personalizzato"
+      },
+      "submit": "Crea Attività",
+      "errors": {
+        "noTitle": "Inserisci un titolo",
+        "noAssignee": "Assegna a un partner",
+        "noDate": "Scegli una data"
+      }
+    },
+    "createReward": {
+      "title": "Nuovo Premio",
+      "subtitle": "Qualcosa che vale la pena guadagnare",
+      "labels": {
+        "icon": "Icona",
+        "name": "Nome del Premio",
+        "owner": "Proprietario",
+        "category": "Categoria",
+        "cost": "Costo (monete) 🪙"
+      },
+      "placeholders": {
+        "name": "es. Massaggio completo, Scelta del ristorante..."
+      },
+      "submit": "Crea Premio",
+      "errors": {
+        "noName": "Inserisci il nome del premio"
+      }
+    },
+    "createExpense": {
+      "title": "Nuova Spesa",
+      "subtitle": "Divisione equa",
+      "labels": {
+        "title": "Titolo",
+        "amount": "Importo",
+        "currency": "Valuta",
+        "paidBy": "Pagato da",
+        "date": "Data",
+        "participants": "Partecipanti",
+        "note": "Nota (opzionale)"
+      },
+      "placeholders": {
+        "title": "es. Cena, Taxi, Spesa…",
+        "note": "Qualche dettaglio…"
+      },
+      "eachPaysPreview": "Ognuno paga: {{symbol}} {{amount}}",
+      "submit": "Salva Spesa",
+      "errors": {
+        "noTitle": "Inserisci un titolo",
+        "noAmount": "Inserisci un importo valido",
+        "noPaidBy": "Seleziona chi ha pagato",
+        "noParticipants": "Seleziona almeno un partecipante",
+        "noDate": "Scegli una data"
+      }
+    },
+    "invite": {
+      "title": "Invita Partner",
+      "heading": "Condividi il tuo spazio",
+      "body": "Invia questo codice di invito al tuo partner in modo che possa unirsi a",
+      "codeLabel": "Codice di Invito",
+      "copyCode": "Copia Codice",
+      "copied": "Copiato!",
+      "emailSoon": "📧 Inviti via email prossimamente"
+    }
+  }
+}
