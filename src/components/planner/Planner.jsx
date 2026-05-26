@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react'
-import { ChevronLeft, ChevronRight, ChevronDown, Plus } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, Plus, LayoutList, CalendarDays } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval,
   isSameMonth, isToday, isSameDay } from 'date-fns'
@@ -11,12 +11,22 @@ const CURRENT_YEAR = new Date().getFullYear()
 const MIN_YEAR = CURRENT_YEAR - 10
 const MAX_YEAR = CURRENT_YEAR + 10
 
+function sortByTime(activities) {
+  return [...activities].sort((a, b) => {
+    if (!a.startTime && !b.startTime) return 0
+    if (!a.startTime) return 1
+    if (!b.startTime) return -1
+    return a.startTime.localeCompare(b.startTime)
+  })
+}
+
 export default function Planner() {
   const { t, i18n } = useTranslation()
   const { activities } = useApp()
 
   const [currentMonth, setCurrentMonth] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
+  const [showAllDays, setShowAllDays] = useState(false)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [createDate, setCreateDate] = useState(null)
 
@@ -65,9 +75,10 @@ export default function Planner() {
     setJumpYear((y) => Math.min(MAX_YEAR, Math.max(MIN_YEAR, y + delta)))
   }
 
-  const days = useMemo(() => {
-    return eachDayOfInterval({ start: startOfMonth(currentMonth), end: endOfMonth(currentMonth) })
-  }, [currentMonth])
+  const days = useMemo(
+    () => eachDayOfInterval({ start: startOfMonth(currentMonth), end: endOfMonth(currentMonth) }),
+    [currentMonth]
+  )
 
   const activitiesByDate = useMemo(() => {
     const map = {}
@@ -79,7 +90,28 @@ export default function Planner() {
   }, [activities])
 
   const selectedDateStr = format(selectedDate, 'yyyy-MM-dd')
-  const selectedActivities = activitiesByDate[selectedDateStr] || []
+  const selectedActivities = useMemo(
+    () => sortByTime(activitiesByDate[selectedDateStr] || []),
+    [activitiesByDate, selectedDateStr]
+  )
+
+  const sortedAllDays = useMemo(
+    () =>
+      Object.entries(activitiesByDate)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([dateStr, acts]) => ({ dateStr, acts: sortByTime(acts) })),
+    [activitiesByDate]
+  )
+
+  // Clicking same day toggles all-days view; clicking a different day focuses it
+  const handleDayClick = (day) => {
+    if (isSameDay(day, selectedDate)) {
+      setShowAllDays((v) => !v)
+    } else {
+      setSelectedDate(day)
+      setShowAllDays(false)
+    }
+  }
 
   const handleCreateForDate = (date) => {
     setCreateDate(format(date, 'yyyy-MM-dd'))
@@ -108,7 +140,7 @@ export default function Planner() {
 
           <button
             onClick={openJump}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all hover:bg-white hover:shadow-sm group"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all hover:bg-white hover:shadow-sm"
           >
             <span className="font-body font-bold text-xl text-slate-900">
               {format(currentMonth, 'MMMM yyyy')}
@@ -130,7 +162,8 @@ export default function Planner() {
 
         {/* Jump-to dropdown */}
         {showJump && (
-          <div className="absolute left-1/2 top-full mt-2 z-30 w-72 rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-lg"
+          <div
+            className="absolute left-1/2 top-full mt-2 z-30 w-72 rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-lg"
             style={{ transform: 'translateX(-50%)' }}
           >
             <div className="px-4 pt-4 pb-3 border-b border-slate-100">
@@ -138,7 +171,6 @@ export default function Planner() {
                 {t('planner.jumpTo.title')}
               </p>
             </div>
-
             <div className="p-4 space-y-4">
               <div className="flex items-center justify-between gap-2">
                 <button
@@ -148,11 +180,7 @@ export default function Planner() {
                 >
                   <ChevronLeft size={15} className="text-slate-600" />
                 </button>
-
-                <span className="font-body font-bold text-2xl text-slate-900 tabular-nums">
-                  {jumpYear}
-                </span>
-
+                <span className="font-body font-bold text-2xl text-slate-900 tabular-nums">{jumpYear}</span>
                 <button
                   onClick={() => adjustYear(1)}
                   disabled={jumpYear >= MAX_YEAR}
@@ -183,10 +211,7 @@ export default function Planner() {
               </div>
 
               <div className="flex gap-2 pt-1">
-                <button
-                  onClick={() => setShowJump(false)}
-                  className="btn-secondary flex-1 !py-2 text-sm"
-                >
+                <button onClick={() => setShowJump(false)} className="btn-secondary flex-1 !py-2 text-sm">
                   {t('common.cancel')}
                 </button>
                 <button
@@ -204,9 +229,7 @@ export default function Planner() {
       {/* Weekday labels */}
       <div className="grid grid-cols-7 gap-1">
         {weekdayNames.map((d, i) => (
-          <div key={i} className="text-center text-slate-400 text-xs font-body py-1">
-            {d}
-          </div>
+          <div key={i} className="text-center text-slate-400 text-xs font-body py-1">{d}</div>
         ))}
       </div>
 
@@ -215,27 +238,19 @@ export default function Planner() {
         {Array.from({ length: days[0].getDay() }).map((_, i) => (
           <div key={`empty-${i}`} />
         ))}
-
         {days.map((day) => {
           const dateStr = format(day, 'yyyy-MM-dd')
           const dotColor = getDotColor(dateStr)
           const isSelected = isSameDay(day, selectedDate)
           const _isToday = isToday(day)
-          const actCount = (activitiesByDate[dateStr] || []).length
 
           return (
             <button
               key={dateStr}
-              onClick={() => setSelectedDate(day)}
+              onClick={() => handleDayClick(day)}
               className="aspect-square rounded-full flex flex-col items-center justify-center gap-0.5 transition-all duration-150"
               style={{
-                background: isSelected
-                  ? '#8b5cf6'
-                  : _isToday
-                  ? '#f5f3ff'
-                  : actCount > 0
-                  ? '#fafaf9'
-                  : 'transparent',
+                background: isSelected ? '#8b5cf6' : _isToday ? '#f5f3ff' : 'transparent',
                 border: isSelected
                   ? '2px solid #7c3aed'
                   : _isToday
@@ -260,7 +275,7 @@ export default function Planner() {
         })}
       </div>
 
-      {/* Selected day panel */}
+      {/* Selected day panel — always visible */}
       <div>
         <div className="flex items-center justify-between mb-3">
           <div>
@@ -297,43 +312,55 @@ export default function Planner() {
             </button>
           </div>
         )}
+
+        {/* Toggle: show all days / focus selected */}
+        {sortedAllDays.length > 0 && (
+          <button
+            onClick={() => setShowAllDays((v) => !v)}
+            className="mt-3 w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-body text-slate-400 hover:text-violet-600 border border-dashed border-slate-200 hover:border-violet-200 transition-all"
+          >
+            {showAllDays ? (
+              <><CalendarDays size={12} />{t('planner.focusDay')}</>
+            ) : (
+              <><LayoutList size={12} />{t('planner.showAllDays')}</>
+            )}
+          </button>
+        )}
       </div>
 
-      {/* All planned days */}
-      {Object.keys(activitiesByDate).length > 0 && (
+      {/* All planned days — only when toggled on */}
+      {showAllDays && sortedAllDays.length > 0 && (
         <div>
-          <h3 className="font-body font-semibold text-base text-slate-600 mb-3">{t('planner.allPlannedDays')}</h3>
-          <div className="space-y-3">
-            {Object.entries(activitiesByDate)
-              .sort(([a], [b]) => a.localeCompare(b))
-              .map(([dateStr, acts]) => (
-                <div key={dateStr}>
-                  <button
-                    onClick={() => {
-                      setSelectedDate(new Date(dateStr + 'T12:00:00'))
-                      const d = new Date(dateStr + 'T12:00:00')
-                      if (!isSameMonth(d, currentMonth)) setCurrentMonth(d)
-                    }}
-                    className="text-xs font-body text-slate-400 hover:text-violet-500 mb-1.5 block transition-colors"
-                  >
-                    {format(new Date(dateStr + 'T12:00:00'), 'EEEE, MMM d')}
-                  </button>
-                  <div className="space-y-2">
-                    {acts.map((a) => (
-                      <ActivityCard key={a.id} activity={a} />
-                    ))}
-                  </div>
+          <h3 className="font-body font-semibold text-base text-slate-600 mb-3">
+            {t('planner.allPlannedDays')}
+          </h3>
+          <div className="space-y-4">
+            {sortedAllDays.map(({ dateStr, acts }) => (
+              <div key={dateStr}>
+                <button
+                  onClick={() => {
+                    const d = new Date(dateStr + 'T12:00:00')
+                    setSelectedDate(d)
+                    setShowAllDays(false)
+                    if (!isSameMonth(d, currentMonth)) setCurrentMonth(d)
+                  }}
+                  className="text-xs font-body text-slate-400 hover:text-violet-500 mb-1.5 block transition-colors"
+                >
+                  {format(new Date(dateStr + 'T12:00:00'), 'EEEE, MMM d')}
+                </button>
+                <div className="space-y-2">
+                  {acts.map((a) => (
+                    <ActivityCard key={a.id} activity={a} />
+                  ))}
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
         </div>
       )}
 
       {showCreateModal && (
-        <CreateActivityModal
-          date={createDate}
-          onClose={() => setShowCreateModal(false)}
-        />
+        <CreateActivityModal date={createDate} onClose={() => setShowCreateModal(false)} />
       )}
     </div>
   )

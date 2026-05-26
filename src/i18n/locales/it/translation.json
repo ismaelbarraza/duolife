@@ -26,6 +26,21 @@
     "invite": "Invita",
     "recentActivities": "Attività Recenti",
     "coinHistory": "Storico Punti",
+    "upcomingPlan": "Piano Prossimo",
+    "today": "Oggi",
+    "tomorrow": "Domani",
+    "viewInPlanner": "Vedi tutto nel Planner",
+    "noUpcoming": "Nessuna attività in programma",
+    "noUpcomingSubtitle": "Pianificate qualcosa insieme ✨",
+    "noActivitiesToday": "Nessuna attività per oggi.",
+    "noActivitiesWeek": "Nessuna attività nei prossimi 7 giorni.",
+    "noActivitiesMonth": "Nessuna attività questo mese.",
+    "filters": {
+      "today": "Oggi",
+      "week": "7 giorni",
+      "month": "Mese",
+      "all": "Tutto"
+    },
     "stats": {
       "completed": "Completate",
       "pending": "In attesa",
@@ -43,6 +58,8 @@
     "addSomething": "+ Aggiungi qualcosa",
     "noActivities": "Nessuna attività per questo giorno",
     "allPlannedDays": "Tutti i giorni pianificati",
+    "showAllDays": "Mostra tutti i giorni",
+    "focusDay": "Metti a fuoco il giorno selezionato",
     "jumpTo": {
       "title": "Vai a data",
       "go": "Vai"

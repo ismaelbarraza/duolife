@@ -26,6 +26,21 @@
     "invite": "Invite",
     "recentActivities": "Recent Activities",
     "coinHistory": "Coin History",
+    "upcomingPlan": "Upcoming Plan",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "viewInPlanner": "View all in Planner",
+    "noUpcoming": "No upcoming activities",
+    "noUpcomingSubtitle": "Plan something together ✨",
+    "noActivitiesToday": "No activities for today.",
+    "noActivitiesWeek": "No activities in the next 7 days.",
+    "noActivitiesMonth": "No activities this month.",
+    "filters": {
+      "today": "Today",
+      "week": "7 days",
+      "month": "Month",
+      "all": "All"
+    },
     "stats": {
       "completed": "Completed",
       "pending": "Pending",
@@ -43,6 +58,8 @@
     "addSomething": "+ Add something",
     "noActivities": "No activities for this day",
     "allPlannedDays": "All Planned Days",
+    "showAllDays": "Show all planned days",
+    "focusDay": "Focus selected day",
     "jumpTo": {
       "title": "Jump to date",
       "go": "Go"
