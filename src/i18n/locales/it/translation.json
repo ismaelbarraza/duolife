@@ -18,21 +18,23 @@
     "soon": "Presto",
     "markPaid": "Segna pagato",
     "owes": "deve a",
-    "by": "da"
+    "by": "da",
+    "confirm": "Conferma",
+    "remove": "Rimuovi"
   },
   "dashboard": {
     "invite": "Invita",
     "recentActivities": "Attività Recenti",
-    "coinHistory": "Storico Monete",
+    "coinHistory": "Storico Punti",
     "stats": {
       "completed": "Completate",
       "pending": "In attesa",
       "rewardsWon": "Premi vinti",
-      "coinsEarned": "Monete guadagnate"
+      "coinsEarned": "Punti guadagnati"
     },
     "empty": {
       "title": "Nessuna attività ancora",
-      "subtitle": "Crea la tua prima attività e inizia a guadagnare monete!"
+      "subtitle": "Crea la tua prima attività e inizia a guadagnare punti!"
     }
   },
   "planner": {
@@ -69,7 +71,7 @@
     },
     "errors": {
       "alreadyRedeemed": "Già riscattato",
-      "notEnoughCoins": "Monete insufficienti"
+      "notEnoughCoins": "Punti insufficienti"
     }
   },
   "games": {
@@ -83,7 +85,7 @@
     "items": {
       "slot-machine": {
         "name": "Slot Machine",
-        "description": "Gira per monete bonus e sorprese"
+        "description": "Gira per punti bonus e sorprese"
       },
       "flip-cards": {
         "name": "Carte Scoperte",
@@ -110,6 +112,30 @@
     "noExpenses": {
       "title": "Nessuna spesa ancora.",
       "subtitle": "Tocca Aggiungi per registrare la prima spesa condivisa."
+    },
+    "needsMoreMembers": "Aggiungi almeno 2 membri al tuo spazio per dividere le spese.",
+    "goToEditSpace": "Gestisci membri",
+    "selectAll": "Seleziona tutto",
+    "clearSelection": "Cancella",
+    "selectToCalculate": "Seleziona le spese per calcolare la liquidazione",
+    "summary": {
+      "title": "Riepilogo Liquidazione",
+      "totalSpent": "Totale speso",
+      "netSettlement": "Liquidazione netta",
+      "owesNothing": "non deve nulla"
+    },
+    "category": "Categoria",
+    "categoryLabels": {
+      "Food": "Cibo",
+      "Transport": "Trasporto",
+      "Accommodation": "Alloggio",
+      "Entertainment": "Intrattenimento",
+      "Shopping": "Shopping",
+      "Travel": "Viaggio",
+      "Health": "Salute",
+      "Gifts": "Regali",
+      "Home": "Casa",
+      "Other": "Altro"
     },
     "debtSummary": {
       "noneNeeded": "Nessun debito",
@@ -143,7 +169,7 @@
       "welcome": {
         "title": "Benvenuto su DuoLife ♾",
         "subtitle": "Il vostro universo condiviso",
-        "body": "DuoLife è il vostro spazio di pianificazione gamificato di coppia. Pianificate attività, guadagnate monete, riscattate premi e giocate insieme. Tutto ciò che fate qui vi avvicina."
+        "body": "DuoLife è il vostro spazio di pianificazione gamificato di coppia. Pianificate attività, guadagnate punti, riscattate premi e giocate insieme. Tutto ciò che fate qui vi avvicina."
       },
       "activities": {
         "title": "Attività",
@@ -151,19 +177,19 @@
         "body": "Crea attività per qualsiasi giorno — passeggiate mattutine, cene romantiche, gesti sorpresa. Assegnale a uno dei partner e guarda il vostro calendario condiviso prendere vita."
       },
       "coins": {
-        "title": "Monete 🪙",
+        "title": "Punti ✦",
         "subtitle": "Guadagna facendo",
-        "body": "Ogni attività completata guadagna monete per il partner assegnato. Più difficile è il compito, più monete vale. Tieni d'occhio il saldo di entrambi!"
+        "body": "Ogni attività completata guadagna punti per il partner assegnato. Più difficile è il compito, più punti vale. Tieni d'occhio il saldo di entrambi!"
       },
       "rewards": {
         "title": "Premi",
-        "subtitle": "Spendi le tue monete",
-        "body": "Crea premi personalizzati che possono essere riscattati con le monete — un massaggio, una cena speciale, una domenica pigra. Rendili personali e significativi."
+        "subtitle": "Spendi i tuoi punti",
+        "body": "Crea premi personalizzati che possono essere riscattati con i punti — un massaggio, una cena speciale, una domenica pigra. Rendili personali e significativi."
       },
       "games": {
         "title": "Mini Giochi",
         "subtitle": "Prossimamente",
-        "body": "Slot machine, carte e altro ancora — giocate a mini giochi insieme per monete bonus e premi speciali. In arrivo!"
+        "body": "Slot machine, carte e altro ancora — giocate a mini giochi insieme per punti bonus e premi speciali. In arrivo!"
       }
     }
   },
@@ -174,7 +200,94 @@
       "cancelled": "annullata"
     },
     "done": "Fatto",
-    "by": "da"
+    "by": "da",
+    "startTime": "Ora di inizio",
+    "endTime": "Ora di fine (opzionale)",
+    "location": "Luogo (opzionale)",
+    "locationPlaceholder": "es. Parco Centrale, Casa...",
+    "deleteConfirmTitle": "Eliminare questa attività?",
+    "deleteConfirmBody": "Questa azione non può essere annullata.",
+    "deleteFutureNote": "Le notifiche di approvazione saranno disponibili una volta connessi account reali."
+  },
+  "setup": {
+    "step1Title": "Crea Il Tuo Profilo",
+    "step1Sub": "Iniziamo insieme",
+    "step2Title": "Il Tuo Primo Spazio",
+    "step2Sub": "Dove la vita accade",
+    "name": "Il Tuo Nome",
+    "namePlaceholder": "es. Ismael",
+    "avatar": "Avatar",
+    "language": "Lingua",
+    "spaceName": "Nome Spazio",
+    "spaceNamePlaceholder": "es. Ismael & Gabriela",
+    "spaceType": "Tipo",
+    "members": "Membri",
+    "membersHint": "Piano Gratuito · fino a 3 membri",
+    "addMember": "+ Aggiungi membro",
+    "continue": "Continua →",
+    "finish": "Crea Spazio ✨",
+    "errors": {
+      "noName": "Inserisci il tuo nome",
+      "noSpaceName": "Inserisci un nome per lo spazio",
+      "noSpaceType": "Seleziona un tipo"
+    }
+  },
+  "spaces": {
+    "mySpaces": "I Miei Spazi",
+    "active": "Attivo",
+    "create": "Nuovo Spazio",
+    "edit": "Modifica",
+    "freePlan": "Gratuito",
+    "upgrade": "Aggiorna",
+    "maxSpacesReached": "Piano Gratuito: limite di 2 spazi raggiunto",
+    "maxMembersReached": "Piano Gratuito: max 3 membri per spazio",
+    "upgradeMessage": "Aggiorna a Pro per spazi e membri illimitati",
+    "types": {
+      "Couple": "Coppia",
+      "Friends": "Amici",
+      "Family": "Famiglia",
+      "Travel": "Viaggio",
+      "Personal": "Personale",
+      "Other": "Altro"
+    },
+    "modals": {
+      "create": {
+        "title": "Nuovo Spazio",
+        "subtitle": "Crea un universo condiviso",
+        "name": "Nome Spazio",
+        "namePlaceholder": "es. Viaggio 2025",
+        "type": "Tipo",
+        "members": "Membri",
+        "addMember": "+ Aggiungi membro",
+        "submit": "Crea Spazio",
+        "errors": {
+          "noName": "Inserisci un nome",
+          "noType": "Seleziona un tipo"
+        }
+      },
+      "edit": {
+        "title": "Modifica Spazio",
+        "subtitle": "Personalizza il tuo spazio",
+        "name": "Nome Spazio",
+        "type": "Tipo",
+        "members": "Membri",
+        "addMember": "+ Aggiungi membro",
+        "roleAdmin": "Admin",
+        "roleMember": "Membro",
+        "removeMember": "Rimuovi",
+        "removeConfirmTitle": "Rimuovere questo membro?",
+        "removeConfirmBody": "Le sue attività e spese passate verranno conservate. Questa azione non può essere annullata.",
+        "removeConfirm": "Sì, rimuovi",
+        "deleteSpace": "Elimina questo Spazio",
+        "deleteSpaceConfirmTitle": "Eliminare lo Spazio?",
+        "deleteSpaceConfirmBody": "Questo eliminerà permanentemente lo spazio e tutti i suoi dati. Questa azione non può essere annullata.",
+        "deleteSpaceConfirm": "Sì, elimina definitivamente",
+        "submit": "Salva Modifiche",
+        "errors": {
+          "noName": "Inserisci un nome"
+        }
+      }
+    }
   },
   "modals": {
     "createActivity": {
@@ -185,19 +298,25 @@
         "description": "Descrizione",
         "assignTo": "Assegna a",
         "date": "Data",
-        "coinReward": "Ricompensa in Monete 🪙",
+        "startTime": "Ora di inizio",
+        "endTime": "Ora di fine (opzionale)",
+        "location": "Luogo (opzionale)",
+        "coinReward": "Ricompensa in Punti ✦",
         "createdBy": "Creato da"
       },
       "placeholders": {
         "title": "es. Passeggiata mattutina, Cucinare insieme...",
         "description": "Dettagli opzionali...",
+        "location": "es. Parco Centrale, Casa...",
         "customAmount": "Importo personalizzato"
       },
       "submit": "Crea Attività",
+      "timeFormatHint": "Usa il formato 24 ore, es. 18:30",
       "errors": {
         "noTitle": "Inserisci un titolo",
         "noAssignee": "Assegna a un partner",
-        "noDate": "Scegli una data"
+        "noDate": "Scegli una data",
+        "invalidTime": "Usa il formato 24 ore HH:mm, es. 18:30"
       }
     },
     "createReward": {
@@ -208,7 +327,7 @@
         "name": "Nome del Premio",
         "owner": "Proprietario",
         "category": "Categoria",
-        "cost": "Costo (monete) 🪙"
+        "cost": "Costo (punti) ✦"
       },
       "placeholders": {
         "name": "es. Massaggio completo, Scelta del ristorante..."
@@ -221,10 +340,14 @@
     "createExpense": {
       "title": "Nuova Spesa",
       "subtitle": "Divisione equa",
+      "editTitle": "Modifica Spesa",
+      "editSubtitle": "Aggiorna i dettagli della spesa",
+      "editSubmit": "Salva Modifiche",
       "labels": {
         "title": "Titolo",
         "amount": "Importo",
         "currency": "Valuta",
+        "category": "Categoria",
         "paidBy": "Pagato da",
         "date": "Data",
         "participants": "Partecipanti",
@@ -239,6 +362,7 @@
       "errors": {
         "noTitle": "Inserisci un titolo",
         "noAmount": "Inserisci un importo valido",
+        "noCategory": "Seleziona una categoria",
         "noPaidBy": "Seleziona chi ha pagato",
         "noParticipants": "Seleziona almeno un partecipante",
         "noDate": "Scegli una data"

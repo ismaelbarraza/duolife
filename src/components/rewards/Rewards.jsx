@@ -56,10 +56,11 @@ export default function Rewards() {
       {/* Toast */}
       {toast && (
         <div
-          className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl text-sm font-body font-medium shadow-glass"
+          className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full text-sm font-body font-medium shadow-md"
           style={{
-            background: toast.type === 'error' ? 'rgba(255,45,120,0.9)' : 'rgba(0,255,136,0.9)',
-            color: '#0a0a0f',
+            background: toast.type === 'error' ? '#fff1f2' : '#ecfdf5',
+            color: toast.type === 'error' ? '#be123c' : '#047857',
+            border: `1px solid ${toast.type === 'error' ? '#fecdd3' : '#a7f3d0'}`,
             minWidth: '200px',
             textAlign: 'center',
           }}
@@ -76,21 +77,18 @@ export default function Rewards() {
       </div>
 
       {/* Redeeming as selector */}
-      <div
-        className="rounded-xl p-3 flex items-center gap-3"
-        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
-      >
-        <span className="text-white/40 text-xs font-body whitespace-nowrap">{t('rewards.redeemingAs')}</span>
+      <div className="rounded-2xl p-3 flex items-center gap-3 bg-white border border-slate-100 shadow-sm">
+        <span className="text-slate-500 text-xs font-body whitespace-nowrap">{t('rewards.redeemingAs')}</span>
         <div className="flex gap-2 flex-1">
           {users.map((u) => (
             <button
               key={u.id}
               onClick={() => setRedeemingAs(u.id)}
-              className="flex-1 py-1.5 rounded-lg text-xs font-body font-medium transition-all"
+              className="flex-1 py-1.5 rounded-full text-xs font-body font-medium transition-all"
               style={{
-                background: redeemingAs === u.id ? `${u.color}25` : 'rgba(255,255,255,0.04)',
-                border: `1px solid ${redeemingAs === u.id ? `${u.color}50` : 'rgba(255,255,255,0.08)'}`,
-                color: redeemingAs === u.id ? u.color : 'rgba(255,255,255,0.5)',
+                background: redeemingAs === u.id ? `${u.color}18` : '#f8fafc',
+                border: `1px solid ${redeemingAs === u.id ? `${u.color}40` : '#f1f5f9'}`,
+                color: redeemingAs === u.id ? u.color : '#94a3b8',
               }}
             >
               {u.emoji} {u.name}
@@ -101,11 +99,10 @@ export default function Rewards() {
 
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="font-display text-xl text-white">{t('rewards.title')}</h2>
+        <h2 className="font-body font-bold text-xl text-slate-900">{t('rewards.title')}</h2>
         <button
           onClick={() => setShowCreate(true)}
-          className="btn-primary flex items-center gap-1.5 text-xs px-3 py-2"
-          style={{ background: '#b44fff', boxShadow: '0 0 20px rgba(180,79,255,0.4)' }}
+          className="btn-primary flex items-center gap-1.5 text-xs !px-3 !py-2"
         >
           <Plus size={13} />
           {t('rewards.newReward')}
@@ -118,11 +115,11 @@ export default function Rewards() {
           <button
             key={cat}
             onClick={() => setFilterCategory(cat)}
-            className="px-3 py-1.5 rounded-full text-xs font-body whitespace-nowrap transition-all"
+            className="px-3 py-1.5 rounded-full text-xs font-body font-medium whitespace-nowrap transition-all"
             style={{
-              background: filterCategory === cat ? 'rgba(180,79,255,0.2)' : 'rgba(255,255,255,0.04)',
-              border: `1px solid ${filterCategory === cat ? 'rgba(180,79,255,0.5)' : 'rgba(255,255,255,0.08)'}`,
-              color: filterCategory === cat ? '#b44fff' : 'rgba(255,255,255,0.45)',
+              background: filterCategory === cat ? '#ede9fe' : '#f8fafc',
+              border: `1px solid ${filterCategory === cat ? '#c4b5fd' : '#f1f5f9'}`,
+              color: filterCategory === cat ? '#6d28d9' : '#94a3b8',
             }}
           >
             {t(`rewards.categoryLabels.${cat}`, cat)}
@@ -145,33 +142,32 @@ export default function Rewards() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-8">
+        <div className="text-center py-8 bg-white rounded-2xl border border-dashed border-slate-200">
           <div className="text-4xl mb-2">🎁</div>
-          <p className="text-white/40 font-body text-sm">{t('rewards.noRewardsInCategory')}</p>
+          <p className="text-slate-400 font-body text-sm">{t('rewards.noRewardsInCategory')}</p>
         </div>
       )}
 
       {/* Redeemed section */}
       {redeemed.length > 0 && (
         <div>
-          <h3 className="font-display text-sm text-white/40 mb-3 uppercase tracking-widest">
+          <h3 className="font-body font-medium text-sm text-slate-400 mb-3 uppercase tracking-widest">
             {t('rewards.redeemed')}
           </h3>
           <div className="space-y-2">
             {redeemed.map((reward) => (
               <div
                 key={reward.id}
-                className="flex items-center gap-3 rounded-xl px-4 py-3 opacity-50"
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}
+                className="flex items-center gap-3 rounded-2xl px-4 py-3 bg-slate-50 border border-slate-100 opacity-60"
               >
                 <span className="text-xl">{reward.emoji}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-white/60 font-body line-through truncate">{reward.name}</p>
-                  <p className="text-xs text-white/25 font-body">
+                  <p className="text-sm text-slate-500 font-body line-through truncate">{reward.name}</p>
+                  <p className="text-xs text-slate-400 font-body">
                     {t('rewards.redeemedOn', { date: format(new Date(reward.redeemedAt), 'MMM d, yyyy') })}
                   </p>
                 </div>
-                <Check size={14} className="shrink-0" style={{ color: '#00ff88' }} />
+                <Check size={14} className="shrink-0 text-emerald-500" />
               </div>
             ))}
           </div>
@@ -191,29 +187,26 @@ function RewardCard({ reward, redeemingAs, getUserById, onRedeem, onDelete }) {
   const canAfford = redeemer && redeemer.coins >= reward.cost
 
   return (
-    <div
-      className="rounded-xl p-4 relative overflow-hidden group"
-      style={{ background: 'rgba(26,26,36,0.7)', border: `1px solid ${owner?.color}20` }}
-    >
+    <div className="bg-white rounded-2xl p-4 relative overflow-hidden group border border-slate-100 shadow-sm">
       <div
-        className="absolute top-0 left-0 w-1 h-full rounded-l-xl"
+        className="absolute top-0 left-0 w-1 h-full rounded-l-2xl"
         style={{ background: owner?.color }}
       />
 
       <div className="pl-3">
-        <div className="flex items-start justify-between gap-3 mb-2">
+        <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5 flex-1 min-w-0">
             <span className="text-2xl">{reward.emoji}</span>
             <div className="min-w-0">
-              <h4 className="text-white/90 font-body font-medium text-sm leading-tight truncate">
+              <h4 className="text-slate-800 font-body font-semibold text-sm leading-tight truncate">
                 {reward.name}
               </h4>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className="text-xs font-body" style={{ color: owner?.color }}>
                   {owner?.emoji} {owner?.name}
                 </span>
-                <span className="text-white/20 text-xs">·</span>
-                <span className="text-white/35 text-xs font-body">
+                <span className="text-slate-200 text-xs">·</span>
+                <span className="text-slate-400 text-xs font-body">
                   {t(`rewards.categoryLabels.${reward.category}`, reward.category)}
                 </span>
               </div>
@@ -222,23 +215,23 @@ function RewardCard({ reward, redeemingAs, getUserById, onRedeem, onDelete }) {
 
           <button
             onClick={() => onDelete(reward.id)}
-            className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded-md bg-white/5 hover:bg-red-500/20 flex items-center justify-center transition-all shrink-0"
+            className="opacity-0 group-hover:opacity-100 w-6 h-6 rounded-full bg-slate-100 hover:bg-rose-100 flex items-center justify-center transition-all shrink-0"
           >
-            <Trash2 size={11} className="text-white/30" />
+            <Trash2 size={11} className="text-slate-400 hover:text-rose-500" />
           </button>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="coin-badge">{reward.cost} 🪙</span>
+          <span className="coin-badge">{reward.cost} ✦</span>
 
           <button
             onClick={() => onRedeem(reward)}
             disabled={!isOwner || !canAfford}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-body font-medium transition-all"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium transition-all"
             style={{
-              background: !isOwner ? 'rgba(255,255,255,0.04)' : canAfford ? 'rgba(180,79,255,0.2)' : 'rgba(255,45,120,0.1)',
-              border: `1px solid ${!isOwner ? 'rgba(255,255,255,0.08)' : canAfford ? 'rgba(180,79,255,0.4)' : 'rgba(255,45,120,0.3)'}`,
-              color: !isOwner ? 'rgba(255,255,255,0.2)' : canAfford ? '#b44fff' : '#ff2d78',
+              background: !isOwner ? '#f8fafc' : canAfford ? '#ede9fe' : '#fff1f2',
+              border: `1px solid ${!isOwner ? '#f1f5f9' : canAfford ? '#c4b5fd' : '#fecdd3'}`,
+              color: !isOwner ? '#cbd5e1' : canAfford ? '#7c3aed' : '#be123c',
               cursor: !isOwner || !canAfford ? 'not-allowed' : 'pointer',
             }}
           >

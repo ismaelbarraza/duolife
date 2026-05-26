@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Check, X, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
+import { Check, X, Trash2, ChevronDown, ChevronUp, MapPin, Clock } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../../hooks/useAppContext'
 import { format } from 'date-fns'
 
 const STATUS_COLORS = {
-  pending: '#ffd700',
-  completed: '#00ff88',
-  cancelled: 'rgba(255,255,255,0.2)',
+  pending: '#f59e0b',
+  completed: '#10b981',
+  cancelled: '#cbd5e1',
 }
 
 export default function ActivityCard({ activity, showDate = false }) {
@@ -15,6 +15,7 @@ export default function ActivityCard({ activity, showDate = false }) {
   const { completeActivity, cancelActivity, deleteActivity, getUserById } = useApp()
   const [expanded, setExpanded] = useState(false)
   const [completing, setCompleting] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const assigned = getUserById(activity.assignedTo)
   const createdBy = getUserById(activity.createdBy)
@@ -35,7 +36,7 @@ export default function ActivityCard({ activity, showDate = false }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span
-              className={`text-xs px-2 py-0.5 rounded-full font-mono ${
+              className={`text-xs px-2 py-0.5 rounded-full font-body font-medium ${
                 activity.status === 'pending'
                   ? 'status-pending'
                   : activity.status === 'completed'
@@ -46,13 +47,13 @@ export default function ActivityCard({ activity, showDate = false }) {
               {t(`activity.status.${activity.status}`)}
             </span>
             <span className="coin-badge">
-              {activity.status === 'completed' ? '+' : ''}{activity.coinReward} 🪙
+              {activity.status === 'completed' ? '+' : ''}{activity.coinReward} ✦
             </span>
           </div>
           <h4
             className="font-body font-medium text-sm mt-1.5 leading-tight"
             style={{
-              color: activity.status === 'cancelled' ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.9)',
+              color: activity.status === 'cancelled' ? '#94a3b8' : '#1e293b',
               textDecoration: activity.status === 'cancelled' ? 'line-through' : 'none',
             }}
           >
@@ -62,7 +63,7 @@ export default function ActivityCard({ activity, showDate = false }) {
 
         <div
           className="w-7 h-7 rounded-full flex items-center justify-center text-sm shrink-0 mt-0.5"
-          style={{ background: `${assigned?.color}20`, border: `1px solid ${assigned?.color}40` }}
+          style={{ background: `${assigned?.color}18`, border: `1px solid ${assigned?.color}30` }}
           title={assigned?.name}
         >
           {assigned?.emoji}
@@ -71,20 +72,38 @@ export default function ActivityCard({ activity, showDate = false }) {
 
       {/* Date badge */}
       {showDate && (
-        <div className="mt-1.5 text-xs text-white/30 font-mono">
+        <div className="mt-1.5 text-xs text-slate-400 font-body">
           {format(new Date(activity.date + 'T12:00:00'), 'MMM d, yyyy')}
+        </div>
+      )}
+
+      {/* Time and location meta */}
+      {(activity.startTime || activity.location) && (
+        <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-slate-400 font-body">
+          {activity.startTime && (
+            <span className="flex items-center gap-1">
+              <Clock size={10} />
+              {activity.startTime}{activity.endTime ? ` – ${activity.endTime}` : ''}
+            </span>
+          )}
+          {activity.location && (
+            <span className="flex items-center gap-1">
+              <MapPin size={10} />
+              {activity.location}
+            </span>
+          )}
         </div>
       )}
 
       {/* Expanded content */}
       {expanded && (
-        <div className="mt-2 pt-2 border-t border-white/8 space-y-1.5">
+        <div className="mt-2 pt-2 border-t border-slate-100 space-y-1.5">
           {activity.description && (
-            <p className="text-xs text-white/50 font-body leading-relaxed">
+            <p className="text-xs text-slate-500 font-body leading-relaxed">
               {activity.description}
             </p>
           )}
-          <div className="flex items-center gap-3 text-xs text-white/30 font-body">
+          <div className="flex items-center gap-3 text-xs text-slate-400 font-body">
             {createdBy && (
               <span>{t('activity.by')} {createdBy.emoji} {createdBy.name}</span>
             )}
@@ -95,50 +114,76 @@ export default function ActivityCard({ activity, showDate = false }) {
         </div>
       )}
 
-      {/* Action row */}
-      <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-white/8">
-        <button
-          onClick={() => setExpanded((e) => !e)}
-          className="text-white/30 hover:text-white/60 transition-colors"
-        >
-          {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-        </button>
-
-        {activity.status === 'pending' && (
-          <div className="flex items-center gap-1.5">
+      {/* Delete confirmation */}
+      {confirmDelete && (
+        <div className="mt-2 pt-2 border-t border-rose-100 space-y-2">
+          <div>
+            <p className="text-xs font-body font-medium text-slate-700">{t('activity.deleteConfirmTitle')}</p>
+            <p className="text-xs text-slate-400 font-body">{t('activity.deleteConfirmBody')}</p>
+            <p className="text-[10px] text-slate-300 font-body mt-0.5">{t('activity.deleteFutureNote')}</p>
+          </div>
+          <div className="flex gap-2">
             <button
-              onClick={() => cancelActivity(activity.id)}
-              className="w-6 h-6 rounded-md bg-white/5 hover:bg-red-500/20 flex items-center justify-center transition-all"
-              title="Cancel"
+              onClick={() => setConfirmDelete(false)}
+              className="flex-1 py-1.5 rounded-full text-xs font-body font-medium bg-slate-100 text-slate-500 hover:bg-slate-200 transition-all"
             >
-              <X size={11} className="text-white/40 hover:text-red-400" />
+              {t('common.cancel')}
             </button>
             <button
-              onClick={handleComplete}
-              disabled={completing}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono font-medium transition-all"
-              style={{
-                background: completing ? 'rgba(0,255,136,0.3)' : 'rgba(0,255,136,0.15)',
-                border: '1px solid rgba(0,255,136,0.3)',
-                color: '#00ff88',
-                transform: completing ? 'scale(1.05)' : 'scale(1)',
-              }}
+              onClick={() => deleteActivity(activity.id)}
+              className="flex-1 py-1.5 rounded-full text-xs font-body font-medium bg-rose-100 text-rose-600 border border-rose-200 hover:bg-rose-200 transition-all"
             >
-              <Check size={11} />
-              {t('activity.done')}
+              {t('common.delete')}
             </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {(activity.status === 'completed' || activity.status === 'cancelled') && (
+      {/* Action row */}
+      {!confirmDelete && (
+        <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-100">
           <button
-            onClick={() => deleteActivity(activity.id)}
-            className="w-6 h-6 rounded-md bg-white/5 hover:bg-red-500/10 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+            onClick={() => setExpanded((e) => !e)}
+            className="text-slate-300 hover:text-slate-500 transition-colors"
           >
-            <Trash2 size={11} className="text-white/30 hover:text-red-400" />
+            {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
           </button>
-        )}
-      </div>
+
+          <div className="flex items-center gap-1.5">
+            {activity.status === 'pending' && (
+              <>
+                <button
+                  onClick={() => cancelActivity(activity.id)}
+                  className="w-6 h-6 rounded-full bg-slate-100 hover:bg-rose-100 flex items-center justify-center transition-all"
+                  title="Cancel"
+                >
+                  <X size={11} className="text-slate-400 hover:text-rose-500" />
+                </button>
+                <button
+                  onClick={handleComplete}
+                  disabled={completing}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-body font-medium transition-all"
+                  style={{
+                    background: completing ? '#d1fae5' : '#ecfdf5',
+                    border: '1px solid #a7f3d0',
+                    color: '#047857',
+                    transform: completing ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
+                  <Check size={11} />
+                  {t('activity.done')}
+                </button>
+              </>
+            )}
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="w-6 h-6 rounded-full bg-slate-100 hover:bg-rose-100 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+            >
+              <Trash2 size={11} className="text-slate-400 hover:text-rose-500" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

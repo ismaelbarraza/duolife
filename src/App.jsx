@@ -1,62 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AppProvider } from './hooks/useAppContext'
-import { isOnboardingDone } from './lib/dataService'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AppProvider, useApp } from './hooks/useAppContext'
 import BottomNav from './components/ui/BottomNav'
 import LanguageSwitcher from './components/ui/LanguageSwitcher'
 import OnboardingModal from './components/modals/OnboardingModal'
+import SetupModal from './components/modals/SetupModal'
 import Dashboard from './components/dashboard/Dashboard'
 import Planner from './components/planner/Planner'
 import Rewards from './components/rewards/Rewards'
 import Games from './components/games/Games'
 import Expenses from './components/expenses/Expenses'
-
-// Page titles
-const PAGE_TITLES = {
-  '/': null, // Dashboard handles its own header
-  '/planner': { title: 'Planner', sub: 'Your shared calendar' },
-  '/rewards': null,
-  '/games': null,
-}
+import { isOnboardingDone } from './lib/dataService'
 
 function AppShell() {
+  const { setupDone, loading } = useApp()
   const [showOnboarding, setShowOnboarding] = useState(false)
-  const location = useLocation()
+  const [showSetup, setShowSetup] = useState(false)
 
   useEffect(() => {
+    if (loading) return
+    if (!setupDone) {
+      setShowSetup(true)
+      return
+    }
     if (!isOnboardingDone()) {
       const timer = setTimeout(() => setShowOnboarding(true), 600)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [setupDone, loading])
 
   return (
-    <div className="min-h-screen bg-bg-900">
-      {/* Background texture */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(ellipse at 20% 0%, rgba(255,45,120,0.06) 0%, transparent 60%),
-            radial-gradient(ellipse at 80% 100%, rgba(0,229,255,0.06) 0%, transparent 60%)`,
-          zIndex: 0,
-        }}
-      />
-
+    <div className="min-h-screen bg-[#f8f7ff]">
       {/* Scrollable content area */}
       <main
-        className="relative z-10 max-w-lg mx-auto px-4 pt-6 pb-28"
+        className="relative max-w-lg mx-auto px-4 pt-6 pb-28"
         style={{ minHeight: '100svh' }}
       >
         {/* Logo strip */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <span
-              className="text-xl"
-              style={{ filter: 'drop-shadow(0 0 8px rgba(255,45,120,0.6))' }}
-            >
-              ♾
-            </span>
-            <span className="font-display text-lg text-white tracking-wide">DuoLife</span>
+            <span className="text-xl">♾</span>
+            <span className="font-body font-bold text-lg text-slate-900 tracking-tight">DuoLife</span>
           </div>
           <LanguageSwitcher />
         </div>
@@ -72,7 +56,11 @@ function AppShell() {
 
       <BottomNav />
 
-      {showOnboarding && (
+      {showSetup && (
+        <SetupModal onClose={() => setShowSetup(false)} />
+      )}
+
+      {!showSetup && showOnboarding && (
         <OnboardingModal onClose={() => setShowOnboarding(false)} />
       )}
     </div>

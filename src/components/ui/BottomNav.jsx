@@ -16,7 +16,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 glass-strong border-t border-white/5"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm border-t border-slate-100"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="flex items-center justify-around max-w-lg mx-auto px-1">
@@ -27,7 +27,7 @@ export default function BottomNav() {
             end={to === '/'}
             className={({ isActive }) =>
               `flex flex-col items-center gap-1 py-3 px-2 flex-1 transition-all duration-200 ${
-                isActive ? 'nav-active' : 'text-white/35 hover:text-white/60'
+                isActive ? 'nav-active' : 'text-slate-400 hover:text-slate-500'
               }`
             }
           >
@@ -36,10 +36,7 @@ export default function BottomNav() {
                 <div className="relative">
                   <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} />
                   {isActive && (
-                    <div
-                      className="absolute -inset-1.5 rounded-full opacity-20"
-                      style={{ background: '#ff2d78' }}
-                    />
+                    <div className="absolute -inset-1.5 rounded-full bg-violet-100 opacity-60 -z-10" />
                   )}
                 </div>
                 <span

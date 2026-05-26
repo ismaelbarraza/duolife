@@ -27,19 +27,16 @@ export default function OnboardingModal({ onClose }) {
 
   return (
     <div className="modal-backdrop">
-      <div
-        className="modal-card glass-strong rounded-2xl w-full max-w-sm mx-auto overflow-hidden"
-        style={{ border: `1px solid ${current.color}30` }}
-      >
+      <div className="modal-card bg-white rounded-3xl w-full max-w-sm mx-auto overflow-hidden shadow-xl border border-slate-100">
         {/* Progress dots */}
-        <div className="flex gap-1.5 justify-center pt-5 px-6">
+        <div className="flex gap-1.5 justify-center pt-6 px-6">
           {ONBOARDING_STEPS.map((_, i) => (
             <div
               key={i}
-              className="h-1 rounded-full transition-all duration-300"
+              className="h-1.5 rounded-full transition-all duration-300"
               style={{
-                width: i === step ? '24px' : '8px',
-                background: i <= step ? current.color : 'rgba(255,255,255,0.15)',
+                width: i === step ? '28px' : '8px',
+                background: i <= step ? '#8b5cf6' : '#e2e8f0',
               }}
             />
           ))}
@@ -47,25 +44,19 @@ export default function OnboardingModal({ onClose }) {
 
         {/* Content */}
         <div className="p-8 text-center">
-          <div
-            className="text-6xl mb-5 animate-float inline-block"
-            style={{ filter: `drop-shadow(0 0 20px ${current.color}80)` }}
-          >
+          <div className="text-6xl mb-5 animate-float inline-block">
             {current.emoji}
           </div>
 
-          <div
-            className="text-xs font-mono tracking-widest uppercase mb-2"
-            style={{ color: current.color }}
-          >
+          <div className="text-xs font-body font-semibold tracking-widest uppercase mb-2 text-violet-500">
             {t(`onboarding.steps.${current.id}.subtitle`)}
           </div>
 
-          <h2 className="font-display text-2xl text-white mb-4 leading-tight">
+          <h2 className="font-body font-bold text-2xl text-slate-900 mb-4 leading-tight">
             {t(`onboarding.steps.${current.id}.title`)}
           </h2>
 
-          <p className="text-white/60 font-body text-sm leading-relaxed">
+          <p className="text-slate-500 font-body text-sm leading-relaxed">
             {t(`onboarding.steps.${current.id}.body`)}
           </p>
         </div>
@@ -74,8 +65,7 @@ export default function OnboardingModal({ onClose }) {
         <div className="px-6 pb-6 space-y-3">
           <button
             onClick={handleNext}
-            className="w-full py-3 rounded-xl font-body font-medium text-sm text-white transition-all duration-200 active:scale-95"
-            style={{ background: current.color, boxShadow: `0 0 24px ${current.color}50` }}
+            className="w-full py-3 rounded-full font-body font-semibold text-sm text-white bg-violet-500 hover:bg-violet-600 transition-all duration-200 active:scale-95"
           >
             {isLast ? t('onboarding.getStarted') : t('onboarding.next')}
           </button>
@@ -83,7 +73,7 @@ export default function OnboardingModal({ onClose }) {
           {!isLast && (
             <button
               onClick={handleSkip}
-              className="w-full py-2 text-white/40 text-sm font-body hover:text-white/60 transition-colors"
+              className="w-full py-2 text-slate-400 text-sm font-body hover:text-slate-600 transition-colors"
             >
               {t('onboarding.skip')}
             </button>
@@ -94,9 +84,9 @@ export default function OnboardingModal({ onClose }) {
               type="checkbox"
               checked={dontShow}
               onChange={(e) => setDontShow(e.target.checked)}
-              className="accent-pink-500 w-3.5 h-3.5"
+              className="accent-violet-500 w-3.5 h-3.5"
             />
-            <span className="text-white/40 text-xs font-body">{t('onboarding.dontShow')}</span>
+            <span className="text-slate-400 text-xs font-body">{t('onboarding.dontShow')}</span>
           </label>
         </div>
       </div>

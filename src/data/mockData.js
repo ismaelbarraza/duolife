@@ -220,3 +220,32 @@ export const ONBOARDING_STEPS = [
 ]
 
 export const REWARD_CATEGORIES = ['Wellness', 'Food', 'Fun', 'Entertainment', 'Travel', 'Other']
+
+export const SPACE_TYPES = [
+  { id: 'Couple',   emoji: '💑' },
+  { id: 'Friends',  emoji: '👫' },
+  { id: 'Family',   emoji: '👨‍👩‍👧' },
+  { id: 'Travel',   emoji: '✈️' },
+  { id: 'Personal', emoji: '🎯' },
+  { id: 'Other',    emoji: '💫' },
+]
+
+export const EXPENSE_CATEGORIES = [
+  { id: 'Food',          emoji: '🍽️' },
+  { id: 'Transport',     emoji: '🚕' },
+  { id: 'Accommodation', emoji: '🏨' },
+  { id: 'Entertainment', emoji: '🎬' },
+  { id: 'Shopping',      emoji: '🛍️' },
+  { id: 'Travel',        emoji: '✈️' },
+  { id: 'Health',        emoji: '🩺' },
+  { id: 'Gifts',         emoji: '🎁' },
+  { id: 'Home',          emoji: '🏠' },
+  { id: 'Other',         emoji: '✨' },
+]
+
+export const AVATAR_EMOJIS = [
+  '🧔', '👩', '🧑', '👨', '🧒', '🦱',
+  '🧙', '🦸', '🧜', '🧝', '🦊', '🐼',
+  '🌸', '⭐', '🌙', '🔥', '💎', '🚀',
+  '🎭', '🦋',
+]

@@ -28,27 +28,14 @@ export default function LanguageSwitcher() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all hover:border-white/20"
-        style={{
-          background: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: 'rgba(255,255,255,0.5)',
-        }}
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-body font-medium bg-white border border-slate-200 text-slate-500 hover:border-slate-300 transition-all"
       >
         <Globe size={11} />
         <span>{activeLang.code.toUpperCase()}</span>
       </button>
 
       {open && (
-        <div
-          className="absolute right-0 top-full mt-1.5 rounded-xl overflow-hidden z-50"
-          style={{
-            background: 'rgba(17,17,24,0.97)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
-            minWidth: '130px',
-          }}
-        >
+        <div className="absolute right-0 top-full mt-1.5 rounded-2xl overflow-hidden z-50 bg-white border border-slate-100 shadow-md min-w-[130px]">
           {LANGUAGES.map((lang) => {
             const active = lang.code === i18n.language
             return (
@@ -58,14 +45,11 @@ export default function LanguageSwitcher() {
                   i18n.changeLanguage(lang.code)
                   setOpen(false)
                 }}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-left text-xs font-body transition-colors hover:bg-white/5"
-                style={{ color: active ? '#ff2d78' : 'rgba(255,255,255,0.6)' }}
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-left text-xs font-body transition-colors hover:bg-slate-50"
+                style={{ color: active ? '#7c3aed' : '#64748b' }}
               >
                 {active && (
-                  <span
-                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style={{ background: '#ff2d78' }}
-                  />
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-violet-500" />
                 )}
                 {!active && <span className="w-1.5 h-1.5 flex-shrink-0" />}
                 {lang.native}

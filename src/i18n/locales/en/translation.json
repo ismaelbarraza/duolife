@@ -18,7 +18,9 @@
     "soon": "Soon",
     "markPaid": "Mark paid",
     "owes": "owes",
-    "by": "by"
+    "by": "by",
+    "confirm": "Confirm",
+    "remove": "Remove"
   },
   "dashboard": {
     "invite": "Invite",
@@ -111,6 +113,30 @@
       "title": "No expenses yet.",
       "subtitle": "Tap Add to log your first shared expense."
     },
+    "needsMoreMembers": "Add at least 2 members to your space to start splitting expenses.",
+    "goToEditSpace": "Manage members",
+    "selectAll": "Select all",
+    "clearSelection": "Clear",
+    "selectToCalculate": "Select expenses to calculate settlement",
+    "summary": {
+      "title": "Settlement Summary",
+      "totalSpent": "Total spent",
+      "netSettlement": "Net settlement",
+      "owesNothing": "owes nothing"
+    },
+    "category": "Category",
+    "categoryLabels": {
+      "Food": "Food",
+      "Transport": "Transport",
+      "Accommodation": "Accommodation",
+      "Entertainment": "Entertainment",
+      "Shopping": "Shopping",
+      "Travel": "Travel",
+      "Health": "Health",
+      "Gifts": "Gifts",
+      "Home": "Home",
+      "Other": "Other"
+    },
     "debtSummary": {
       "noneNeeded": "No debts",
       "allSettled": "All collected ✓",
@@ -174,7 +200,94 @@
       "cancelled": "cancelled"
     },
     "done": "Done",
-    "by": "by"
+    "by": "by",
+    "startTime": "Start time",
+    "endTime": "End time (optional)",
+    "location": "Location (optional)",
+    "locationPlaceholder": "e.g. Central Park, Home...",
+    "deleteConfirmTitle": "Delete this activity?",
+    "deleteConfirmBody": "This cannot be undone.",
+    "deleteFutureNote": "Approval workflows will be available once real accounts are connected."
+  },
+  "setup": {
+    "step1Title": "Create Your Profile",
+    "step1Sub": "Let's get you started",
+    "step2Title": "Your First Space",
+    "step2Sub": "Where life happens",
+    "name": "Your Name",
+    "namePlaceholder": "e.g. Ismael",
+    "avatar": "Avatar",
+    "language": "Language",
+    "spaceName": "Space Name",
+    "spaceNamePlaceholder": "e.g. Ismael & Gabriela",
+    "spaceType": "Type",
+    "members": "Members",
+    "membersHint": "Free Plan · up to 3 members",
+    "addMember": "+ Add member",
+    "continue": "Continue →",
+    "finish": "Create Space ✨",
+    "errors": {
+      "noName": "Please enter your name",
+      "noSpaceName": "Please enter a space name",
+      "noSpaceType": "Please select a type"
+    }
+  },
+  "spaces": {
+    "mySpaces": "My Spaces",
+    "active": "Active",
+    "create": "New Space",
+    "edit": "Edit",
+    "freePlan": "Free",
+    "upgrade": "Upgrade",
+    "maxSpacesReached": "Free Plan: 2 space limit reached",
+    "maxMembersReached": "Free Plan: max 3 members per space",
+    "upgradeMessage": "Upgrade to Pro for unlimited spaces & members",
+    "types": {
+      "Couple": "Couple",
+      "Friends": "Friends",
+      "Family": "Family",
+      "Travel": "Travel",
+      "Personal": "Personal",
+      "Other": "Other"
+    },
+    "modals": {
+      "create": {
+        "title": "New Space",
+        "subtitle": "Create a shared universe",
+        "name": "Space Name",
+        "namePlaceholder": "e.g. Road Trip 2025",
+        "type": "Type",
+        "members": "Members",
+        "addMember": "+ Add member",
+        "submit": "Create Space",
+        "errors": {
+          "noName": "Please enter a name",
+          "noType": "Please select a type"
+        }
+      },
+      "edit": {
+        "title": "Edit Space",
+        "subtitle": "Customize your space",
+        "name": "Space Name",
+        "type": "Type",
+        "members": "Members",
+        "addMember": "+ Add member",
+        "roleAdmin": "Admin",
+        "roleMember": "Member",
+        "removeMember": "Remove",
+        "removeConfirmTitle": "Remove this member?",
+        "removeConfirmBody": "Their past activities and expenses will be kept. This cannot be undone.",
+        "removeConfirm": "Yes, remove",
+        "deleteSpace": "Delete this Space",
+        "deleteSpaceConfirmTitle": "Delete Space?",
+        "deleteSpaceConfirmBody": "This will permanently delete the space and all its data. This cannot be undone.",
+        "deleteSpaceConfirm": "Yes, delete permanently",
+        "submit": "Save Changes",
+        "errors": {
+          "noName": "Please enter a name"
+        }
+      }
+    }
   },
   "modals": {
     "createActivity": {
@@ -185,19 +298,25 @@
         "description": "Description",
         "assignTo": "Assign to",
         "date": "Date",
-        "coinReward": "Coin Reward 🪙",
+        "startTime": "Start time",
+        "endTime": "End time (optional)",
+        "location": "Location (optional)",
+        "coinReward": "Point Reward ✦",
         "createdBy": "Created by"
       },
       "placeholders": {
         "title": "e.g. Morning walk, Cook dinner...",
         "description": "Optional details...",
+        "location": "e.g. Central Park, Home...",
         "customAmount": "Custom amount"
       },
       "submit": "Create Activity",
+      "timeFormatHint": "Use 24-hour format, e.g. 18:30",
       "errors": {
         "noTitle": "Please enter a title",
         "noAssignee": "Please assign to a partner",
-        "noDate": "Please pick a date"
+        "noDate": "Please pick a date",
+        "invalidTime": "Use 24-hour format HH:mm, e.g. 18:30"
       }
     },
     "createReward": {
@@ -208,7 +327,7 @@
         "name": "Reward Name",
         "owner": "Owner",
         "category": "Category",
-        "cost": "Cost (coins) 🪙"
+        "cost": "Cost (points) ✦"
       },
       "placeholders": {
         "name": "e.g. Full back massage, Dinner pick..."
@@ -221,10 +340,14 @@
     "createExpense": {
       "title": "New Expense",
       "subtitle": "Split it equally",
+      "editTitle": "Edit Expense",
+      "editSubtitle": "Update expense details",
+      "editSubmit": "Save Changes",
       "labels": {
         "title": "Title",
         "amount": "Amount",
         "currency": "Currency",
+        "category": "Category",
         "paidBy": "Paid by",
         "date": "Date",
         "participants": "Participants",
@@ -239,6 +362,7 @@
       "errors": {
         "noTitle": "Please enter a title",
         "noAmount": "Please enter a valid amount",
+        "noCategory": "Please select a category",
         "noPaidBy": "Please select who paid",
         "noParticipants": "Select at least one participant",
         "noDate": "Please pick a date"

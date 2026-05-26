@@ -3,8 +3,9 @@ import { X } from 'lucide-react'
 import { v4 as uuid } from 'uuid'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../../hooks/useAppContext'
+import TimePicker24 from '../ui/TimePicker24'
 
-const COIN_PRESETS = [25, 50, 80, 100, 150, 200]
+const COIN_PRESETS = [10, 25, 35, 50]
 
 export default function CreateActivityModal({ date, onClose }) {
   const { t } = useTranslation()
@@ -13,18 +14,27 @@ export default function CreateActivityModal({ date, onClose }) {
     title: '',
     description: '',
     assignedTo: users[0]?.id || '',
-    coinReward: 50,
+    coinReward: 25,
     date: date || new Date().toISOString().split('T')[0],
+    startTime: '',
+    endTime: '',
+    location: '',
     createdBy: users[0]?.id || '',
   })
   const [error, setError] = useState('')
 
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
 
+  const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/
+
   const handleSubmit = () => {
     if (!form.title.trim()) return setError(t('modals.createActivity.errors.noTitle'))
     if (!form.assignedTo) return setError(t('modals.createActivity.errors.noAssignee'))
     if (!form.date) return setError(t('modals.createActivity.errors.noDate'))
+    if (form.startTime && !TIME_RE.test(form.startTime))
+      return setError(t('modals.createActivity.errors.invalidTime'))
+    if (form.endTime && !TIME_RE.test(form.endTime))
+      return setError(t('modals.createActivity.errors.invalidTime'))
 
     createActivity({
       id: uuid(),
@@ -40,31 +50,34 @@ export default function CreateActivityModal({ date, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-card glass-strong rounded-2xl w-full max-w-md mx-auto overflow-hidden neon-border-pink">
+      <div
+        className="modal-card bg-white rounded-3xl w-full max-w-md mx-auto overflow-hidden shadow-xl border border-slate-100"
+        style={{ maxHeight: '90svh', overflowY: 'auto' }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-white/8">
+        <div className="flex items-center justify-between p-5 border-b border-slate-100">
           <div>
-            <h2 className="font-display text-lg text-white">{t('modals.createActivity.title')}</h2>
-            <p className="text-white/40 text-xs font-body mt-0.5">{t('modals.createActivity.subtitle')}</p>
+            <h2 className="font-body font-bold text-lg text-slate-900">{t('modals.createActivity.title')}</h2>
+            <p className="text-slate-400 text-xs font-body mt-0.5">{t('modals.createActivity.subtitle')}</p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
           >
-            <X size={15} className="text-white/60" />
+            <X size={15} className="text-slate-500" />
           </button>
         </div>
 
         {/* Form */}
         <div className="p-5 space-y-4">
           {error && (
-            <p className="text-neon-pink text-sm font-body bg-neon-pink/10 rounded-lg px-3 py-2">
+            <p className="text-rose-600 text-sm font-body bg-rose-50 border border-rose-100 rounded-xl px-3 py-2">
               {error}
             </p>
           )}
 
           <div>
-            <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-1.5">
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
               {t('modals.createActivity.labels.title')} *
             </label>
             <input
@@ -76,7 +89,7 @@ export default function CreateActivityModal({ date, onClose }) {
           </div>
 
           <div>
-            <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-1.5">
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
               {t('modals.createActivity.labels.description')}
             </label>
             <textarea
@@ -90,7 +103,7 @@ export default function CreateActivityModal({ date, onClose }) {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-1.5">
+              <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
                 {t('modals.createActivity.labels.assignTo')}
               </label>
               <select
@@ -105,7 +118,7 @@ export default function CreateActivityModal({ date, onClose }) {
             </div>
 
             <div>
-              <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-1.5">
+              <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
                 {t('modals.createActivity.labels.date')}
               </label>
               <input
@@ -113,13 +126,46 @@ export default function CreateActivityModal({ date, onClose }) {
                 className="input-field"
                 value={form.date}
                 onChange={(e) => set('date', e.target.value)}
-                style={{ colorScheme: 'dark' }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
+                {t('modals.createActivity.labels.startTime')}
+              </label>
+              <TimePicker24
+                value={form.startTime}
+                onChange={(v) => set('startTime', v)}
+              />
+            </div>
+
+            <div>
+              <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
+                {t('modals.createActivity.labels.endTime')}
+              </label>
+              <TimePicker24
+                value={form.endTime}
+                onChange={(v) => set('endTime', v)}
               />
             </div>
           </div>
 
           <div>
-            <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-2">
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
+              {t('modals.createActivity.labels.location')}
+            </label>
+            <input
+              className="input-field"
+              placeholder={t('modals.createActivity.placeholders.location')}
+              value={form.location}
+              onChange={(e) => set('location', e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-2">
               {t('modals.createActivity.labels.coinReward')}
             </label>
             <div className="flex flex-wrap gap-2 mb-2">
@@ -127,14 +173,14 @@ export default function CreateActivityModal({ date, onClose }) {
                 <button
                   key={c}
                   onClick={() => set('coinReward', c)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-mono transition-all"
+                  className="px-3 py-1.5 rounded-full text-xs font-body font-medium transition-all"
                   style={{
-                    background: form.coinReward === c ? 'rgba(255,215,0,0.2)' : 'rgba(255,255,255,0.05)',
-                    border: `1px solid ${form.coinReward === c ? 'rgba(255,215,0,0.5)' : 'rgba(255,255,255,0.1)'}`,
-                    color: form.coinReward === c ? '#ffd700' : 'rgba(255,255,255,0.5)',
+                    background: form.coinReward === c ? '#fef3c7' : '#f8fafc',
+                    border: `1px solid ${form.coinReward === c ? '#fde68a' : '#f1f5f9'}`,
+                    color: form.coinReward === c ? '#b45309' : '#94a3b8',
                   }}
                 >
-                  {c} 🪙
+                  {c} ✦
                 </button>
               ))}
             </div>
@@ -149,7 +195,7 @@ export default function CreateActivityModal({ date, onClose }) {
           </div>
 
           <div>
-            <label className="text-white/50 text-xs font-mono uppercase tracking-wider block mb-1.5">
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
               {t('modals.createActivity.labels.createdBy')}
             </label>
             <select

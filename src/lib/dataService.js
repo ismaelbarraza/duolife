@@ -4,7 +4,6 @@
  * Architecture: All data access goes through this service layer.
  * Currently uses localStorage as the backend.
  * To connect Supabase later: replace each function body with Supabase calls.
- * The component API stays identical.
  */
 
 import {
@@ -26,13 +25,18 @@ const KEYS = {
   GAME_ATTEMPTS: 'dl_game_attempts',
   ONBOARDING: 'dl_onboarding_done',
   EXPENSES: 'dl_expenses',
+  // Multi-space keys
+  SPACES: 'dl_spaces',
+  CURRENT_SPACE_ID: 'dl_current_space_id',
+  MY_PROFILE: 'dl_my_profile',
+  SETUP_DONE: 'dl_setup_done',
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const load = (key, fallback) => {
   try {
     const raw = localStorage.getItem(key)
-    return raw ? JSON.parse(raw) : fallback
+    return raw !== null ? JSON.parse(raw) : fallback
   } catch {
     return fallback
   }
@@ -47,33 +51,99 @@ const save = (key, value) => {
   }
 }
 
-// ─── Initialize seed data on first load ──────────────────────────────────────
-export const initializeData = () => {
-  if (!localStorage.getItem(KEYS.COUPLE_SPACE)) {
-    save(KEYS.COUPLE_SPACE, DEFAULT_COUPLE_SPACE)
+// ─── Migration: old couple space → spaces array ───────────────────────────────
+export const migrateToSpaces = () => {
+  if (localStorage.getItem(KEYS.SPACES)) return // already migrated
+
+  const oldSpace = load(KEYS.COUPLE_SPACE, null)
+  if (!oldSpace) return // fresh install — setup flow handles
+
+  const space = {
+    id: oldSpace.id,
+    name: oldSpace.name,
+    type: 'Couple',
+    emoji: oldSpace.emoji || '💑',
+    createdAt: oldSpace.createdAt,
+    inviteCode: oldSpace.inviteCode,
   }
-  if (!localStorage.getItem(KEYS.USERS)) {
-    save(KEYS.USERS, DEFAULT_USERS)
+  save(KEYS.SPACES, [space])
+  save(KEYS.CURRENT_SPACE_ID, space.id)
+
+  // Stamp coupleSpaceId on expenses that may not have it
+  const expenses = load(KEYS.EXPENSES, [])
+  if (expenses.length > 0) {
+    save(KEYS.EXPENSES, expenses.map(e => ({ ...e, coupleSpaceId: e.coupleSpaceId || space.id })))
   }
-  if (!localStorage.getItem(KEYS.ACTIVITIES)) {
-    save(KEYS.ACTIVITIES, DEFAULT_ACTIVITIES)
+
+  // Create myProfile from first user
+  const users = load(KEYS.USERS, [])
+  if (users.length > 0) {
+    const u = users[0]
+    save(KEYS.MY_PROFILE, {
+      id: u.id,
+      name: u.name,
+      emoji: u.emoji,
+      language: localStorage.getItem('dl_language') || 'en',
+    })
   }
-  if (!localStorage.getItem(KEYS.REWARDS)) {
-    save(KEYS.REWARDS, DEFAULT_REWARDS)
-  }
-  if (!localStorage.getItem(KEYS.COIN_TRANSACTIONS)) {
-    save(KEYS.COIN_TRANSACTIONS, DEFAULT_COIN_TRANSACTIONS)
-  }
-  if (!localStorage.getItem(KEYS.GAME_ATTEMPTS)) {
-    save(KEYS.GAME_ATTEMPTS, DEFAULT_GAME_ATTEMPTS)
-  }
+
+  localStorage.setItem(KEYS.SETUP_DONE, 'true')
 }
 
-// ─── Couple Space ─────────────────────────────────────────────────────────────
-export const getCoupleSpace = () => load(KEYS.COUPLE_SPACE, DEFAULT_COUPLE_SPACE)
+// ─── Initialize ───────────────────────────────────────────────────────────────
+export const initializeData = () => {
+  migrateToSpaces()
+  // New users go through setup flow — no default seeding
+}
+
+// ─── Setup ────────────────────────────────────────────────────────────────────
+export const isSetupDone = () => localStorage.getItem(KEYS.SETUP_DONE) === 'true'
+export const markSetupDone = () => localStorage.setItem(KEYS.SETUP_DONE, 'true')
+
+// ─── My Profile ───────────────────────────────────────────────────────────────
+export const getMyProfile = () => load(KEYS.MY_PROFILE, null)
+export const saveMyProfile = (profile) => save(KEYS.MY_PROFILE, profile)
+
+// ─── Spaces ───────────────────────────────────────────────────────────────────
+export const getSpaces = () => load(KEYS.SPACES, [])
+
+export const getCurrentSpaceId = () => load(KEYS.CURRENT_SPACE_ID, null)
+
+export const setCurrentSpaceId = (id) => save(KEYS.CURRENT_SPACE_ID, id)
+
+export const createSpace = (space) => {
+  const spaces = getSpaces()
+  save(KEYS.SPACES, [...spaces, space])
+  return space
+}
+
+export const updateSpace = (id, updates) => {
+  const spaces = getSpaces()
+  const updated = spaces.map(s => s.id === id ? { ...s, ...updates } : s)
+  save(KEYS.SPACES, updated)
+  return updated.find(s => s.id === id)
+}
+
+export const deleteSpace = (spaceId) => {
+  save(KEYS.SPACES, getSpaces().filter(s => s.id !== spaceId))
+  save(KEYS.USERS, getUsers().filter(u => u.coupleSpaceId !== spaceId))
+  save(KEYS.ACTIVITIES, getActivities().filter(a => a.coupleSpaceId !== spaceId))
+  save(KEYS.REWARDS, getRewards().filter(r => r.coupleSpaceId !== spaceId))
+  save(KEYS.EXPENSES, getExpenses().filter(e => e.coupleSpaceId !== spaceId))
+  save(KEYS.COIN_TRANSACTIONS, getCoinTransactions().filter(t => t.coupleSpaceId !== spaceId))
+}
+
+// ─── Couple Space (legacy alias — returns current space) ──────────────────────
+export const getCoupleSpace = () => {
+  const spaceId = getCurrentSpaceId()
+  const spaces = getSpaces()
+  return spaces.find(s => s.id === spaceId) || spaces[0] || load(KEYS.COUPLE_SPACE, DEFAULT_COUPLE_SPACE)
+}
 
 export const updateCoupleSpace = (updates) => {
-  const current = getCoupleSpace()
+  const spaceId = getCurrentSpaceId()
+  if (spaceId) return updateSpace(spaceId, updates)
+  const current = load(KEYS.COUPLE_SPACE, DEFAULT_COUPLE_SPACE)
   const updated = { ...current, ...updates }
   save(KEYS.COUPLE_SPACE, updated)
   return updated
@@ -82,11 +152,23 @@ export const updateCoupleSpace = (updates) => {
 // ─── Users ────────────────────────────────────────────────────────────────────
 export const getUsers = () => load(KEYS.USERS, DEFAULT_USERS)
 
-export const getUserById = (id) => getUsers().find((u) => u.id === id)
+export const getUserById = (id) => getUsers().find(u => u.id === id)
+
+export const addUser = (user) => {
+  save(KEYS.USERS, [...getUsers(), user])
+  return user
+}
+
+export const updateUser = (id, updates) => {
+  save(KEYS.USERS, getUsers().map(u => u.id === id ? { ...u, ...updates } : u))
+}
+
+export const removeUser = (userId) => {
+  save(KEYS.USERS, getUsers().filter(u => u.id !== userId))
+}
 
 export const updateUserCoins = (userId, delta) => {
-  const users = getUsers()
-  const updated = users.map((u) =>
+  const updated = getUsers().map(u =>
     u.id === userId ? { ...u, coins: Math.max(0, u.coins + delta) } : u
   )
   save(KEYS.USERS, updated)
@@ -97,37 +179,29 @@ export const updateUserCoins = (userId, delta) => {
 export const getActivities = () => load(KEYS.ACTIVITIES, DEFAULT_ACTIVITIES)
 
 export const getActivitiesByDate = (date) =>
-  getActivities().filter((a) => a.date === date)
+  getActivities().filter(a => a.date === date)
 
 export const createActivity = (activity) => {
-  const activities = getActivities()
-  const updated = [activity, ...activities]
-  save(KEYS.ACTIVITIES, updated)
+  save(KEYS.ACTIVITIES, [activity, ...getActivities()])
   return activity
 }
 
 export const updateActivity = (id, updates) => {
   const activities = getActivities()
-  const updated = activities.map((a) => (a.id === id ? { ...a, ...updates } : a))
+  const updated = activities.map(a => a.id === id ? { ...a, ...updates } : a)
   save(KEYS.ACTIVITIES, updated)
-  return updated.find((a) => a.id === id)
+  return updated.find(a => a.id === id)
 }
 
 export const completeActivity = (activityId) => {
-  const activities = getActivities()
-  const activity = activities.find((a) => a.id === activityId)
+  const activity = getActivities().find(a => a.id === activityId)
   if (!activity || activity.status !== 'pending') return null
 
-  // Update activity status
   updateActivity(activityId, {
     status: 'completed',
     completedAt: new Date().toISOString(),
   })
-
-  // Add coins to assigned user
   updateUserCoins(activity.assignedTo, activity.coinReward)
-
-  // Create coin transaction
   addCoinTransaction({
     id: crypto.randomUUID(),
     coupleSpaceId: activity.coupleSpaceId,
@@ -137,49 +211,35 @@ export const completeActivity = (activityId) => {
     reason: `Completed: ${activity.title}`,
     createdAt: new Date().toISOString(),
   })
-
   return activity
 }
 
-export const cancelActivity = (activityId) => {
-  return updateActivity(activityId, { status: 'cancelled' })
-}
+export const cancelActivity = (activityId) =>
+  updateActivity(activityId, { status: 'cancelled' })
 
 export const deleteActivity = (activityId) => {
-  const activities = getActivities().filter((a) => a.id !== activityId)
-  save(KEYS.ACTIVITIES, activities)
+  save(KEYS.ACTIVITIES, getActivities().filter(a => a.id !== activityId))
 }
 
 // ─── Rewards ──────────────────────────────────────────────────────────────────
 export const getRewards = () => load(KEYS.REWARDS, DEFAULT_REWARDS)
 
 export const createReward = (reward) => {
-  const rewards = getRewards()
-  const updated = [reward, ...rewards]
-  save(KEYS.REWARDS, updated)
+  save(KEYS.REWARDS, [reward, ...getRewards()])
   return reward
 }
 
 export const redeemReward = (rewardId, userId) => {
-  const rewards = getRewards()
-  const reward = rewards.find((r) => r.id === rewardId)
+  const reward = getRewards().find(r => r.id === rewardId)
   if (!reward || reward.redeemedAt) return { success: false, reason: 'already_redeemed' }
 
   const user = getUserById(userId)
-  if (!user || user.coins < reward.cost) {
-    return { success: false, reason: 'not_enough_coins' }
-  }
+  if (!user || user.coins < reward.cost) return { success: false, reason: 'not_enough_coins' }
 
-  // Deduct coins
   updateUserCoins(userId, -reward.cost)
-
-  // Mark reward as redeemed
-  const updated = rewards.map((r) =>
+  save(KEYS.REWARDS, getRewards().map(r =>
     r.id === rewardId ? { ...r, redeemedAt: new Date().toISOString() } : r
-  )
-  save(KEYS.REWARDS, updated)
-
-  // Create coin transaction
+  ))
   addCoinTransaction({
     id: crypto.randomUUID(),
     coupleSpaceId: reward.coupleSpaceId,
@@ -189,13 +249,11 @@ export const redeemReward = (rewardId, userId) => {
     reason: `Redeemed: ${reward.name}`,
     createdAt: new Date().toISOString(),
   })
-
   return { success: true }
 }
 
 export const deleteReward = (rewardId) => {
-  const rewards = getRewards().filter((r) => r.id !== rewardId)
-  save(KEYS.REWARDS, rewards)
+  save(KEYS.REWARDS, getRewards().filter(r => r.id !== rewardId))
 }
 
 // ─── Coin Transactions ────────────────────────────────────────────────────────
@@ -203,8 +261,7 @@ export const getCoinTransactions = () =>
   load(KEYS.COIN_TRANSACTIONS, DEFAULT_COIN_TRANSACTIONS)
 
 export const addCoinTransaction = (transaction) => {
-  const transactions = getCoinTransactions()
-  save(KEYS.COIN_TRANSACTIONS, [transaction, ...transactions])
+  save(KEYS.COIN_TRANSACTIONS, [transaction, ...getCoinTransactions()])
   return transaction
 }
 
@@ -216,50 +273,37 @@ export const getGameAttempts = () =>
 export const getExpenses = () => load(KEYS.EXPENSES, [])
 
 export const createExpense = (expense) => {
-  const expenses = getExpenses()
-  save(KEYS.EXPENSES, [expense, ...expenses])
+  save(KEYS.EXPENSES, [expense, ...getExpenses()])
   return expense
 }
 
 export const markDebtPaid = (expenseId, debtId) => {
-  const expenses = getExpenses()
-  const updated = expenses.map((e) => {
+  save(KEYS.EXPENSES, getExpenses().map(e => {
     if (e.id !== expenseId) return e
-    return { ...e, debts: e.debts.map((d) => (d.id === debtId ? { ...d, status: 'paid' } : d)) }
-  })
-  save(KEYS.EXPENSES, updated)
+    return { ...e, debts: e.debts.map(d => d.id === debtId ? { ...d, status: 'paid' } : d) }
+  }))
+}
+
+export const updateExpense = (expense) => {
+  save(KEYS.EXPENSES, getExpenses().map(e => e.id === expense.id ? expense : e))
 }
 
 export const deleteExpense = (expenseId) => {
-  const expenses = getExpenses().filter((e) => e.id !== expenseId)
-  save(KEYS.EXPENSES, expenses)
+  save(KEYS.EXPENSES, getExpenses().filter(e => e.id !== expenseId))
 }
 
 // ─── Onboarding ───────────────────────────────────────────────────────────────
-export const isOnboardingDone = () => {
-  return localStorage.getItem(KEYS.ONBOARDING) === 'true'
-}
-
-export const markOnboardingDone = () => {
-  localStorage.setItem(KEYS.ONBOARDING, 'true')
-}
+export const isOnboardingDone = () => localStorage.getItem(KEYS.ONBOARDING) === 'true'
+export const markOnboardingDone = () => localStorage.setItem(KEYS.ONBOARDING, 'true')
 
 // ─── Dashboard Stats ──────────────────────────────────────────────────────────
-export const getDashboardStats = () => {
-  const activities = getActivities()
-  const rewards = getRewards()
-  const users = getUsers()
-  const transactions = getCoinTransactions()
-
-  return {
-    users,
-    completedActivities: activities.filter((a) => a.status === 'completed').length,
-    pendingActivities: activities.filter((a) => a.status === 'pending').length,
-    cancelledActivities: activities.filter((a) => a.status === 'cancelled').length,
-    redeemedRewards: rewards.filter((r) => r.redeemedAt).length,
-    totalCoinsEarned: transactions
-      .filter((t) => t.type === 'earned')
-      .reduce((sum, t) => sum + t.amount, 0),
-    recentTransactions: transactions.slice(0, 10),
-  }
-}
+export const getDashboardStats = (activities, rewards, transactions) => ({
+  completedActivities: activities.filter(a => a.status === 'completed').length,
+  pendingActivities: activities.filter(a => a.status === 'pending').length,
+  cancelledActivities: activities.filter(a => a.status === 'cancelled').length,
+  redeemedRewards: rewards.filter(r => r.redeemedAt).length,
+  totalCoinsEarned: transactions
+    .filter(t => t.type === 'earned')
+    .reduce((sum, t) => sum + t.amount, 0),
+  recentTransactions: transactions.slice(0, 10),
+})

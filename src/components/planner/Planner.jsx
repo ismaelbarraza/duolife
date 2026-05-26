@@ -20,13 +20,11 @@ export default function Planner() {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [createDate, setCreateDate] = useState(null)
 
-  // Jump-to state
   const [showJump, setShowJump] = useState(false)
   const [jumpMonth, setJumpMonth] = useState(0)
   const [jumpYear, setJumpYear] = useState(CURRENT_YEAR)
   const jumpRef = useRef(null)
 
-  // Localized short month names via Intl — no extra translation keys needed
   const monthNames = useMemo(
     () =>
       Array.from({ length: 12 }, (_, i) =>
@@ -35,7 +33,6 @@ export default function Planner() {
     [i18n.language]
   )
 
-  // Jan 2 2000 is a Sunday — gives Sun→Sat for indices 0–6
   const weekdayNames = useMemo(
     () =>
       Array.from({ length: 7 }, (_, i) =>
@@ -44,7 +41,6 @@ export default function Planner() {
     [i18n.language]
   )
 
-  // Close jump dropdown on outside click
   useEffect(() => {
     if (!showJump) return
     const handler = (e) => {
@@ -69,7 +65,6 @@ export default function Planner() {
     setJumpYear((y) => Math.min(MAX_YEAR, Math.max(MIN_YEAR, y + delta)))
   }
 
-  // Calendar data
   const days = useMemo(() => {
     return eachDayOfInterval({ start: startOfMonth(currentMonth), end: endOfMonth(currentMonth) })
   }, [currentMonth])
@@ -94,9 +89,9 @@ export default function Planner() {
   const getDotColor = (dateStr) => {
     const acts = activitiesByDate[dateStr] || []
     if (!acts.length) return null
-    if (acts.some((a) => a.status === 'pending')) return '#ffd700'
-    if (acts.some((a) => a.status === 'completed')) return '#00ff88'
-    return 'rgba(255,255,255,0.2)'
+    if (acts.some((a) => a.status === 'pending')) return '#f59e0b'
+    if (acts.some((a) => a.status === 'completed')) return '#10b981'
+    return '#cbd5e1'
   }
 
   return (
@@ -106,88 +101,67 @@ export default function Planner() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-white border border-slate-200 hover:bg-slate-50 flex items-center justify-center transition-colors shadow-sm"
           >
-            <ChevronLeft size={16} className="text-white/60" />
+            <ChevronLeft size={16} className="text-slate-500" />
           </button>
 
-          {/* Clickable month/year title */}
           <button
             onClick={openJump}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all hover:bg-white/5 group"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all hover:bg-white hover:shadow-sm group"
           >
-            <span className="font-display text-xl text-white">
+            <span className="font-body font-bold text-xl text-slate-900">
               {format(currentMonth, 'MMMM yyyy')}
             </span>
             <ChevronDown
               size={14}
-              className="transition-transform duration-200"
-              style={{
-                color: 'rgba(255,255,255,0.35)',
-                transform: showJump ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
+              className="text-slate-400 transition-transform duration-200"
+              style={{ transform: showJump ? 'rotate(180deg)' : 'rotate(0deg)' }}
             />
           </button>
 
           <button
             onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+            className="w-9 h-9 rounded-full bg-white border border-slate-200 hover:bg-slate-50 flex items-center justify-center transition-colors shadow-sm"
           >
-            <ChevronRight size={16} className="text-white/60" />
+            <ChevronRight size={16} className="text-slate-500" />
           </button>
         </div>
 
         {/* Jump-to dropdown */}
         {showJump && (
-          <div
-            className="absolute left-1/2 top-full mt-2 z-30 w-72 rounded-2xl overflow-hidden"
-            style={{
-              transform: 'translateX(-50%)',
-              background: 'rgba(17,17,24,0.97)',
-              border: '1px solid rgba(255,45,120,0.25)',
-              boxShadow: '0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,45,120,0.1)',
-            }}
+          <div className="absolute left-1/2 top-full mt-2 z-30 w-72 rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-lg"
+            style={{ transform: 'translateX(-50%)' }}
           >
-            {/* Header */}
-            <div className="px-4 pt-4 pb-3 border-b border-white/6">
-              <p className="text-xs font-mono uppercase tracking-widest text-white/40">
+            <div className="px-4 pt-4 pb-3 border-b border-slate-100">
+              <p className="text-xs font-body font-medium uppercase tracking-widest text-slate-400">
                 {t('planner.jumpTo.title')}
               </p>
             </div>
 
             <div className="p-4 space-y-4">
-              {/* Year stepper */}
               <div className="flex items-center justify-between gap-2">
                 <button
                   onClick={() => adjustYear(-1)}
                   disabled={jumpYear <= MIN_YEAR}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-                  style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    color: jumpYear <= MIN_YEAR ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.6)',
-                  }}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors disabled:opacity-30"
                 >
-                  <ChevronLeft size={15} />
+                  <ChevronLeft size={15} className="text-slate-600" />
                 </button>
 
-                <span className="font-display text-2xl text-white tabular-nums">
+                <span className="font-body font-bold text-2xl text-slate-900 tabular-nums">
                   {jumpYear}
                 </span>
 
                 <button
                   onClick={() => adjustYear(1)}
                   disabled={jumpYear >= MAX_YEAR}
-                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
-                  style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    color: jumpYear >= MAX_YEAR ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.6)',
-                  }}
+                  className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors disabled:opacity-30"
                 >
-                  <ChevronRight size={15} />
+                  <ChevronRight size={15} className="text-slate-600" />
                 </button>
               </div>
 
-              {/* Month grid */}
               <div className="grid grid-cols-4 gap-1.5">
                 {monthNames.map((name, idx) => {
                   const isActive = idx === jumpMonth
@@ -195,12 +169,11 @@ export default function Planner() {
                     <button
                       key={idx}
                       onClick={() => setJumpMonth(idx)}
-                      className="py-2 rounded-lg text-xs font-mono font-medium transition-all"
+                      className="py-2 rounded-xl text-xs font-body font-medium transition-all"
                       style={{
-                        background: isActive ? 'rgba(255,45,120,0.2)' : 'rgba(255,255,255,0.04)',
-                        border: `1px solid ${isActive ? 'rgba(255,45,120,0.5)' : 'rgba(255,255,255,0.07)'}`,
-                        color: isActive ? '#ff2d78' : 'rgba(255,255,255,0.55)',
-                        textShadow: isActive ? '0 0 10px rgba(255,45,120,0.5)' : 'none',
+                        background: isActive ? '#ede9fe' : '#f8fafc',
+                        border: `1px solid ${isActive ? '#c4b5fd' : '#f1f5f9'}`,
+                        color: isActive ? '#6d28d9' : '#64748b',
                       }}
                     >
                       {name}
@@ -209,7 +182,6 @@ export default function Planner() {
                 })}
               </div>
 
-              {/* Actions */}
               <div className="flex gap-2 pt-1">
                 <button
                   onClick={() => setShowJump(false)}
@@ -219,11 +191,7 @@ export default function Planner() {
                 </button>
                 <button
                   onClick={handleJumpGo}
-                  className="flex-1 py-2 rounded-xl font-body font-medium text-sm text-white transition-all"
-                  style={{
-                    background: '#ff2d78',
-                    boxShadow: '0 0 16px rgba(255,45,120,0.4)',
-                  }}
+                  className="flex-1 py-2 rounded-full font-body font-medium text-sm text-white bg-violet-500 hover:bg-violet-600 transition-all"
                 >
                   {t('planner.jumpTo.go')}
                 </button>
@@ -236,7 +204,7 @@ export default function Planner() {
       {/* Weekday labels */}
       <div className="grid grid-cols-7 gap-1">
         {weekdayNames.map((d, i) => (
-          <div key={i} className="text-center text-white/25 text-xs font-mono py-1">
+          <div key={i} className="text-center text-slate-400 text-xs font-body py-1">
             {d}
           </div>
         ))}
@@ -259,32 +227,32 @@ export default function Planner() {
             <button
               key={dateStr}
               onClick={() => setSelectedDate(day)}
-              className="aspect-square rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all duration-150"
+              className="aspect-square rounded-full flex flex-col items-center justify-center gap-0.5 transition-all duration-150"
               style={{
                 background: isSelected
-                  ? 'rgba(255,45,120,0.2)'
+                  ? '#8b5cf6'
                   : _isToday
-                  ? 'rgba(255,255,255,0.06)'
+                  ? '#f5f3ff'
                   : actCount > 0
-                  ? 'rgba(255,255,255,0.03)'
+                  ? '#fafaf9'
                   : 'transparent',
                 border: isSelected
-                  ? '1px solid rgba(255,45,120,0.5)'
+                  ? '2px solid #7c3aed'
                   : _isToday
-                  ? '1px solid rgba(255,255,255,0.1)'
+                  ? '1.5px solid #c4b5fd'
                   : '1px solid transparent',
               }}
             >
               <span
                 className="text-sm font-body leading-none"
                 style={{
-                  color: isSelected ? '#ff2d78' : _isToday ? '#fff' : 'rgba(255,255,255,0.65)',
-                  fontWeight: isSelected || _isToday ? 600 : 400,
+                  color: isSelected ? '#ffffff' : _isToday ? '#6d28d9' : '#475569',
+                  fontWeight: isSelected || _isToday ? 700 : 400,
                 }}
               >
                 {format(day, 'd')}
               </span>
-              {dotColor && (
+              {dotColor && !isSelected && (
                 <div className="w-1 h-1 rounded-full" style={{ background: dotColor }} />
               )}
             </button>
@@ -296,16 +264,16 @@ export default function Planner() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h3 className="font-display text-base text-white">
+            <h3 className="font-body font-semibold text-base text-slate-800">
               {isToday(selectedDate) ? t('planner.today') : format(selectedDate, 'EEEE')}
             </h3>
-            <p className="text-white/40 text-xs font-body">
+            <p className="text-slate-400 text-xs font-body">
               {format(selectedDate, 'MMMM d, yyyy')}
             </p>
           </div>
           <button
             onClick={() => handleCreateForDate(selectedDate)}
-            className="btn-primary flex items-center gap-1.5 text-xs px-3 py-2"
+            className="btn-primary flex items-center gap-1.5 text-xs !px-3 !py-2"
           >
             <Plus size={13} />
             {t('planner.addActivity')}
@@ -319,14 +287,11 @@ export default function Planner() {
             ))}
           </div>
         ) : (
-          <div
-            className="rounded-xl p-6 text-center"
-            style={{ background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(255,255,255,0.08)' }}
-          >
-            <p className="text-white/30 font-body text-sm">{t('planner.noActivities')}</p>
+          <div className="rounded-2xl p-6 text-center bg-white/70 border border-dashed border-slate-200">
+            <p className="text-slate-400 font-body text-sm">{t('planner.noActivities')}</p>
             <button
               onClick={() => handleCreateForDate(selectedDate)}
-              className="mt-2 text-neon-pink text-xs font-body hover:underline"
+              className="mt-2 text-violet-500 text-xs font-body hover:underline"
             >
               {t('planner.addSomething')}
             </button>
@@ -337,7 +302,7 @@ export default function Planner() {
       {/* All planned days */}
       {Object.keys(activitiesByDate).length > 0 && (
         <div>
-          <h3 className="font-display text-base text-white/70 mb-3">{t('planner.allPlannedDays')}</h3>
+          <h3 className="font-body font-semibold text-base text-slate-600 mb-3">{t('planner.allPlannedDays')}</h3>
           <div className="space-y-3">
             {Object.entries(activitiesByDate)
               .sort(([a], [b]) => a.localeCompare(b))
@@ -349,7 +314,7 @@ export default function Planner() {
                       const d = new Date(dateStr + 'T12:00:00')
                       if (!isSameMonth(d, currentMonth)) setCurrentMonth(d)
                     }}
-                    className="text-xs font-mono text-white/40 hover:text-white/70 mb-1.5 block transition-colors"
+                    className="text-xs font-body text-slate-400 hover:text-violet-500 mb-1.5 block transition-colors"
                   >
                     {format(new Date(dateStr + 'T12:00:00'), 'EEEE, MMM d')}
                   </button>
