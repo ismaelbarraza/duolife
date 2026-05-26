@@ -311,6 +311,9 @@
         "customAmount": "Cantidad personalizada"
       },
       "submit": "Crear Actividad",
+      "editTitle": "Editar Actividad",
+      "editSubtitle": "Actualiza los detalles de la actividad",
+      "editSubmit": "Guardar Cambios",
       "timeFormatHint": "Usa formato 24 horas, ej. 18:30",
       "errors": {
         "noTitle": "Por favor ingresa un título",

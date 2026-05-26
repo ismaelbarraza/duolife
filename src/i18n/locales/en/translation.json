@@ -311,6 +311,9 @@
         "customAmount": "Custom amount"
       },
       "submit": "Create Activity",
+      "editTitle": "Edit Activity",
+      "editSubtitle": "Update activity details",
+      "editSubmit": "Save Changes",
       "timeFormatHint": "Use 24-hour format, e.g. 18:30",
       "errors": {
         "noTitle": "Please enter a title",

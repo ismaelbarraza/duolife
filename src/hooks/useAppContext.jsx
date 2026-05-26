@@ -160,6 +160,7 @@ export const AppProvider = ({ children }) => {
   // ─── Activity Actions ──────────────────────────────────────────────────────────
 
   const createActivity = (activity) => { db.createActivity(activity); refresh() }
+  const updateActivity = (id, updates) => { db.updateActivity(id, updates); refresh() }
 
   const completeActivity = (id) => {
     const result = db.completeActivity(id)
@@ -222,6 +223,7 @@ export const AppProvider = ({ children }) => {
         refresh,
         // Activity actions
         createActivity,
+        updateActivity,
         completeActivity,
         cancelActivity,
         deleteActivity,

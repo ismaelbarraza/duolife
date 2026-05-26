@@ -311,6 +311,9 @@
         "customAmount": "Importo personalizzato"
       },
       "submit": "Crea Attività",
+      "editTitle": "Modifica Attività",
+      "editSubtitle": "Aggiorna i dettagli dell'attività",
+      "editSubmit": "Salva Modifiche",
       "timeFormatHint": "Usa il formato 24 ore, es. 18:30",
       "errors": {
         "noTitle": "Inserisci un titolo",

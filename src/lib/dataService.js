@@ -201,16 +201,26 @@ export const completeActivity = (activityId) => {
     status: 'completed',
     completedAt: new Date().toISOString(),
   })
-  updateUserCoins(activity.assignedTo, activity.coinReward)
-  addCoinTransaction({
-    id: crypto.randomUUID(),
-    coupleSpaceId: activity.coupleSpaceId,
-    userId: activity.assignedTo,
-    amount: activity.coinReward,
-    type: 'earned',
-    reason: `Completed: ${activity.title}`,
-    createdAt: new Date().toISOString(),
+
+  // Support both new assignedMemberIds (array) and legacy assignedTo (single id).
+  // Each assignee earns full coinReward — change to split points here if needed later.
+  const assigneeIds = activity.assignedMemberIds?.length
+    ? activity.assignedMemberIds
+    : activity.assignedTo ? [activity.assignedTo] : []
+
+  assigneeIds.forEach((userId) => {
+    updateUserCoins(userId, activity.coinReward)
+    addCoinTransaction({
+      id: crypto.randomUUID(),
+      coupleSpaceId: activity.coupleSpaceId,
+      userId,
+      amount: activity.coinReward,
+      type: 'earned',
+      reason: `Completed: ${activity.title}`,
+      createdAt: new Date().toISOString(),
+    })
   })
+
   return activity
 }
 
