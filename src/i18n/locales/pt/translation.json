@@ -43,6 +43,29 @@
       "rightToLeft": "direita para esquerda",
       "clockwise": "sentido horário",
       "counterclockwise": "sentido anti-horário"
+    },
+    "partyNight": {
+      "label": "PartyNight",
+      "impostor": {
+        "name": "El Impostor",
+        "description": "Descubra quem não conhece a palavra secreta"
+      },
+      "truthOrDare": {
+        "name": "Verdade ou Desafio",
+        "description": "Responda com a verdade ou cumpra um desafio"
+      },
+      "bottle": {
+        "name": "Garrafa Bêbada",
+        "description": "Gire a garrafa e aceite seu destino"
+      },
+      "dice": {
+        "name": "Dado",
+        "description": "Jogue o dado e descubra seu desafio"
+      },
+      "guess": {
+        "name": "Adivinhe Quem ou Quê",
+        "description": "Em breve"
+      }
     }
   },
   "nav": {

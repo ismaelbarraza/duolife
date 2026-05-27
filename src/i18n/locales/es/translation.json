@@ -43,6 +43,29 @@
       "rightToLeft": "derecha a izquierda",
       "clockwise": "sentido horario",
       "counterclockwise": "sentido antihorario"
+    },
+    "partyNight": {
+      "label": "PartyNight",
+      "impostor": {
+        "name": "El Impostor",
+        "description": "Descubre quién no conoce la palabra secreta"
+      },
+      "truthOrDare": {
+        "name": "Verdad o Reto",
+        "description": "Responde con la verdad o cumple un reto"
+      },
+      "bottle": {
+        "name": "Botella Borracha",
+        "description": "Gira la botella y acepta tu destino"
+      },
+      "dice": {
+        "name": "Dado",
+        "description": "Lanza el dado y descubre tu reto"
+      },
+      "guess": {
+        "name": "Adivina Quién o Qué",
+        "description": "Próximamente"
+      }
     }
   },
   "nav": {

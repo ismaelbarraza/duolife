@@ -1,0 +1,453 @@
+{
+  "landing": {
+    "tagline": "Jullie gedeeld universum — plan, speel en groei samen.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Plan activiteiten, verdeel kosten, verdien punten en beheer beloningen met jullie mensen.",
+      "cta": "DuoLife openen"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Feestspellen, uitdagingen en sociale spellen voor stellen, vrienden en groepen.",
+      "cta": "Play openen"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Spellen voor feestjes, koppels en vrienden",
+    "backToHome": "Terug naar home",
+    "comingSoon": "Binnenkort",
+    "comingSoonNote": "De spellen zijn onderweg! We bouwen leuke ervaringen voor jullie. Blijf op de hoogte.",
+    "games": {
+      "slot-machine": { "name": "Gokautomat", "description": "Draai voor bonuspunten en verrassingen" },
+      "flip-cards": { "name": "Kaarten omdraaien", "description": "Koppel kaarten en win vermenigvuldigers" },
+      "party-questions": { "name": "Feestvragen", "description": "Leuke vragen voor groepen en stellen" },
+      "dare-wheel": { "name": "Uitdaagwiel", "description": "Draai het wiel voor uitdagingen" }
+    },
+    "impostor": {
+      "starts": "Begint",
+      "direction": "Richting",
+      "leftToRight": "van links naar rechts",
+      "rightToLeft": "van rechts naar links",
+      "clockwise": "met de klok mee",
+      "counterclockwise": "tegen de klok in"
+    },
+    "partyNight": {
+      "label": "PartyNight",
+      "impostor": {
+        "name": "El Impostor",
+        "description": "Ontdek wie het geheime woord niet kent"
+      },
+      "truthOrDare": {
+        "name": "Waarheid of Durven",
+        "description": "Antwoord eerlijk of voltooi een taak"
+      },
+      "bottle": {
+        "name": "Draaifles",
+        "description": "Draai de fles en accepteer je lot"
+      },
+      "dice": {
+        "name": "Dobbelsteen",
+        "description": "Gooi de dobbelsteen en ontdek je uitdaging"
+      },
+      "guess": {
+        "name": "Raad Wie of Wat",
+        "description": "Binnenkort"
+      }
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "planner": "Planner",
+    "expenses": "Uitgaven",
+    "rewards": "Beloningen",
+    "games": "Spellen"
+  },
+  "common": {
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "new": "Nieuw",
+    "add": "Toevoegen",
+    "delete": "Verwijderen",
+    "done": "Klaar",
+    "paid": "betaald",
+    "all": "Alle",
+    "soon": "Binnenkort",
+    "markPaid": "Markeer als betaald",
+    "owes": "is verschuldigd",
+    "by": "door",
+    "confirm": "Bevestigen",
+    "remove": "Verwijderen"
+  },
+  "dashboard": {
+    "invite": "Uitnodigen",
+    "recentActivities": "Recente activiteiten",
+    "coinHistory": "Puntengeschiedenis",
+    "upcomingPlan": "Komend plan",
+    "today": "Vandaag",
+    "tomorrow": "Morgen",
+    "viewInPlanner": "Alles bekijken in de Planner",
+    "noUpcoming": "Geen aankomende activiteiten",
+    "noUpcomingSubtitle": "Plan iets samen ✨",
+    "noActivitiesToday": "Geen activiteiten voor vandaag.",
+    "noActivitiesWeek": "Geen activiteiten in de komende 7 dagen.",
+    "noActivitiesMonth": "Geen activiteiten deze maand.",
+    "filters": {
+      "today": "Vandaag",
+      "week": "7 dagen",
+      "month": "Maand",
+      "all": "Alle"
+    },
+    "stats": {
+      "completed": "Voltooid",
+      "pending": "In behandeling",
+      "rewardsWon": "Gewonnen beloningen",
+      "coinsEarned": "Verdiende punten"
+    },
+    "empty": {
+      "title": "Nog geen activiteiten",
+      "subtitle": "Maak je eerste activiteit en begin punten te verdienen!"
+    }
+  },
+  "planner": {
+    "today": "Vandaag",
+    "addActivity": "Activiteit toevoegen",
+    "addSomething": "+ Iets toevoegen",
+    "noActivities": "Geen activiteiten voor deze dag",
+    "allPlannedDays": "Alle geplande dagen",
+    "showAllDays": "Alle geplande dagen tonen",
+    "focusDay": "Geselecteerde dag focussen",
+    "jumpTo": {
+      "title": "Ga naar datum",
+      "go": "Ga"
+    }
+  },
+  "rewards": {
+    "title": "Beloningen",
+    "newReward": "Nieuwe beloning",
+    "redeemingAs": "Inwisselen als",
+    "redeemed": "Ingewisseld",
+    "redeemedOn": "Ingewisseld op {{date}}",
+    "notYours": "Niet van jou",
+    "notEnough": "Niet genoeg",
+    "redeem": "Inwisselen 🎉",
+    "noRewardsInCategory": "Geen beloningen in deze categorie",
+    "belongsTo": "Deze beloning is van {{name}}",
+    "redeemedToast": "🎉 \"{{name}}\" ingewisseld!",
+    "categoryLabels": {
+      "All": "Alle",
+      "Wellness": "Welzijn",
+      "Food": "Eten",
+      "Fun": "Plezier",
+      "Entertainment": "Vermaak",
+      "Travel": "Reizen",
+      "Other": "Overig"
+    },
+    "errors": {
+      "alreadyRedeemed": "Al ingewisseld",
+      "notEnoughCoins": "Niet genoeg punten"
+    }
+  },
+  "games": {
+    "title": "Mini-spellen",
+    "subtitle": "Speel samen, win samen",
+    "comingSoonBanner": {
+      "title": "Spellen komen eraan!",
+      "subtitle": "We bouwen leuke mini-spellen voor jullie. Blijf op de hoogte!"
+    },
+    "historyPlaceholder": "De spelgeschiedenis verschijnt hier zodra jullie beginnen te spelen.",
+    "items": {
+      "slot-machine": { "name": "Gokautomat", "description": "Draai voor bonuspunten en verrassingen" },
+      "flip-cards": { "name": "Kaarten omdraaien", "description": "Koppel kaarten en win vermenigvuldigers" },
+      "wheel": { "name": "Wiel draaien", "description": "Laat het lot jullie volgende date bepalen" },
+      "trivia": { "name": "Koppelquiz", "description": "Hoe goed kennen jullie elkaar?" }
+    }
+  },
+  "expenses": {
+    "title": "Uitgaven",
+    "pendingDebts_one": "{{count}} openstaande schuld",
+    "pendingDebts_other": "{{count}} openstaande schulden",
+    "allSettled": "Alles verrekend",
+    "paidByLine": "betaald door {{name}}",
+    "deleteExpense": "Uitgave verwijderen",
+    "cardShare": "{{amount}} per persoon",
+    "noExpenses": {
+      "title": "Nog geen uitgaven.",
+      "subtitle": "Tik op Toevoegen om jullie eerste gedeelde uitgave te registreren."
+    },
+    "needsMoreMembers": "Voeg minstens 2 leden toe aan jullie ruimte om uitgaven te delen.",
+    "goToEditSpace": "Leden beheren",
+    "selectAll": "Alles selecteren",
+    "clearSelection": "Wissen",
+    "selectToCalculate": "Selecteer uitgaven om de afrekening te berekenen",
+    "summary": {
+      "title": "Afrekenin­goverzicht",
+      "totalSpent": "Totaal uitgegeven",
+      "netSettlement": "Netto afrekening",
+      "owesNothing": "is niets verschuldigd"
+    },
+    "category": "Categorie",
+    "categoryLabels": {
+      "Food": "Eten",
+      "Transport": "Transport",
+      "Accommodation": "Accommodatie",
+      "Entertainment": "Vermaak",
+      "Shopping": "Winkelen",
+      "Travel": "Reizen",
+      "Health": "Gezondheid",
+      "Gifts": "Cadeaus",
+      "Home": "Thuis",
+      "Other": "Overig"
+    },
+    "debtSummary": {
+      "noneNeeded": "Geen schulden",
+      "allSettled": "Alles geïnd ✓",
+      "one": "{{debtor}} is {{amount}} verschuldigd aan {{payer}}",
+      "many": "{{count}} personen zijn {{amount}} verschuldigd aan {{payer}}"
+    },
+    "labels": {
+      "total": "Totaal",
+      "paidBy": "Betaald door",
+      "participants": "Deelnemers",
+      "eachPays": "Ieder betaalt",
+      "note": "Notitie",
+      "debts": "Schulden",
+      "noDebts": "Geen schulden — betaler is de enige deelnemer."
+    },
+    "settlement": {
+      "title": "Afrekenin­goverzicht",
+      "payerShare": "Aandeel betaler",
+      "toReceive": "Nog te ontvangen",
+      "received": "Al ontvangen",
+      "pending": "Nog in behandeling"
+    }
+  },
+  "onboarding": {
+    "next": "Volgende →",
+    "getStarted": "Aan de slag ✨",
+    "skip": "Voorlopig overslaan",
+    "dontShow": "Niet meer tonen",
+    "steps": {
+      "welcome": {
+        "title": "Welkom bij DuoLife ♾",
+        "subtitle": "Jullie gedeeld universum",
+        "body": "DuoLife is jullie gamified planningsruimte als koppel. Plan activiteiten, verdien punten, wissel beloningen in en speel samen. Alles wat jullie hier doen brengt jullie dichter bij elkaar."
+      },
+      "activities": {
+        "title": "Activiteiten",
+        "subtitle": "Plan en doe dingen samen",
+        "body": "Maak activiteiten voor elke dag — ochtendwandelingen, romantische diners, verrassingsgestes. Wijs ze toe aan een partner."
+      },
+      "coins": {
+        "title": "Punten 🪙",
+        "subtitle": "Verdien door te doen",
+        "body": "Elke voltooide activiteit levert punten op. Hoe moeilijker de taak, hoe meer punten. Houd elkaars saldo in de gaten!"
+      },
+      "rewards": {
+        "title": "Beloningen",
+        "subtitle": "Besteed je punten",
+        "body": "Maak aangepaste beloningen die met punten kunnen worden ingewisseld — een massage, een speciaal diner, een luie zondag."
+      },
+      "games": {
+        "title": "Mini-spellen",
+        "subtitle": "Binnenkort",
+        "body": "Gokautomaten, kaarten en meer — speel mini-spellen samen voor bonuspunten. Binnenkort!"
+      }
+    }
+  },
+  "activity": {
+    "status": {
+      "pending": "in behandeling",
+      "completed": "voltooid",
+      "cancelled": "geannuleerd"
+    },
+    "done": "Klaar",
+    "by": "door",
+    "startTime": "Begintijd",
+    "endTime": "Eindtijd (optioneel)",
+    "location": "Locatie (optioneel)",
+    "locationPlaceholder": "bijv. Park, Thuis...",
+    "deleteConfirmTitle": "Deze activiteit verwijderen?",
+    "deleteConfirmBody": "Dit kan niet ongedaan worden gemaakt.",
+    "deleteFutureNote": "Goedkeuringsworkflows zijn beschikbaar zodra echte accounts zijn verbonden."
+  },
+  "setup": {
+    "step1Title": "Profiel aanmaken",
+    "step1Sub": "Laten we beginnen",
+    "step2Title": "Jullie eerste ruimte",
+    "step2Sub": "Waar het leven gebeurt",
+    "name": "Jouw naam",
+    "namePlaceholder": "bijv. Sanne",
+    "avatar": "Avatar",
+    "language": "Taal",
+    "spaceName": "Naam ruimte",
+    "spaceNamePlaceholder": "bijv. Sanne & Tim",
+    "spaceType": "Type",
+    "members": "Leden",
+    "membersHint": "Gratis plan · max 3 leden",
+    "addMember": "+ Lid toevoegen",
+    "continue": "Doorgaan →",
+    "finish": "Ruimte aanmaken ✨",
+    "errors": {
+      "noName": "Voer je naam in",
+      "noSpaceName": "Voer een naam voor de ruimte in",
+      "noSpaceType": "Selecteer een type"
+    }
+  },
+  "spaces": {
+    "mySpaces": "Mijn ruimten",
+    "active": "Actief",
+    "create": "Nieuwe ruimte",
+    "edit": "Bewerken",
+    "freePlan": "Gratis",
+    "upgrade": "Upgraden",
+    "maxSpacesReached": "Gratis plan: limiet van 2 ruimten bereikt",
+    "maxMembersReached": "Gratis plan: maximum 3 leden per ruimte",
+    "upgradeMessage": "Upgrade naar Pro voor onbeperkte ruimten en leden",
+    "types": {
+      "Couple": "Koppel",
+      "Friends": "Vrienden",
+      "Family": "Familie",
+      "Travel": "Reis",
+      "Personal": "Persoonlijk",
+      "Other": "Overig"
+    },
+    "modals": {
+      "create": {
+        "title": "Nieuwe ruimte",
+        "subtitle": "Maak een gedeeld universum",
+        "name": "Naam ruimte",
+        "namePlaceholder": "bijv. Reis 2025",
+        "type": "Type",
+        "members": "Leden",
+        "addMember": "+ Lid toevoegen",
+        "submit": "Ruimte aanmaken",
+        "errors": {
+          "noName": "Voer een naam in",
+          "noType": "Selecteer een type"
+        }
+      },
+      "edit": {
+        "title": "Ruimte bewerken",
+        "subtitle": "Pas je ruimte aan",
+        "name": "Naam ruimte",
+        "type": "Type",
+        "members": "Leden",
+        "addMember": "+ Lid toevoegen",
+        "roleAdmin": "Admin",
+        "roleMember": "Lid",
+        "removeMember": "Verwijderen",
+        "removeConfirmTitle": "Dit lid verwijderen?",
+        "removeConfirmBody": "Vroegere activiteiten en uitgaven blijven bewaard. Dit kan niet ongedaan worden gemaakt.",
+        "removeConfirm": "Ja, verwijderen",
+        "deleteSpace": "Deze ruimte verwijderen",
+        "deleteSpaceConfirmTitle": "Ruimte verwijderen?",
+        "deleteSpaceConfirmBody": "Dit verwijdert de ruimte en alle bijbehorende gegevens permanent.",
+        "deleteSpaceConfirm": "Ja, permanent verwijderen",
+        "dangerZone": "Gevarenzone",
+        "deleteSpaceOnlyOne": "Maak eerst een andere ruimte aan om deze te verwijderen.",
+        "backgroundImage": "Ruimteachtergrond",
+        "addBackground": "Foto toevoegen",
+        "changeBackground": "Foto wijzigen",
+        "removeBackground": "Verwijderen",
+        "backgroundNote": "Cloudsynchronisatie voor foto's wordt ingeschakeld wanneer accounts zijn verbonden.",
+        "submit": "Wijzigingen opslaan",
+        "errors": {
+          "noName": "Voer een naam in"
+        }
+      }
+    }
+  },
+  "modals": {
+    "createActivity": {
+      "title": "Nieuwe activiteit",
+      "subtitle": "Plan iets samen",
+      "labels": {
+        "title": "Titel",
+        "description": "Beschrijving",
+        "assignTo": "Toewijzen aan",
+        "date": "Datum",
+        "startTime": "Begintijd",
+        "endTime": "Eindtijd (optioneel)",
+        "location": "Locatie (optioneel)",
+        "coinReward": "Puntenbeloning ✦",
+        "createdBy": "Gemaakt door"
+      },
+      "placeholders": {
+        "title": "bijv. Ochtendwandeling, Samen koken...",
+        "description": "Optionele details...",
+        "location": "bijv. Park, Thuis...",
+        "customAmount": "Aangepast bedrag"
+      },
+      "submit": "Activiteit aanmaken",
+      "editTitle": "Activiteit bewerken",
+      "editSubtitle": "Details bijwerken",
+      "editSubmit": "Wijzigingen opslaan",
+      "timeFormatHint": "Gebruik 24-uurs formaat, bijv. 18:30",
+      "errors": {
+        "noTitle": "Voer een titel in",
+        "noAssignee": "Wijs toe aan een partner",
+        "noDate": "Kies een datum",
+        "invalidTime": "24-uurs formaat HH:mm, bijv. 18:30"
+      }
+    },
+    "createReward": {
+      "title": "Nieuwe beloning",
+      "subtitle": "Iets de moeite waard om te verdienen",
+      "labels": {
+        "icon": "Pictogram",
+        "name": "Naam beloning",
+        "owner": "Eigenaar",
+        "category": "Categorie",
+        "cost": "Kosten (punten) ✦"
+      },
+      "placeholders": {
+        "name": "bijv. Rugmassage, Restaurantkeuze..."
+      },
+      "submit": "Beloning aanmaken",
+      "errors": {
+        "noName": "Voer een naam voor de beloning in"
+      }
+    },
+    "createExpense": {
+      "title": "Nieuwe uitgave",
+      "subtitle": "Gelijkmatig verdelen",
+      "editTitle": "Uitgave bewerken",
+      "editSubtitle": "Details bijwerken",
+      "editSubmit": "Wijzigingen opslaan",
+      "labels": {
+        "title": "Titel",
+        "amount": "Bedrag",
+        "currency": "Valuta",
+        "category": "Categorie",
+        "paidBy": "Betaald door",
+        "date": "Datum",
+        "participants": "Deelnemers",
+        "note": "Notitie (optioneel)"
+      },
+      "placeholders": {
+        "title": "bijv. Diner, Taxi, Boodschappen…",
+        "note": "Details…"
+      },
+      "eachPaysPreview": "Ieder betaalt: {{symbol}} {{amount}}",
+      "submit": "Uitgave opslaan",
+      "errors": {
+        "noTitle": "Voer een titel in",
+        "noAmount": "Voer een geldig bedrag in",
+        "noCategory": "Selecteer een categorie",
+        "noPaidBy": "Selecteer wie heeft betaald",
+        "noParticipants": "Selecteer minstens één deelnemer",
+        "noDate": "Kies een datum"
+      }
+    },
+    "invite": {
+      "title": "Partner uitnodigen",
+      "heading": "Deel je ruimte",
+      "body": "Stuur deze uitnodigingscode naar je partner zodat hij/zij kan deelnemen",
+      "codeLabel": "Uitnodigingscode",
+      "copyCode": "Code kopiëren",
+      "copied": "Gekopieerd!",
+      "emailSoon": "📧 E-mailuitnodigingen binnenkort beschikbaar"
+    }
+  }
+}

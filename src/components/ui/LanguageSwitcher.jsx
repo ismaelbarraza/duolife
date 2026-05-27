@@ -3,10 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { Globe } from 'lucide-react'
 
 const LANGUAGES = [
-  { code: 'en', native: 'English' },
-  { code: 'es', native: 'Español' },
-  { code: 'pt', native: 'Português' },
-  { code: 'it', native: 'Italiano' },
+  { code: 'en', native: 'English',    display: 'EN' },
+  { code: 'es', native: 'Español',    display: 'ES' },
+  { code: 'pt', native: 'Português',  display: 'PT' },
+  { code: 'it', native: 'Italiano',   display: 'IT' },
+  { code: 'nl', native: 'Nederlands', display: 'NL' },
+  { code: 'de', native: 'Deutsch',    display: 'DE' },
+  { code: 'zh', native: '中文',       display: '中文' },
+  { code: 'fr', native: 'Français',   display: 'FR' },
+  { code: 'ru', native: 'Русский',    display: 'RU' },
 ]
 
 export default function LanguageSwitcher() {
@@ -31,11 +36,11 @@ export default function LanguageSwitcher() {
         className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-body font-medium bg-white border border-slate-200 text-slate-500 hover:border-slate-300 transition-all"
       >
         <Globe size={11} />
-        <span>{activeLang.code.toUpperCase()}</span>
+        <span>{activeLang.display}</span>
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1.5 rounded-2xl overflow-hidden z-50 bg-white border border-slate-100 shadow-md min-w-[130px]">
+        <div className="absolute right-0 top-full mt-1.5 rounded-2xl overflow-hidden z-50 bg-white border border-slate-100 shadow-md min-w-[130px] max-h-72 overflow-y-auto">
           {LANGUAGES.map((lang) => {
             const active = lang.code === i18n.language
             return (

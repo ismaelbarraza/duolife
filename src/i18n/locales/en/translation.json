@@ -43,6 +43,29 @@
       "rightToLeft": "right to left",
       "clockwise": "clockwise",
       "counterclockwise": "counterclockwise"
+    },
+    "partyNight": {
+      "label": "PartyNight",
+      "impostor": {
+        "name": "El Impostor",
+        "description": "Find out who doesn't know the secret word"
+      },
+      "truthOrDare": {
+        "name": "Truth or Dare",
+        "description": "Answer truthfully or complete a dare"
+      },
+      "bottle": {
+        "name": "Spinning Bottle",
+        "description": "Spin the bottle and face your fate"
+      },
+      "dice": {
+        "name": "Dice",
+        "description": "Roll the dice and discover your challenge"
+      },
+      "guess": {
+        "name": "Guess Who or What",
+        "description": "Coming soon"
+      }
     }
   },
   "nav": {

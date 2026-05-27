@@ -4,67 +4,67 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from 'lucide-react'
 import LanguageSwitcher from '../../ui/LanguageSwitcher'
 
-const PARTY_GAMES = [
-  {
-    id: 'impostor',
-    emoji: '🕵️',
-    name: 'El Impostor',
-    description: 'Descubre quién no conoce la palabra secreta',
-    accentColor: '#5b21b6',
-    bg: '#f5f3ff',
-    border: '#ddd6fe',
-    path: 'party/impostor',
-    active: true,
-  },
-  {
-    id: 'truth-or-dare',
-    emoji: '❓',
-    name: 'Verdad o Reto',
-    description: 'Responde con la verdad o cumple un reto',
-    accentColor: '#be123c',
-    bg: '#fff1f2',
-    border: '#fecdd3',
-    path: 'party/truth-or-dare',
-    active: true,
-  },
-  {
-    id: 'bottle',
-    emoji: '🍾',
-    name: 'Botella Borracha',
-    description: 'Gira la botella y acepta tu destino',
-    accentColor: '#92400e',
-    bg: '#fffbeb',
-    border: '#fde68a',
-    path: 'party/bottle',
-    active: true,
-  },
-  {
-    id: 'dice',
-    emoji: '🎲',
-    name: 'Dado',
-    description: 'Lanza el dado y descubre tu reto',
-    accentColor: '#065f46',
-    bg: '#f0fdf4',
-    border: '#86efac',
-    path: 'party/dice',
-    active: true,
-  },
-  {
-    id: 'guess',
-    emoji: '🤔',
-    name: 'Adivina Quién o Qué',
-    description: 'Próximamente',
-    accentColor: '#94a3b8',
-    bg: '#f8fafc',
-    border: '#e2e8f0',
-    path: null,
-    active: false,
-  },
-]
-
 export default function PlayHome() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+
+  const PARTY_GAMES = [
+    {
+      id: 'impostor',
+      emoji: '🕵️',
+      name: t('play.partyNight.impostor.name'),
+      description: t('play.partyNight.impostor.description'),
+      accentColor: '#5b21b6',
+      bg: '#f5f3ff',
+      border: '#ddd6fe',
+      path: 'party/impostor',
+      active: true,
+    },
+    {
+      id: 'truth-or-dare',
+      emoji: '❓',
+      name: t('play.partyNight.truthOrDare.name'),
+      description: t('play.partyNight.truthOrDare.description'),
+      accentColor: '#be123c',
+      bg: '#fff1f2',
+      border: '#fecdd3',
+      path: 'party/truth-or-dare',
+      active: true,
+    },
+    {
+      id: 'bottle',
+      emoji: '🍾',
+      name: t('play.partyNight.bottle.name'),
+      description: t('play.partyNight.bottle.description'),
+      accentColor: '#92400e',
+      bg: '#fffbeb',
+      border: '#fde68a',
+      path: 'party/bottle',
+      active: true,
+    },
+    {
+      id: 'dice',
+      emoji: '🎲',
+      name: t('play.partyNight.dice.name'),
+      description: t('play.partyNight.dice.description'),
+      accentColor: '#065f46',
+      bg: '#f0fdf4',
+      border: '#86efac',
+      path: 'party/dice',
+      active: true,
+    },
+    {
+      id: 'guess',
+      emoji: '🤔',
+      name: t('play.partyNight.guess.name'),
+      description: t('play.comingSoon'),
+      accentColor: '#94a3b8',
+      bg: '#f8fafc',
+      border: '#e2e8f0',
+      path: null,
+      active: false,
+    },
+  ]
 
   return (
     <div

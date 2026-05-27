@@ -1,0 +1,453 @@
+{
+  "landing": {
+    "tagline": "Votre univers partagé — planifiez, jouez et grandissez ensemble.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Planifiez des activités, partagez les dépenses, gagnez des points et gérez des récompenses.",
+      "cta": "Ouvrir DuoLife"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Jeux de fête, défis et jeux sociaux pour les couples, amis et groupes.",
+      "cta": "Ouvrir Play"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Jeux pour les fêtes, couples et amis",
+    "backToHome": "Retour à l'accueil",
+    "comingSoon": "Bientôt",
+    "comingSoonNote": "Les jeux arrivent ! Nous créons des expériences amusantes à partager. Restez à l'écoute.",
+    "games": {
+      "slot-machine": { "name": "Machine à sous", "description": "Tournez pour des bonus et des surprises" },
+      "flip-cards": { "name": "Retourner les cartes", "description": "Associez les cartes et gagnez des multiplicateurs" },
+      "party-questions": { "name": "Questions de fête", "description": "Questions amusantes pour groupes et couples" },
+      "dare-wheel": { "name": "Roue des défis", "description": "Tournez la roue pour des défis et des tâches" }
+    },
+    "impostor": {
+      "starts": "Commence",
+      "direction": "Direction",
+      "leftToRight": "de gauche à droite",
+      "rightToLeft": "de droite à gauche",
+      "clockwise": "dans le sens horaire",
+      "counterclockwise": "dans le sens antihoraire"
+    },
+    "partyNight": {
+      "label": "PartyNight",
+      "impostor": {
+        "name": "El Impostor",
+        "description": "Découvrez qui ne connaît pas le mot secret"
+      },
+      "truthOrDare": {
+        "name": "Vérité ou Défi",
+        "description": "Répondez honnêtement ou relevez un défi"
+      },
+      "bottle": {
+        "name": "Bouteille ivre",
+        "description": "Faites tourner la bouteille et acceptez votre destin"
+      },
+      "dice": {
+        "name": "Dé",
+        "description": "Lancez le dé et découvrez votre défi"
+      },
+      "guess": {
+        "name": "Qui ou Quoi ?",
+        "description": "Bientôt"
+      }
+    }
+  },
+  "nav": {
+    "home": "Accueil",
+    "planner": "Planner",
+    "expenses": "Dépenses",
+    "rewards": "Récompenses",
+    "games": "Jeux"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "new": "Nouveau",
+    "add": "Ajouter",
+    "delete": "Supprimer",
+    "done": "Terminé",
+    "paid": "payé",
+    "all": "Tous",
+    "soon": "Bientôt",
+    "markPaid": "Marquer payé",
+    "owes": "doit",
+    "by": "par",
+    "confirm": "Confirmer",
+    "remove": "Retirer"
+  },
+  "dashboard": {
+    "invite": "Inviter",
+    "recentActivities": "Activités récentes",
+    "coinHistory": "Historique des points",
+    "upcomingPlan": "Plan à venir",
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain",
+    "viewInPlanner": "Tout voir dans le Planner",
+    "noUpcoming": "Aucune activité prévue",
+    "noUpcomingSubtitle": "Planifiez quelque chose ensemble ✨",
+    "noActivitiesToday": "Aucune activité aujourd'hui.",
+    "noActivitiesWeek": "Aucune activité dans les 7 prochains jours.",
+    "noActivitiesMonth": "Aucune activité ce mois-ci.",
+    "filters": {
+      "today": "Aujourd'hui",
+      "week": "7 jours",
+      "month": "Mois",
+      "all": "Tout"
+    },
+    "stats": {
+      "completed": "Terminées",
+      "pending": "En attente",
+      "rewardsWon": "Récompenses gagnées",
+      "coinsEarned": "Points gagnés"
+    },
+    "empty": {
+      "title": "Aucune activité pour l'instant",
+      "subtitle": "Créez votre première activité et commencez à gagner des points !"
+    }
+  },
+  "planner": {
+    "today": "Aujourd'hui",
+    "addActivity": "Ajouter une activité",
+    "addSomething": "+ Ajouter quelque chose",
+    "noActivities": "Aucune activité pour ce jour",
+    "allPlannedDays": "Tous les jours planifiés",
+    "showAllDays": "Afficher tous les jours planifiés",
+    "focusDay": "Focaliser le jour sélectionné",
+    "jumpTo": {
+      "title": "Aller à la date",
+      "go": "Aller"
+    }
+  },
+  "rewards": {
+    "title": "Récompenses",
+    "newReward": "Nouvelle récompense",
+    "redeemingAs": "Échanger en tant que",
+    "redeemed": "Échangé",
+    "redeemedOn": "Échangé le {{date}}",
+    "notYours": "Pas le vôtre",
+    "notEnough": "Pas assez",
+    "redeem": "Échanger 🎉",
+    "noRewardsInCategory": "Aucune récompense dans cette catégorie",
+    "belongsTo": "Cette récompense appartient à {{name}}",
+    "redeemedToast": "🎉 \"{{name}}\" échangé !",
+    "categoryLabels": {
+      "All": "Tous",
+      "Wellness": "Bien-être",
+      "Food": "Nourriture",
+      "Fun": "Amusement",
+      "Entertainment": "Divertissement",
+      "Travel": "Voyage",
+      "Other": "Autre"
+    },
+    "errors": {
+      "alreadyRedeemed": "Déjà échangé",
+      "notEnoughCoins": "Pas assez de points"
+    }
+  },
+  "games": {
+    "title": "Mini-jeux",
+    "subtitle": "Jouez ensemble, gagnez ensemble",
+    "comingSoonBanner": {
+      "title": "Les jeux arrivent !",
+      "subtitle": "Nous créons des mini-jeux amusants pour vous deux. Restez à l'écoute !"
+    },
+    "historyPlaceholder": "L'historique des jeux apparaîtra ici une fois que vous aurez commencé à jouer.",
+    "items": {
+      "slot-machine": { "name": "Machine à sous", "description": "Tournez pour des bonus et des surprises" },
+      "flip-cards": { "name": "Retourner les cartes", "description": "Associez les cartes et gagnez des multiplicateurs" },
+      "wheel": { "name": "Tourner la roue", "description": "Laissez le destin décider de votre prochain rendez-vous" },
+      "trivia": { "name": "Quiz en couple", "description": "Jusqu'où vous connaissez-vous ?" }
+    }
+  },
+  "expenses": {
+    "title": "Dépenses",
+    "pendingDebts_one": "{{count}} dette en attente",
+    "pendingDebts_other": "{{count}} dettes en attente",
+    "allSettled": "Tout réglé",
+    "paidByLine": "payé par {{name}}",
+    "deleteExpense": "Supprimer la dépense",
+    "cardShare": "{{amount}} chacun",
+    "noExpenses": {
+      "title": "Aucune dépense pour l'instant.",
+      "subtitle": "Appuyez sur Ajouter pour enregistrer votre première dépense partagée."
+    },
+    "needsMoreMembers": "Ajoutez au moins 2 membres à votre espace pour partager les dépenses.",
+    "goToEditSpace": "Gérer les membres",
+    "selectAll": "Tout sélectionner",
+    "clearSelection": "Effacer",
+    "selectToCalculate": "Sélectionnez des dépenses pour calculer le règlement",
+    "summary": {
+      "title": "Résumé du règlement",
+      "totalSpent": "Total dépensé",
+      "netSettlement": "Règlement net",
+      "owesNothing": "ne doit rien"
+    },
+    "category": "Catégorie",
+    "categoryLabels": {
+      "Food": "Nourriture",
+      "Transport": "Transport",
+      "Accommodation": "Hébergement",
+      "Entertainment": "Divertissement",
+      "Shopping": "Shopping",
+      "Travel": "Voyage",
+      "Health": "Santé",
+      "Gifts": "Cadeaux",
+      "Home": "Maison",
+      "Other": "Autre"
+    },
+    "debtSummary": {
+      "noneNeeded": "Aucune dette",
+      "allSettled": "Tout encaissé ✓",
+      "one": "{{debtor}} doit {{amount}} à {{payer}}",
+      "many": "{{count}} personnes doivent {{amount}} chacune à {{payer}}"
+    },
+    "labels": {
+      "total": "Total",
+      "paidBy": "Payé par",
+      "participants": "Participants",
+      "eachPays": "Chacun paie",
+      "note": "Note",
+      "debts": "Dettes",
+      "noDebts": "Aucune dette — le payeur est le seul participant."
+    },
+    "settlement": {
+      "title": "Résumé du règlement",
+      "payerShare": "Part du payeur",
+      "toReceive": "À récupérer",
+      "received": "Déjà reçu",
+      "pending": "Toujours en attente"
+    }
+  },
+  "onboarding": {
+    "next": "Suivant →",
+    "getStarted": "Commencer ✨",
+    "skip": "Passer pour l'instant",
+    "dontShow": "Ne plus afficher",
+    "steps": {
+      "welcome": {
+        "title": "Bienvenue sur DuoLife ♾",
+        "subtitle": "Votre univers partagé",
+        "body": "DuoLife est votre espace de planification gamifié en couple. Planifiez, gagnez des points, échangez des récompenses et jouez ensemble. Tout ce que vous faites ici vous rapproche."
+      },
+      "activities": {
+        "title": "Activités",
+        "subtitle": "Planifiez et faites des choses ensemble",
+        "body": "Créez des activités pour n'importe quel jour — promenades matinales, dîners romantiques, gestes surprises. Assignez-les à l'un ou l'autre partenaire."
+      },
+      "coins": {
+        "title": "Points 🪙",
+        "subtitle": "Gagnez en agissant",
+        "body": "Chaque activité terminée rapporte des points au partenaire assigné. Plus la tâche est difficile, plus elle vaut de points."
+      },
+      "rewards": {
+        "title": "Récompenses",
+        "subtitle": "Dépensez vos points",
+        "body": "Créez des récompenses personnalisées échangeables avec des points — un massage, un dîner spécial, un dimanche tranquille."
+      },
+      "games": {
+        "title": "Mini-jeux",
+        "subtitle": "Bientôt",
+        "body": "Machines à sous, cartes et plus encore — jouez à des mini-jeux ensemble pour des points bonus. Bientôt disponible !"
+      }
+    }
+  },
+  "activity": {
+    "status": {
+      "pending": "en attente",
+      "completed": "terminée",
+      "cancelled": "annulée"
+    },
+    "done": "Terminé",
+    "by": "par",
+    "startTime": "Heure de début",
+    "endTime": "Heure de fin (optionnel)",
+    "location": "Lieu (optionnel)",
+    "locationPlaceholder": "ex. Parc, Maison...",
+    "deleteConfirmTitle": "Supprimer cette activité ?",
+    "deleteConfirmBody": "Cette action ne peut pas être annulée.",
+    "deleteFutureNote": "Les flux d'approbation seront disponibles lorsque des comptes réels seront connectés."
+  },
+  "setup": {
+    "step1Title": "Créer votre profil",
+    "step1Sub": "Commençons ensemble",
+    "step2Title": "Votre premier espace",
+    "step2Sub": "Là où la vie se passe",
+    "name": "Votre nom",
+    "namePlaceholder": "ex. Marie",
+    "avatar": "Avatar",
+    "language": "Langue",
+    "spaceName": "Nom de l'espace",
+    "spaceNamePlaceholder": "ex. Marie & Lucas",
+    "spaceType": "Type",
+    "members": "Membres",
+    "membersHint": "Plan gratuit · jusqu'à 3 membres",
+    "addMember": "+ Ajouter un membre",
+    "continue": "Continuer →",
+    "finish": "Créer l'espace ✨",
+    "errors": {
+      "noName": "Veuillez entrer votre nom",
+      "noSpaceName": "Veuillez entrer un nom d'espace",
+      "noSpaceType": "Veuillez sélectionner un type"
+    }
+  },
+  "spaces": {
+    "mySpaces": "Mes espaces",
+    "active": "Actif",
+    "create": "Nouvel espace",
+    "edit": "Modifier",
+    "freePlan": "Gratuit",
+    "upgrade": "Mettre à niveau",
+    "maxSpacesReached": "Plan gratuit : limite de 2 espaces atteinte",
+    "maxMembersReached": "Plan gratuit : maximum 3 membres par espace",
+    "upgradeMessage": "Passez à Pro pour des espaces et membres illimités",
+    "types": {
+      "Couple": "Couple",
+      "Friends": "Amis",
+      "Family": "Famille",
+      "Travel": "Voyage",
+      "Personal": "Personnel",
+      "Other": "Autre"
+    },
+    "modals": {
+      "create": {
+        "title": "Nouvel espace",
+        "subtitle": "Créez un univers partagé",
+        "name": "Nom de l'espace",
+        "namePlaceholder": "ex. Voyage 2025",
+        "type": "Type",
+        "members": "Membres",
+        "addMember": "+ Ajouter un membre",
+        "submit": "Créer l'espace",
+        "errors": {
+          "noName": "Veuillez entrer un nom",
+          "noType": "Veuillez sélectionner un type"
+        }
+      },
+      "edit": {
+        "title": "Modifier l'espace",
+        "subtitle": "Personnalisez votre espace",
+        "name": "Nom de l'espace",
+        "type": "Type",
+        "members": "Membres",
+        "addMember": "+ Ajouter un membre",
+        "roleAdmin": "Admin",
+        "roleMember": "Membre",
+        "removeMember": "Retirer",
+        "removeConfirmTitle": "Retirer ce membre ?",
+        "removeConfirmBody": "Les activités et dépenses passées seront conservées. Cette action ne peut pas être annulée.",
+        "removeConfirm": "Oui, retirer",
+        "deleteSpace": "Supprimer cet espace",
+        "deleteSpaceConfirmTitle": "Supprimer l'espace ?",
+        "deleteSpaceConfirmBody": "Cela supprimera définitivement l'espace et toutes ses données. Cette action ne peut pas être annulée.",
+        "deleteSpaceConfirm": "Oui, supprimer définitivement",
+        "dangerZone": "Zone dangereuse",
+        "deleteSpaceOnlyOne": "Pour supprimer cet espace, créez-en un autre d'abord.",
+        "backgroundImage": "Fond de l'espace",
+        "addBackground": "Ajouter une photo",
+        "changeBackground": "Changer la photo",
+        "removeBackground": "Retirer",
+        "backgroundNote": "La synchronisation cloud pour les photos sera activée lorsque les comptes seront connectés.",
+        "submit": "Enregistrer les modifications",
+        "errors": {
+          "noName": "Veuillez entrer un nom"
+        }
+      }
+    }
+  },
+  "modals": {
+    "createActivity": {
+      "title": "Nouvelle activité",
+      "subtitle": "Planifiez quelque chose ensemble",
+      "labels": {
+        "title": "Titre",
+        "description": "Description",
+        "assignTo": "Assigner à",
+        "date": "Date",
+        "startTime": "Heure de début",
+        "endTime": "Heure de fin (optionnel)",
+        "location": "Lieu (optionnel)",
+        "coinReward": "Récompense en points ✦",
+        "createdBy": "Créé par"
+      },
+      "placeholders": {
+        "title": "ex. Promenade matinale, Cuisiner ensemble...",
+        "description": "Détails optionnels...",
+        "location": "ex. Parc, Maison...",
+        "customAmount": "Montant personnalisé"
+      },
+      "submit": "Créer l'activité",
+      "editTitle": "Modifier l'activité",
+      "editSubtitle": "Mettre à jour les détails",
+      "editSubmit": "Enregistrer les modifications",
+      "timeFormatHint": "Utilisez le format 24 heures, ex. 18:30",
+      "errors": {
+        "noTitle": "Veuillez entrer un titre",
+        "noAssignee": "Veuillez assigner à un partenaire",
+        "noDate": "Veuillez choisir une date",
+        "invalidTime": "Format 24 heures HH:mm, ex. 18:30"
+      }
+    },
+    "createReward": {
+      "title": "Nouvelle récompense",
+      "subtitle": "Quelque chose qui vaut la peine d'être gagné",
+      "labels": {
+        "icon": "Icône",
+        "name": "Nom de la récompense",
+        "owner": "Propriétaire",
+        "category": "Catégorie",
+        "cost": "Coût (points) ✦"
+      },
+      "placeholders": {
+        "name": "ex. Massage complet, Choix du restaurant..."
+      },
+      "submit": "Créer la récompense",
+      "errors": {
+        "noName": "Veuillez entrer un nom de récompense"
+      }
+    },
+    "createExpense": {
+      "title": "Nouvelle dépense",
+      "subtitle": "Partager équitablement",
+      "editTitle": "Modifier la dépense",
+      "editSubtitle": "Mettre à jour les détails",
+      "editSubmit": "Enregistrer les modifications",
+      "labels": {
+        "title": "Titre",
+        "amount": "Montant",
+        "currency": "Devise",
+        "category": "Catégorie",
+        "paidBy": "Payé par",
+        "date": "Date",
+        "participants": "Participants",
+        "note": "Note (optionnel)"
+      },
+      "placeholders": {
+        "title": "ex. Dîner, Taxi, Courses…",
+        "note": "Détails…"
+      },
+      "eachPaysPreview": "Chacun paie : {{symbol}} {{amount}}",
+      "submit": "Enregistrer la dépense",
+      "errors": {
+        "noTitle": "Veuillez entrer un titre",
+        "noAmount": "Veuillez entrer un montant valide",
+        "noCategory": "Veuillez sélectionner une catégorie",
+        "noPaidBy": "Veuillez sélectionner qui a payé",
+        "noParticipants": "Sélectionnez au moins un participant",
+        "noDate": "Veuillez choisir une date"
+      }
+    },
+    "invite": {
+      "title": "Inviter un partenaire",
+      "heading": "Partagez votre espace",
+      "body": "Envoyez ce code d'invitation à votre partenaire pour qu'il puisse rejoindre",
+      "codeLabel": "Code d'invitation",
+      "copyCode": "Copier le code",
+      "copied": "Copié !",
+      "emailSoon": "📧 Invitations par e-mail bientôt disponibles"
+    }
+  }
+}
