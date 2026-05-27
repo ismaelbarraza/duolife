@@ -35,6 +35,14 @@
         "name": "Roda de Desafios",
         "description": "Gire a roda para desafios e tarefas"
       }
+    },
+    "impostor": {
+      "starts": "Começa",
+      "direction": "Direção",
+      "leftToRight": "esquerda para direita",
+      "rightToLeft": "direita para esquerda",
+      "clockwise": "sentido horário",
+      "counterclockwise": "sentido anti-horário"
     }
   },
   "nav": {

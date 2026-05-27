@@ -1,11 +1,26 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Plus, X, Eye, EyeOff } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { impostorContent, CATEGORY_LABELS } from '../../data/impostorContent'
 import { getRandomItem, shuffleArray } from '../../utils/random'
 
 const PAGE_BG = 'linear-gradient(160deg, #f5f3ff 0%, #fdf2f8 60%, #fff7ed 100%)'
 const ACCENT = { bg: 'linear-gradient(135deg, #7c3aed, #5b21b6)', border: '#ddd6fe', light: '#f5f3ff', text: '#5b21b6' }
+
+const DIRECTION_KEYS = ['leftToRight', 'rightToLeft', 'clockwise', 'counterclockwise']
+
+// Impostors are slightly less likely to start (weight 0.65 vs 1.0) but not excluded
+function pickWeightedRandom(players, impostorIndices) {
+  const weights = players.map((_, i) => impostorIndices.includes(i) ? 0.65 : 1.0)
+  const total = weights.reduce((a, b) => a + b, 0)
+  let r = Math.random() * total
+  for (let i = 0; i < weights.length; i++) {
+    r -= weights[i]
+    if (r <= 0) return i
+  }
+  return players.length - 1
+}
 
 function BackButton({ onClick }) {
   return (
@@ -20,6 +35,7 @@ function BackButton({ onClick }) {
 
 export default function ImpostorGame() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const [gameState, setGameState] = useState('SETUP')
   const [players, setPlayers] = useState([])
@@ -37,6 +53,9 @@ export default function ImpostorGame() {
   // Reveal flow
   const [revealIndex, setRevealIndex] = useState(0)
   const [showRole, setShowRole] = useState(false)
+
+  // Start instruction — generated once when entering DISCUSS, stable across re-renders
+  const [startInstruction, setStartInstruction] = useState(null)
 
   const addPlayer = () => {
     const name = newPlayerName.trim()
@@ -81,6 +100,9 @@ export default function ImpostorGame() {
       setRevealIndex((v) => v + 1)
       setShowRole(false)
     } else {
+      const dirKey = DIRECTION_KEYS[Math.floor(Math.random() * DIRECTION_KEYS.length)]
+      const starterIdx = pickWeightedRandom(players, impostorIndices)
+      setStartInstruction({ playerName: players[starterIdx], directionKey: dirKey })
       setGameState('DISCUSS')
     }
   }
@@ -91,6 +113,7 @@ export default function ImpostorGame() {
     setNewPlayerName('')
     setNumImpostors(1)
     setError('')
+    setStartInstruction(null)
   }
 
   // ── REVEAL ─────────────────────────────────────────────────────────────────
@@ -184,9 +207,22 @@ export default function ImpostorGame() {
           <p className="text-slate-500 font-body text-sm leading-relaxed max-w-xs mb-6">
             Ahora jueguen, conversen y traten de descubrir quién es el impostor.
           </p>
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-5 py-3 text-sm font-body text-slate-500 mb-8">
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-5 py-3 text-sm font-body text-slate-500 mb-4">
             {players.length} jugadores · {numImpostors === 1 ? '1 impostor' : '2 impostores'}
           </div>
+
+          {startInstruction && (
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 py-4 text-center mb-8 w-full max-w-xs">
+              <p className="text-slate-400 font-body text-[10px] uppercase tracking-wider mb-1.5">
+                {t('play.impostor.starts')}
+              </p>
+              <p className="font-body font-bold text-xl text-slate-800">{startInstruction.playerName}</p>
+              <p className="text-slate-400 font-body text-xs mt-2">
+                {t('play.impostor.direction')}: <span className="text-slate-600 font-medium">{t(`play.impostor.${startInstruction.directionKey}`)}</span>
+              </p>
+            </div>
+          )}
+
           <button
             onClick={() => setGameState('RESULT')}
             className="font-body font-semibold text-base text-white px-10 py-4 rounded-2xl transition-all active:scale-95 hover:opacity-90"

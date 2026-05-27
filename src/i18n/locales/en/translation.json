@@ -35,6 +35,14 @@
         "name": "Dare Wheel",
         "description": "Spin the wheel for dares and challenges"
       }
+    },
+    "impostor": {
+      "starts": "Starts",
+      "direction": "Direction",
+      "leftToRight": "left to right",
+      "rightToLeft": "right to left",
+      "clockwise": "clockwise",
+      "counterclockwise": "counterclockwise"
     }
   },
   "nav": {

@@ -35,6 +35,14 @@
         "name": "Ruota delle Sfide",
         "description": "Gira la ruota per sfide e compiti"
       }
+    },
+    "impostor": {
+      "starts": "Inizia",
+      "direction": "Direzione",
+      "leftToRight": "da sinistra a destra",
+      "rightToLeft": "da destra a sinistra",
+      "clockwise": "in senso orario",
+      "counterclockwise": "in senso antiorario"
     }
   },
   "nav": {
