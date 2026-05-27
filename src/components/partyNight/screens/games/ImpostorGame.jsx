@@ -10,6 +10,34 @@ const ACCENT = { bg: 'linear-gradient(135deg, #7c3aed, #5b21b6)', border: '#ddd6
 
 const DIRECTION_KEYS = ['leftToRight', 'rightToLeft', 'clockwise', 'counterclockwise']
 
+const RECENT_WORDS_KEY = 'partyNight_impostor_recentWords'
+const MAX_RECENT = 8
+
+function pickImpostorItem(categoryId, items) {
+  let recentMap = {}
+  try { recentMap = JSON.parse(localStorage.getItem(RECENT_WORDS_KEY) || '{}') } catch (_) {}
+  const recentWords = recentMap[categoryId] || []
+
+  // Filter out recently used words
+  let pool = items.filter((item) => !recentWords.includes(item.word))
+
+  // If pool is empty, allow all except the very last word used
+  if (pool.length === 0) {
+    const lastWord = recentWords[recentWords.length - 1]
+    pool = items.filter((item) => item.word !== lastWord)
+    if (pool.length === 0) pool = items // absolute fallback
+  }
+
+  const item = pool[Math.floor(Math.random() * pool.length)]
+
+  // Record usage, keeping only the last MAX_RECENT words
+  const updated = [...recentWords.filter((w) => w !== item.word), item.word].slice(-MAX_RECENT)
+  recentMap[categoryId] = updated
+  try { localStorage.setItem(RECENT_WORDS_KEY, JSON.stringify(recentMap)) } catch (_) {}
+
+  return item
+}
+
 // Impostors are slightly less likely to start (weight 0.65 vs 1.0) but not excluded
 function pickWeightedRandom(players, impostorIndices) {
   const weights = players.map((_, i) => impostorIndices.includes(i) ? 0.65 : 1.0)
@@ -80,7 +108,7 @@ export default function ImpostorGame() {
     const items = impostorContent[categoryId]
     if (!items?.length) { setError('Sin contenido en esta categoría'); return }
 
-    const item = getRandomItem(items)
+    const item = pickImpostorItem(categoryId, items)
     const hint = item.impostorHint || item.hints?.[0] || item.hint || 'Pista no disponible'
 
     const allIdx = Array.from({ length: players.length }, (_, i) => i)
