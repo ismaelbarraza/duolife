@@ -38,9 +38,9 @@ function pickImpostorItem(categoryId, items) {
   return item
 }
 
-// Impostors are slightly less likely to start (weight 0.65 vs 1.0) but not excluded
+// Impostors are significantly less likely to start (weight 0.25 vs 1.0) but not excluded
 function pickWeightedRandom(players, impostorIndices) {
-  const weights = players.map((_, i) => impostorIndices.includes(i) ? 0.65 : 1.0)
+  const weights = players.map((_, i) => impostorIndices.includes(i) ? 0.25 : 1.0)
   const total = weights.reduce((a, b) => a + b, 0)
   let r = Math.random() * total
   for (let i = 0; i < weights.length; i++) {
