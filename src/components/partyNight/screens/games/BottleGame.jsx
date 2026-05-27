@@ -9,38 +9,50 @@ const POINTER_OFFSET = 0 // degrees — adjust if visual pointer is misaligned
 
 function BottleSVG() {
   return (
-    <svg width="152" height="54" viewBox="0 0 152 54" fill="none">
+    <svg width="182" height="56" viewBox="0 0 182 56" fill="none">
       <defs>
-        <linearGradient id="bottleBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#81c784" />
-          <stop offset="45%" stopColor="#388e3c" />
-          <stop offset="100%" stopColor="#1b5e20" />
+        <linearGradient id="bBodyG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#1a5220" />
+          <stop offset="18%" stopColor="#2e7d32" />
+          <stop offset="42%" stopColor="#43a047" />
+          <stop offset="58%" stopColor="#43a047" />
+          <stop offset="82%" stopColor="#2e7d32" />
+          <stop offset="100%" stopColor="#0f3312" />
         </linearGradient>
-        <linearGradient id="bottleNeckGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#66bb6a" />
-          <stop offset="100%" stopColor="#2e7d32" />
+        <linearGradient id="bNeckG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#1a4d1e" />
+          <stop offset="50%" stopColor="#256028" />
+          <stop offset="100%" stopColor="#0f3012" />
         </linearGradient>
-        <linearGradient id="bottleHlGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.62)" />
+        <linearGradient id="bHlG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="rgba(255,255,255,0.82)" />
+          <stop offset="50%" stopColor="rgba(255,255,255,0.28)" />
           <stop offset="100%" stopColor="rgba(255,255,255,0)" />
         </linearGradient>
+        <linearGradient id="bCapG" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#555" />
+          <stop offset="100%" stopColor="#1a1a1a" />
+        </linearGradient>
       </defs>
-      {/* Drop shadow */}
-      <ellipse cx="95" cy="51" rx="50" ry="4" fill="rgba(0,0,0,0.11)" />
-      {/* Main body */}
-      <rect x="52" y="8" width="92" height="36" rx="18" fill="url(#bottleBodyGrad)" />
-      {/* Shoulder (neck-body junction) */}
-      <rect x="30" y="15" width="34" height="22" rx="8" fill="url(#bottleNeckGrad)" />
-      {/* Neck */}
-      <rect x="4" y="18" width="38" height="16" rx="6" fill="url(#bottleNeckGrad)" />
-      {/* Mouth/lip */}
-      <rect x="2" y="20" width="9" height="12" rx="4" fill="#174d1b" />
-      {/* Glass highlight — left bright strip */}
-      <rect x="57" y="10" width="13" height="21" rx="6.5" fill="url(#bottleHlGrad)" opacity="0.8" />
-      {/* Secondary narrow highlight */}
-      <rect x="75" y="10" width="4" height="24" rx="2" fill="rgba(255,255,255,0.17)" />
-      {/* Label area */}
-      <rect x="75" y="17" width="48" height="14" rx="5" fill="rgba(0,0,0,0.09)" />
+      {/* Shadow */}
+      <ellipse cx="112" cy="53.5" rx="66" ry="4" fill="rgba(0,0,0,0.15)" />
+      {/* Body */}
+      <rect x="62" y="10" width="112" height="34" rx="17" fill="url(#bBodyG)" />
+      {/* Shoulder */}
+      <rect x="40" y="16" width="32" height="22" rx="9" fill="url(#bNeckG)" />
+      {/* Neck — narrower */}
+      <rect x="6" y="21" width="44" height="12" rx="5" fill="url(#bNeckG)" />
+      {/* Cap */}
+      <rect x="2" y="22" width="9" height="10" rx="3.5" fill="url(#bCapG)" />
+      <rect x="2" y="22" width="9" height="5" rx="3.5" fill="rgba(255,255,255,0.12)" />
+      {/* Glass highlight — main vertical band */}
+      <rect x="70" y="12" width="11" height="22" rx="5.5" fill="url(#bHlG)" opacity="0.9" />
+      {/* Thin secondary reflection */}
+      <rect x="85" y="12" width="3" height="24" rx="1.5" fill="rgba(255,255,255,0.22)" />
+      {/* Label recess */}
+      <rect x="90" y="19" width="58" height="16" rx="5" fill="rgba(0,0,0,0.08)" />
+      {/* Glass tint — subtle transparency on top half */}
+      <rect x="62" y="10" width="112" height="17" rx="17" fill="rgba(255,255,255,0.05)" />
     </svg>
   )
 }

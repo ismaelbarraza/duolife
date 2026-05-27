@@ -146,6 +146,10 @@ export default function DiceGame() {
   const [history, setHistory] = useState([])
   const [error, setError] = useState('')
   const cycleRef = useRef(null)
+  const [multiDiceVal, setMultiDiceVal] = useState(1)
+  const [multiDiceRolling, setMultiDiceRolling] = useState(false)
+  const [multiDiceSettling, setMultiDiceSettling] = useState(false)
+  const [multiDiceSettleKey, setMultiDiceSettleKey] = useState(0)
 
   // ── Classic roll ────────────────────────────────────────────────────────────
   const rollClassic = useCallback(() => {
@@ -187,40 +191,56 @@ export default function DiceGame() {
     setError('')
     setSelectedAction(null)
     setDisplayAction(null)
+    setMultiDiceRolling(true)
     setMultiPhase('ROLLING_CAT')
     const final = getRandomItem(available)
     let tick = 0
-    const maxTicks = 12
+    const maxTicks = 9 // 9 × 90ms ≈ 810ms rolling
     cycleRef.current = setInterval(() => {
+      setMultiDiceVal(getRandomInt(1, 6))
       setDisplayCat(available[tick % available.length])
       tick++
       if (tick >= maxTicks) {
         clearInterval(cycleRef.current)
+        setMultiDiceRolling(false)
+        setMultiDiceSettleKey((k) => k + 1)
+        setMultiDiceSettling(true)
         setDisplayCat(final)
         setSelectedCat(final)
-        setMultiPhase('SHOW_CAT')
+        setTimeout(() => {
+          setMultiDiceSettling(false)
+          setMultiPhase('SHOW_CAT')
+        }, 450)
       }
-    }, 80)
+    }, 90)
   }
 
   const rollAction = () => {
     if (!selectedCat) return
+    setMultiDiceRolling(true)
     setMultiPhase('ROLLING_ACT')
     const final = pickWithAntiRepeat(selectedCat.actions, `dice_${selectedCat.id}`, 8)
     let tick = 0
-    const maxTicks = 14
+    const maxTicks = 10 // 10 × 90ms = 900ms rolling
     cycleRef.current = setInterval(() => {
+      setMultiDiceVal(getRandomInt(1, 6))
       setDisplayAction(selectedCat.actions[tick % selectedCat.actions.length])
       tick++
       if (tick >= maxTicks) {
         clearInterval(cycleRef.current)
+        setMultiDiceRolling(false)
+        setMultiDiceSettleKey((k) => k + 1)
+        setMultiDiceSettling(true)
         setDisplayAction(final)
         setSelectedAction(final)
         setRevealKey((k) => k + 1)
-        setMultiPhase('SHOW_ACT')
-        setHistory((prev) => [{ category: selectedCat, action: final }, ...prev.slice(0, 4)])
+        setTimeout(() => {
+          setMultiDiceSettling(false)
+          setMultiPhase('SHOW_ACT')
+          setHistory((prev) => [{ category: selectedCat, action: final }, ...prev.slice(0, 4)])
+        }, 450)
       }
-    }, 80)
+    }, 90)
   }
 
   const nextTurn = () => {
@@ -228,6 +248,8 @@ export default function DiceGame() {
     setSelectedAction(null)
     setDisplayCat(null)
     setDisplayAction(null)
+    setMultiDiceRolling(false)
+    setMultiDiceSettling(false)
     setMultiPhase('IDLE')
   }
 
@@ -239,8 +261,6 @@ export default function DiceGame() {
     )
     setError('')
   }
-
-  const isMultiRolling = multiPhase === 'ROLLING_CAT' || multiPhase === 'ROLLING_ACT'
 
   // ── Mode selector ───────────────────────────────────────────────────────────
   if (!mode) {
@@ -398,56 +418,64 @@ export default function DiceGame() {
 
         {/* Main area */}
         <div className="space-y-4">
-          {/* Category result */}
-          {(multiPhase === 'ROLLING_CAT' || multiPhase === 'SHOW_CAT' || multiPhase === 'ROLLING_ACT' || multiPhase === 'SHOW_ACT') && (
-            <div
-              className="rounded-2xl p-5 text-center border transition-colors duration-150"
-              style={{
-                background: (displayCat || selectedCat)?.bg || '#f8fafc',
-                borderColor: (displayCat || selectedCat)?.border || '#e2e8f0',
-              }}
-            >
-              {multiPhase === 'ROLLING_CAT' ? (
+
+          {/* Rolling phase — visible dice + cycling label */}
+          {(multiPhase === 'ROLLING_CAT' || multiPhase === 'ROLLING_ACT') && (
+            <div className="bg-white rounded-2xl p-6 text-center border border-slate-100 shadow-sm">
+              <div className="flex justify-center mb-4">
+                <DiceFace
+                  key={`multi-${multiDiceSettleKey}`}
+                  value={multiDiceVal}
+                  size={88}
+                  rolling={multiDiceRolling}
+                  settling={multiDiceSettling}
+                />
+              </div>
+              {multiPhase === 'ROLLING_CAT' && (
                 <>
-                  <div className="text-3xl mb-1">{displayCat?.emoji || '🎲'}</div>
-                  <p className="font-body font-bold text-base animate-pulse" style={{ color: displayCat?.color || '#94a3b8' }}>
-                    {displayCat?.label || '...'}
+                  <div className="text-2xl mb-1">{displayCat?.emoji || '🎲'}</div>
+                  <p className="font-body font-semibold text-sm text-slate-500 animate-pulse">
+                    {displayCat?.label || 'Eligiendo...'}
                   </p>
-                  <p className="text-slate-400 font-body text-xs mt-0.5">Eligiendo categoría...</p>
                 </>
-              ) : (
+              )}
+              {multiPhase === 'ROLLING_ACT' && (
                 <>
-                  <div className="text-3xl mb-1">{selectedCat?.emoji}</div>
-                  <p className="font-body font-bold text-base" style={{ color: selectedCat?.color }}>
-                    {selectedCat?.label}
+                  <p className="text-slate-400 font-body text-xs mb-1 animate-pulse">Eligiendo acción...</p>
+                  <p className="font-body font-semibold text-sm text-slate-400 min-h-[1.5rem]">
+                    {displayAction || '...'}
                   </p>
-                  <p className="text-slate-400 font-body text-xs mt-0.5">Categoría seleccionada</p>
                 </>
               )}
             </div>
           )}
 
-          {/* Action result */}
-          {(multiPhase === 'ROLLING_ACT' || multiPhase === 'SHOW_ACT') && (
+          {/* Category result card */}
+          {(multiPhase === 'SHOW_CAT' || multiPhase === 'SHOW_ACT') && (
+            <div
+              className="rounded-2xl p-5 text-center border"
+              style={{ background: selectedCat?.bg || '#f8fafc', borderColor: selectedCat?.border || '#e2e8f0' }}
+            >
+              <div className="text-3xl mb-1">{selectedCat?.emoji}</div>
+              <p className="font-body font-bold text-base" style={{ color: selectedCat?.color }}>
+                {selectedCat?.label}
+              </p>
+              <p className="text-slate-400 font-body text-xs mt-0.5">Categoría seleccionada</p>
+            </div>
+          )}
+
+          {/* Action result card */}
+          {multiPhase === 'SHOW_ACT' && (
             <div
               className="rounded-2xl p-5 text-center border bg-white"
               style={{ borderColor: selectedCat?.border || '#e2e8f0' }}
             >
-              {multiPhase === 'ROLLING_ACT' ? (
-                <>
-                  <p className="text-slate-400 font-body text-xs mb-2 animate-pulse">Eligiendo acción...</p>
-                  <p className="font-body font-semibold text-base text-slate-400 leading-snug min-h-[2.5rem]">
-                    {displayAction || '...'}
-                  </p>
-                </>
-              ) : (
-                <div key={revealKey} style={{ animation: 'diceReveal 0.35s ease' }}>
-                  <p className="text-slate-400 font-body text-xs mb-2">Tu acción</p>
-                  <p className="font-body font-semibold text-base text-slate-800 leading-snug">
-                    {selectedAction}
-                  </p>
-                </div>
-              )}
+              <div key={revealKey} style={{ animation: 'diceReveal 0.35s ease' }}>
+                <p className="text-slate-400 font-body text-xs mb-2">Tu acción</p>
+                <p className="font-body font-semibold text-base text-slate-800 leading-snug">
+                  {selectedAction}
+                </p>
+              </div>
             </div>
           )}
 
@@ -477,11 +505,6 @@ export default function DiceGame() {
             >
               Siguiente turno
             </button>
-          )}
-          {isMultiRolling && (
-            <div className="w-full py-4 rounded-2xl font-body font-bold text-base text-center text-slate-400 bg-slate-50 border border-slate-200">
-              Lanzando...
-            </div>
           )}
         </div>
 
