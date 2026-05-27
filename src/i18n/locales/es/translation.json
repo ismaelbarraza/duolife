@@ -1,4 +1,42 @@
 {
+  "landing": {
+    "tagline": "Tu universo compartido — planifica, juega y crece juntos.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Planifica actividades, divide gastos, gana puntos y gestiona premios con tu gente.",
+      "cta": "Entrar a DuoLife"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Juegos de fiesta, retos y juegos sociales para parejas, amigos y grupos.",
+      "cta": "Entrar a Play"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Juegos para fiestas, parejas y amigos",
+    "backToHome": "Volver al inicio",
+    "comingSoon": "Pronto",
+    "comingSoonNote": "¡Los juegos están en camino! Estamos creando experiencias divertidas para disfrutar juntos. ¡Estén atentos!",
+    "games": {
+      "slot-machine": {
+        "name": "Tragamonedas",
+        "description": "Gira para puntos extra y sorpresas"
+      },
+      "flip-cards": {
+        "name": "Voltear Cartas",
+        "description": "Empareja cartas y gana multiplicadores"
+      },
+      "party-questions": {
+        "name": "Preguntas de Fiesta",
+        "description": "Preguntas divertidas para grupos y parejas"
+      },
+      "dare-wheel": {
+        "name": "Rueda de Retos",
+        "description": "Gira la rueda para retos y desafíos"
+      }
+    }
+  },
   "nav": {
     "home": "Inicio",
     "planner": "Planner",
@@ -299,6 +337,13 @@
         "deleteSpaceConfirmTitle": "¿Eliminar Espacio?",
         "deleteSpaceConfirmBody": "Esto eliminará permanentemente el espacio y todos sus datos. Esta acción no se puede deshacer.",
         "deleteSpaceConfirm": "Sí, eliminar permanentemente",
+        "dangerZone": "Zona de Peligro",
+        "deleteSpaceOnlyOne": "Para eliminar este Espacio, crea otro primero.",
+        "backgroundImage": "Fondo del Espacio",
+        "addBackground": "Agregar foto",
+        "changeBackground": "Cambiar foto",
+        "removeBackground": "Quitar",
+        "backgroundNote": "La sincronización en la nube para fotos de Espacio se habilitará cuando las cuentas estén conectadas.",
         "submit": "Guardar Cambios",
         "errors": {
           "noName": "Por favor ingresa un nombre"

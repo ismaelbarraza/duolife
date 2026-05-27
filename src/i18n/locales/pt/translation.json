@@ -1,4 +1,42 @@
 {
+  "landing": {
+    "tagline": "Seu universo compartilhado — planejem, joguem e cresçam juntos.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Planeje atividades, divida gastos, ganhe pontos e gerencie recompensas com seu pessoal.",
+      "cta": "Entrar no DuoLife"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Jogos de festa, desafios e jogos sociais para casais, amigos e grupos.",
+      "cta": "Entrar no Play"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Jogos para festas, casais e amigos",
+    "backToHome": "Voltar ao início",
+    "comingSoon": "Em breve",
+    "comingSoonNote": "Os jogos estão a caminho! Estamos criando experiências divertidas para vocês aproveitarem juntos. Fiquem ligados!",
+    "games": {
+      "slot-machine": {
+        "name": "Caça-Níqueis",
+        "description": "Gire para pontos bônus e surpresas"
+      },
+      "flip-cards": {
+        "name": "Virar Cartas",
+        "description": "Combine cartas e ganhe multiplicadores"
+      },
+      "party-questions": {
+        "name": "Perguntas de Festa",
+        "description": "Perguntas divertidas para grupos e casais"
+      },
+      "dare-wheel": {
+        "name": "Roda de Desafios",
+        "description": "Gire a roda para desafios e tarefas"
+      }
+    }
+  },
   "nav": {
     "home": "Início",
     "planner": "Planner",
@@ -299,6 +337,13 @@
         "deleteSpaceConfirmTitle": "Excluir Espaço?",
         "deleteSpaceConfirmBody": "Isso excluirá permanentemente o espaço e todos os seus dados. Esta ação não pode ser desfeita.",
         "deleteSpaceConfirm": "Sim, excluir permanentemente",
+        "dangerZone": "Zona de Perigo",
+        "deleteSpaceOnlyOne": "Para excluir este Espaço, crie outro Espaço primeiro.",
+        "backgroundImage": "Fundo do Espaço",
+        "addBackground": "Adicionar foto",
+        "changeBackground": "Alterar foto",
+        "removeBackground": "Remover",
+        "backgroundNote": "A sincronização na nuvem para fotos de Espaço será habilitada quando as contas estiverem conectadas.",
         "submit": "Salvar Alterações",
         "errors": {
           "noName": "Por favor, insira um nome"

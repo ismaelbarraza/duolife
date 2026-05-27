@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { X, Trash2 } from 'lucide-react'
+import React, { useState, useRef } from 'react'
+import { X, Trash2, ImagePlus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../../hooks/useAppContext'
 import { SPACE_TYPES, AVATAR_EMOJIS } from '../../data/mockData'
@@ -9,9 +9,11 @@ const FREE_PLAN_MAX_MEMBERS = 3
 export default function EditSpaceModal({ space, onClose }) {
   const { t } = useTranslation()
   const { users, spaces, updateSpace, deleteSpace } = useApp()
+  const fileInputRef = useRef(null)
 
   const [name, setName] = useState(space.name)
   const [type, setType] = useState(space.type)
+  const [bgImage, setBgImage] = useState(space.backgroundImage || null)
   const [editedMembers, setEditedMembers] = useState(
     users.map((u, i) => ({ id: u.id, name: u.name, emoji: u.emoji, isAdmin: i === 0, removed: false }))
   )
@@ -24,6 +26,7 @@ export default function EditSpaceModal({ space, onClose }) {
   const activeMembers = editedMembers.filter(m => !m.removed)
   const totalCount = activeMembers.length + newMembers.length
   const canAddMember = totalCount < FREE_PLAN_MAX_MEMBERS
+  const canDelete = spaces.length > 1
 
   const updateMember = (id, k, v) =>
     setEditedMembers(m => m.map(mem => mem.id === id ? { ...mem, [k]: v } : mem))
@@ -46,15 +49,24 @@ export default function EditSpaceModal({ space, onClose }) {
   const updateNewMember = (i, k, v) =>
     setNewMembers(m => m.map((mem, idx) => idx === i ? { ...mem, [k]: v } : mem))
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onloadend = () => setBgImage(reader.result)
+    reader.readAsDataURL(file)
+    e.target.value = ''
+  }
+
   const handleSubmit = () => {
     if (!name.trim()) return setError(t('spaces.modals.edit.errors.noName'))
     setError('')
-
-    const typeEntry = SPACE_TYPES.find(t => t.id === type)
+    const typeEntry = SPACE_TYPES.find(st => st.id === type)
     updateSpace(space.id, {
       name: name.trim(),
       type,
       emoji: typeEntry?.emoji || space.emoji,
+      backgroundImage: bgImage || null,
       members: editedMembers,
       newMembers,
     })
@@ -66,6 +78,7 @@ export default function EditSpaceModal({ space, onClose }) {
     onClose()
   }
 
+  // ── Delete confirmation screen ──────────────────────────────────────────────
   if (showDeleteConfirm) {
     return (
       <div className="modal-backdrop" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -73,8 +86,12 @@ export default function EditSpaceModal({ space, onClose }) {
           <div className="p-6 text-center space-y-4">
             <div className="text-4xl">⚠️</div>
             <div>
-              <h3 className="font-body font-bold text-lg text-slate-900">{t('spaces.modals.edit.deleteSpaceConfirmTitle')}</h3>
-              <p className="text-slate-500 text-sm font-body mt-2">{t('spaces.modals.edit.deleteSpaceConfirmBody')}</p>
+              <h3 className="font-body font-bold text-lg text-slate-900">
+                {t('spaces.modals.edit.deleteSpaceConfirmTitle')}
+              </h3>
+              <p className="text-slate-500 text-sm font-body mt-2">
+                {t('spaces.modals.edit.deleteSpaceConfirmBody')}
+              </p>
             </div>
             <div className="flex gap-3">
               <button
@@ -96,6 +113,7 @@ export default function EditSpaceModal({ space, onClose }) {
     )
   }
 
+  // ── Main edit modal ─────────────────────────────────────────────────────────
   return (
     <div className="modal-backdrop" onClick={e => e.target === e.currentTarget && onClose()}>
       <div
@@ -113,7 +131,7 @@ export default function EditSpaceModal({ space, onClose }) {
           </button>
         </div>
 
-        <div className="p-5 space-y-4">
+        <div className="p-5 space-y-5">
           {error && (
             <p className="text-rose-600 text-sm font-body bg-rose-50 border border-rose-100 rounded-xl px-3 py-2">
               {error}
@@ -125,11 +143,7 @@ export default function EditSpaceModal({ space, onClose }) {
             <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
               {t('spaces.modals.edit.name')} *
             </label>
-            <input
-              className="input-field"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
+            <input className="input-field" value={name} onChange={e => setName(e.target.value)} />
           </div>
 
           {/* Type */}
@@ -157,13 +171,62 @@ export default function EditSpaceModal({ space, onClose }) {
             </div>
           </div>
 
+          {/* Background photo */}
+          <div>
+            <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-2">
+              {t('spaces.modals.edit.backgroundImage')}
+            </label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageUpload}
+            />
+            {bgImage ? (
+              <div className="relative rounded-2xl overflow-hidden">
+                <img
+                  src={bgImage}
+                  alt="Space background"
+                  className="w-full h-28 object-cover"
+                />
+                <div className="absolute inset-0 flex items-center justify-center gap-2"
+                  style={{ background: 'rgba(0,0,0,0.25)' }}
+                >
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-3 py-1.5 rounded-full text-xs font-body font-medium bg-white/90 text-slate-700 hover:bg-white transition-all"
+                  >
+                    {t('spaces.modals.edit.changeBackground')}
+                  </button>
+                  <button
+                    onClick={() => setBgImage(null)}
+                    className="px-3 py-1.5 rounded-full text-xs font-body font-medium bg-white/90 text-rose-500 hover:bg-white transition-all"
+                  >
+                    {t('spaces.modals.edit.removeBackground')}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full py-5 rounded-2xl border border-dashed border-slate-200 hover:bg-slate-50 transition-all flex flex-col items-center gap-2"
+              >
+                <ImagePlus size={20} className="text-slate-300" />
+                <span className="text-slate-400 text-xs font-body">{t('spaces.modals.edit.addBackground')}</span>
+              </button>
+            )}
+            <p className="text-[10px] text-slate-300 font-body mt-1.5 leading-relaxed">
+              {t('spaces.modals.edit.backgroundNote')}
+            </p>
+          </div>
+
           {/* Members */}
           <div>
             <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-2">
               {t('spaces.modals.edit.members')}
             </label>
             <div className="space-y-2">
-              {/* Existing members */}
               {editedMembers.filter(m => !m.removed).map((m) => (
                 <div key={m.id} className="space-y-1.5">
                   {confirmRemoveId === m.id ? (
@@ -239,7 +302,6 @@ export default function EditSpaceModal({ space, onClose }) {
                 </div>
               ))}
 
-              {/* New members */}
               {newMembers.map((m, i) => (
                 <div key={`new-${i}`} className="space-y-1.5">
                   <div className="flex items-center gap-2">
@@ -297,18 +359,25 @@ export default function EditSpaceModal({ space, onClose }) {
             </div>
           </div>
 
-          {/* Delete space */}
-          {spaces.length > 1 && (
-            <div className="pt-2 border-t border-slate-100">
+          {/* Delete Space — danger zone */}
+          <div className="pt-1 border-t border-slate-100">
+            <p className="text-[10px] font-body font-semibold text-slate-300 uppercase tracking-widest mb-2">
+              {t('spaces.modals.edit.dangerZone')}
+            </p>
+            {canDelete ? (
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="flex items-center gap-1.5 text-slate-400 hover:text-rose-500 text-xs font-body transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-sm font-body font-medium text-rose-500 bg-rose-50 border border-rose-100 hover:bg-rose-100 transition-all"
               >
-                <Trash2 size={13} />
+                <Trash2 size={14} />
                 {t('spaces.modals.edit.deleteSpace')}
               </button>
-            </div>
-          )}
+            ) : (
+              <p className="text-xs font-body text-slate-400 text-center py-2">
+                {t('spaces.modals.edit.deleteSpaceOnlyOne')}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="flex gap-3 p-5 pt-0">

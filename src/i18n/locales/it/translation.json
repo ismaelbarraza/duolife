@@ -1,4 +1,42 @@
 {
+  "landing": {
+    "tagline": "Il vostro universo condiviso — pianificate, giocate e crescete insieme.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Pianifica attività, dividi le spese, guadagna punti e gestisci premi con le tue persone.",
+      "cta": "Entra in DuoLife"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Giochi di festa, sfide e giochi sociali per coppie, amici e gruppi.",
+      "cta": "Entra in Play"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Giochi per feste, coppie e amici",
+    "backToHome": "Torna alla home",
+    "comingSoon": "Presto",
+    "comingSoonNote": "I giochi sono in arrivo! Stiamo creando esperienze divertenti da godere insieme. Restate sintonizzati!",
+    "games": {
+      "slot-machine": {
+        "name": "Slot Machine",
+        "description": "Gira per punti bonus e sorprese"
+      },
+      "flip-cards": {
+        "name": "Carte Scoperte",
+        "description": "Abbina le carte e vinci moltiplicatori"
+      },
+      "party-questions": {
+        "name": "Domande di Festa",
+        "description": "Domande divertenti per gruppi e coppie"
+      },
+      "dare-wheel": {
+        "name": "Ruota delle Sfide",
+        "description": "Gira la ruota per sfide e compiti"
+      }
+    }
+  },
   "nav": {
     "home": "Home",
     "planner": "Planner",
@@ -299,6 +337,13 @@
         "deleteSpaceConfirmTitle": "Eliminare lo Spazio?",
         "deleteSpaceConfirmBody": "Questo eliminerà permanentemente lo spazio e tutti i suoi dati. Questa azione non può essere annullata.",
         "deleteSpaceConfirm": "Sì, elimina definitivamente",
+        "dangerZone": "Zona di Pericolo",
+        "deleteSpaceOnlyOne": "Per eliminare questo Spazio, crea prima un altro Spazio.",
+        "backgroundImage": "Sfondo dello Spazio",
+        "addBackground": "Aggiungi foto",
+        "changeBackground": "Cambia foto",
+        "removeBackground": "Rimuovi",
+        "backgroundNote": "La sincronizzazione cloud per le foto degli Spazi sarà disponibile quando gli account saranno collegati.",
         "submit": "Salva Modifiche",
         "errors": {
           "noName": "Inserisci un nome"

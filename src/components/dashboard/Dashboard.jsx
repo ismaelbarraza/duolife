@@ -126,7 +126,7 @@ export default function Dashboard() {
 
       {/* Stat cards */}
       {stats && (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <StatCard
             icon={<CheckCircle size={16} />}
             label={t('dashboard.stats.completed')}
@@ -154,112 +154,113 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Upcoming plan */}
-      <div>
-        {/* Section header + New button */}
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-body font-semibold text-base text-slate-800">
-            {t('dashboard.upcomingPlan')}
-          </h3>
-          <button
-            onClick={() => setShowCreateActivity(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium btn-primary"
-          >
-            <Plus size={13} />
-            {t('common.new')}
-          </button>
-        </div>
-
-        {/* Filter chips */}
-        <div className="flex gap-2 mb-4 flex-wrap">
-          {FILTERS.map((f) => {
-            const active = f === filter
-            return (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className="px-3 py-1.5 rounded-full text-xs font-body font-medium transition-all"
-                style={{
-                  background: active ? '#ede9fe' : '#ffffff',
-                  border: `1px solid ${active ? '#c4b5fd' : '#e2e8f0'}`,
-                  color: active ? '#6d28d9' : '#64748b',
-                }}
-              >
-                {filterLabel[f]}
-              </button>
-            )
-          })}
-        </div>
-
-        {groupedActivities.length > 0 ? (
-          <div className="space-y-5">
-            {groupedActivities.map(({ date, items }) => {
-              const isToday = date === todayStr()
-              return (
-                <div key={date}>
-                  {/* Date group header */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className="text-xs font-body font-semibold px-2.5 py-1 rounded-full shrink-0"
-                      style={{
-                        background: isToday ? '#ede9fe' : '#f1f5f9',
-                        color: isToday ? '#6d28d9' : '#475569',
-                      }}
-                    >
-                      {getDateHeader(date)}
-                    </span>
-                    <div className="flex-1 h-px bg-slate-100" />
-                  </div>
-
-                  <div className="space-y-2">
-                    {items.map((a) => (
-                      <ActivityCard key={a.id} activity={a} />
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-
-            {/* View all in Planner */}
+      {/* Upcoming plan + Coin history: stacked on mobile, side-by-side on desktop */}
+      <div className="lg:flex lg:gap-6 lg:items-start">
+        {/* Upcoming plan */}
+        <div className="flex-1 min-w-0">
+          {/* Section header + New button */}
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-body font-semibold text-base text-slate-800">
+              {t('dashboard.upcomingPlan')}
+            </h3>
             <button
-              onClick={() => navigate('/planner')}
-              className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-2xl text-xs font-body font-medium text-slate-400 hover:text-violet-600 border border-dashed border-slate-200 hover:border-violet-200 transition-all"
+              onClick={() => setShowCreateActivity(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium btn-primary"
             >
-              <CalendarDays size={13} />
-              {t('dashboard.viewInPlanner')}
+              <Plus size={13} />
+              {t('common.new')}
             </button>
           </div>
-        ) : (
-          <EmptyState message={emptyMsg[filter]} />
+
+          {/* Filter chips */}
+          <div className="flex gap-2 mb-4 flex-wrap">
+            {FILTERS.map((f) => {
+              const active = f === filter
+              return (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className="px-3 py-1.5 rounded-full text-xs font-body font-medium transition-all"
+                  style={{
+                    background: active ? '#ede9fe' : '#ffffff',
+                    border: `1px solid ${active ? '#c4b5fd' : '#e2e8f0'}`,
+                    color: active ? '#6d28d9' : '#64748b',
+                  }}
+                >
+                  {filterLabel[f]}
+                </button>
+              )
+            })}
+          </div>
+
+          {groupedActivities.length > 0 ? (
+            <div className="space-y-5">
+              {groupedActivities.map(({ date, items }) => {
+                const isToday = date === todayStr()
+                return (
+                  <div key={date}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span
+                        className="text-xs font-body font-semibold px-2.5 py-1 rounded-full shrink-0"
+                        style={{
+                          background: isToday ? '#ede9fe' : '#f1f5f9',
+                          color: isToday ? '#6d28d9' : '#475569',
+                        }}
+                      >
+                        {getDateHeader(date)}
+                      </span>
+                      <div className="flex-1 h-px bg-slate-100" />
+                    </div>
+
+                    <div className="space-y-2">
+                      {items.map((a) => (
+                        <ActivityCard key={a.id} activity={a} />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+
+              <button
+                onClick={() => navigate('/app/planner')}
+                className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-2xl text-xs font-body font-medium text-slate-400 hover:text-violet-600 border border-dashed border-slate-200 hover:border-violet-200 transition-all"
+              >
+                <CalendarDays size={13} />
+                {t('dashboard.viewInPlanner')}
+              </button>
+            </div>
+          ) : (
+            <EmptyState message={emptyMsg[filter]} />
+          )}
+        </div>
+
+        {/* Coin transaction feed — sidebar on desktop */}
+        {recentTransactions.length > 0 && (
+          <div className="mt-6 lg:mt-0 lg:w-72 lg:shrink-0">
+            <h3 className="font-body font-semibold text-base text-slate-800 mb-3">
+              {t('dashboard.coinHistory')}
+            </h3>
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden divide-y divide-slate-50">
+              {recentTransactions.map((tx) => (
+                <div key={tx.id} className="flex items-center justify-between px-4 py-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs text-slate-600 font-body truncate">{tx.reason}</p>
+                    <p className="text-[10px] text-slate-400 font-body mt-0.5">
+                      {format(new Date(tx.createdAt), 'MMM d, HH:mm')}
+                    </p>
+                  </div>
+                  <span
+                    className="font-body text-sm font-semibold ml-3"
+                    style={{ color: tx.amount > 0 ? '#059669' : '#e11d48' }}
+                  >
+                    {tx.amount > 0 ? '+' : ''}{tx.amount} ✦
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </div>
-
-      {/* Coin transaction feed */}
-      {recentTransactions.length > 0 && (
-        <div>
-          <h3 className="font-body font-semibold text-base text-slate-800 mb-3">
-            {t('dashboard.coinHistory')}
-          </h3>
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden divide-y divide-slate-50">
-            {recentTransactions.map((tx) => (
-              <div key={tx.id} className="flex items-center justify-between px-4 py-3">
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs text-slate-600 font-body truncate">{tx.reason}</p>
-                  <p className="text-[10px] text-slate-400 font-body mt-0.5">
-                    {format(new Date(tx.createdAt), 'MMM d, HH:mm')}
-                  </p>
-                </div>
-                <span
-                  className="font-body text-sm font-semibold ml-3"
-                  style={{ color: tx.amount > 0 ? '#059669' : '#e11d48' }}
-                >
-                  {tx.amount > 0 ? '+' : ''}{tx.amount} ✦
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {showCreateActivity && (
         <CreateActivityModal onClose={() => setShowCreateActivity(false)} />
@@ -294,7 +295,7 @@ function EmptyState({ message }) {
         {t('dashboard.noUpcomingSubtitle')}
       </p>
       <button
-        onClick={() => navigate('/planner')}
+        onClick={() => navigate('/app/planner')}
         className="text-xs font-body font-medium text-violet-500 hover:text-violet-700 transition-colors"
       >
         {t('dashboard.viewInPlanner')} →

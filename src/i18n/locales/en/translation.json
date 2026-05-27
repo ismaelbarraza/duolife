@@ -1,4 +1,42 @@
 {
+  "landing": {
+    "tagline": "Your shared universe — plan, play, and grow together.",
+    "duolife": {
+      "name": "DuoLife",
+      "description": "Plan activities, split expenses, earn points and manage rewards with your people.",
+      "cta": "Enter DuoLife"
+    },
+    "play": {
+      "name": "DuoLife Play",
+      "description": "Party games, challenges and social games for couples, friends and groups.",
+      "cta": "Enter Play"
+    }
+  },
+  "play": {
+    "title": "DuoLife Play",
+    "subtitle": "Games for parties, couples and friends",
+    "backToHome": "Back to home",
+    "comingSoon": "Soon",
+    "comingSoonNote": "Games are on the way! We're building fun experiences for you to enjoy together. Stay tuned.",
+    "games": {
+      "slot-machine": {
+        "name": "Slot Machine",
+        "description": "Spin for bonus points and surprises"
+      },
+      "flip-cards": {
+        "name": "Flip Cards",
+        "description": "Match cards and win multipliers"
+      },
+      "party-questions": {
+        "name": "Party Questions",
+        "description": "Fun questions for groups and couples"
+      },
+      "dare-wheel": {
+        "name": "Dare Wheel",
+        "description": "Spin the wheel for dares and challenges"
+      }
+    }
+  },
   "nav": {
     "home": "Home",
     "planner": "Planner",
@@ -299,6 +337,13 @@
         "deleteSpaceConfirmTitle": "Delete Space?",
         "deleteSpaceConfirmBody": "This will permanently delete the space and all its data. This cannot be undone.",
         "deleteSpaceConfirm": "Yes, delete permanently",
+        "dangerZone": "Danger Zone",
+        "deleteSpaceOnlyOne": "To delete this Space, create another Space first.",
+        "backgroundImage": "Space Background",
+        "addBackground": "Add photo",
+        "changeBackground": "Change photo",
+        "removeBackground": "Remove",
+        "backgroundNote": "Cloud sync for Space photos will be enabled when accounts are connected.",
         "submit": "Save Changes",
         "errors": {
           "noName": "Please enter a name"

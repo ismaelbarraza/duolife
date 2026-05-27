@@ -177,9 +177,12 @@ export default function Expenses() {
         </div>
       )}
 
-      {/* Expense list */}
-      <div className="space-y-3">
-        {expenses.map((expense) => {
+      {/* Expense list + Settlement: stacked on mobile, side-by-side on desktop */}
+      {expenses.length > 0 && (
+        <div className="lg:grid lg:grid-cols-[1fr,340px] lg:gap-6 lg:items-start">
+          {/* Expense list */}
+          <div className="space-y-3">
+      {expenses.map((expense) => {
           const paidBy = getUserById(expense.paidBy)
           const isOpen = expandedId === expense.id
           const isSelected = selectedIds.has(expense.id)
@@ -407,15 +410,19 @@ export default function Expenses() {
             </div>
           )
         })}
-      </div>
+          </div>
 
-      {/* Global settlement summary */}
-      {users.length >= 2 && expenses.length > 0 && (
-        <GlobalSettlement
-          selectedExpenses={selectedExpenses}
-          getUserById={getUserById}
-          t={t}
-        />
+          {/* Settlement sidebar */}
+          {users.length >= 2 && (
+            <div className="mt-5 lg:mt-0 lg:sticky lg:top-6">
+              <GlobalSettlement
+                selectedExpenses={selectedExpenses}
+                getUserById={getUserById}
+                t={t}
+              />
+            </div>
+          )}
+        </div>
       )}
 
       {showModal && <CreateExpenseModal onClose={() => setShowModal(false)} />}
