@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { ChevronDown, X, Check, Pencil, Plus } from 'lucide-react'
+import { ChevronDown, X, Check, Pencil, Plus, Users } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useApp } from '../../hooks/useAppContext'
 import CreateSpaceModal from '../modals/CreateSpaceModal'
 import EditSpaceModal from '../modals/EditSpaceModal'
+import JoinSpaceModal from '../modals/JoinSpaceModal'
 
 const FREE_PLAN_MAX_SPACES = 2
 
@@ -12,6 +13,7 @@ export default function SpaceSwitcher() {
   const { spaces, currentSpace, currentSpaceId, switchSpace } = useApp()
   const [open, setOpen] = useState(false)
   const [showCreate, setShowCreate] = useState(false)
+  const [showJoin, setShowJoin] = useState(false)
   const [editingSpace, setEditingSpace] = useState(null)
 
   const atLimit = spaces.length >= FREE_PLAN_MAX_SPACES
@@ -132,6 +134,15 @@ export default function SpaceSwitcher() {
                 </button>
               )}
 
+              <button
+                onClick={() => { setOpen(false); setShowJoin(true) }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-sm font-body font-medium transition-all hover:bg-emerald-50 border border-dashed"
+                style={{ color: '#059669', borderColor: '#a7f3d0' }}
+              >
+                <Users size={14} />
+                {t('spaces.joinSpace')}
+              </button>
+
               <div className="flex items-center justify-center gap-1.5 pt-1">
                 <span className="text-[10px] font-body text-slate-300 uppercase tracking-wider">FREE PLAN</span>
                 <span className="text-slate-200 text-xs">·</span>
@@ -143,6 +154,7 @@ export default function SpaceSwitcher() {
       )}
 
       {showCreate && <CreateSpaceModal onClose={() => setShowCreate(false)} />}
+      {showJoin && <JoinSpaceModal onClose={() => setShowJoin(false)} />}
       {editingSpace && (
         <EditSpaceModal
           space={editingSpace}
