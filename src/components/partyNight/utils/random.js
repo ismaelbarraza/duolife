@@ -14,3 +14,15 @@ export const shuffleArray = (array) => {
   }
   return arr
 }
+
+export function pickWithAntiRepeat(pool, storageKey, maxRecent = 8) {
+  if (!pool || pool.length === 0) return null
+  const recent = JSON.parse(localStorage.getItem(storageKey) || '[]')
+  const allIndices = pool.map((_, i) => i)
+  const available = allIndices.filter(i => !recent.includes(i))
+  const candidates = available.length > 0 ? available : allIndices
+  const pickedIdx = candidates[getRandomInt(0, candidates.length - 1)]
+  const newRecent = [...recent, pickedIdx].slice(-maxRecent)
+  localStorage.setItem(storageKey, JSON.stringify(newRecent))
+  return pool[pickedIdx]
+}

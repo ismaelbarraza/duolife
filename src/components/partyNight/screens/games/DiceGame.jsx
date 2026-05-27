@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, RotateCcw } from 'lucide-react'
 import { diceCategories } from '../../data/diceData'
-import { getRandomItem, getRandomInt } from '../../utils/random'
+import { getRandomItem, getRandomInt, pickWithAntiRepeat } from '../../utils/random'
 
 const PAGE_BG = 'linear-gradient(160deg, #f0fdf4 0%, #f5f3ff 50%, #fff7ed 100%)'
 
@@ -178,7 +178,7 @@ export default function DiceGame() {
   const rollAction = () => {
     if (!selectedCat) return
     setMultiPhase('ROLLING_ACT')
-    const final = getRandomItem(selectedCat.actions)
+    const final = pickWithAntiRepeat(selectedCat.actions, `dice_${selectedCat.id}`, 8)
     let tick = 0
     const interval = setInterval(() => {
       tick++

@@ -676,7 +676,7 @@ export const impostorContent = {
     {
       word: 'Nelson Mandela',
       hint: 'Activista y presidente sudafricano',
-      impostorHint: 'Pasó de ser ignorado y encarcelado a ser símbolo universal sin cambiar lo que defendía.',
+      impostorHint: 'Pasó de ser completamente ignorado a convertirse en símbolo universal sin cambiar lo que defendía.',
       hints: ['Estuvo preso casi 30 años', 'Primer presidente negro de Sudáfrica', 'Premio Nobel de la Paz'],
       difficulty: 'easy',
     },

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Plus, X, ShuffleIcon, ListOrdered } from 'lucide-react'
+import { ArrowLeft, Plus, X, ShuffleIcon, ListOrdered, RefreshCw } from 'lucide-react'
 import { truthOrDareContent, adultRules } from '../../data/truthOrDareContent'
-import { getRandomInt } from '../../utils/random'
+import { getRandomInt, pickWithAntiRepeat } from '../../utils/random'
 
 const PAGE_BG = 'linear-gradient(160deg, #fff1f2 0%, #fdf2f8 50%, #f5f3ff 100%)'
 
@@ -11,6 +11,8 @@ const MODES = [
   { id: 'picante', label: 'Picante', emoji: '🌶️', color: '#9f1239', activeBg: '#fff1f2', activeBorder: '#fecdd3' },
   { id: 'adulto', label: 'Adulto +18', emoji: '🔞', color: '#be123c', activeBg: '#fff1f2', activeBorder: '#fda4af' },
 ]
+
+const REVEAL_STYLE_ID = 'tor-reveal-keyframes'
 
 function AdultModal({ onConfirm, onCancel }) {
   return (
@@ -55,21 +57,31 @@ function AdultModal({ onConfirm, onCancel }) {
 export default function TruthOrDareGame() {
   const navigate = useNavigate()
 
-  const [phase, setPhase] = useState('SETUP') // SETUP | PLAYING
+  const [phase, setPhase] = useState('SETUP')
   const [players, setPlayers] = useState([])
   const [newPlayer, setNewPlayer] = useState('')
   const [mode, setMode] = useState('normal')
-  const [turnMode, setTurnMode] = useState('sequential') // sequential | random
+  const [turnMode, setTurnMode] = useState('sequential')
   const [showAdultModal, setShowAdultModal] = useState(false)
   const [error, setError] = useState('')
 
-  // Playing state
   const [currentIdx, setCurrentIdx] = useState(0)
-  const [lastIdx, setLastIdx] = useState(null)
-  const [promptType, setPromptType] = useState(null) // truth | dare
+  const [promptType, setPromptType] = useState(null)
   const [prompt, setPrompt] = useState(null)
-  const [usedTruths, setUsedTruths] = useState(new Set())
-  const [usedDares, setUsedDares] = useState(new Set())
+  const [revealKey, setRevealKey] = useState(0)
+
+  useEffect(() => {
+    if (document.getElementById(REVEAL_STYLE_ID)) return
+    const style = document.createElement('style')
+    style.id = REVEAL_STYLE_ID
+    style.textContent = `
+      @keyframes torReveal {
+        from { opacity: 0; transform: scale(0.93) translateY(10px); }
+        to   { opacity: 1; transform: scale(1) translateY(0); }
+      }
+    `
+    document.head.appendChild(style)
+  }, [])
 
   const addPlayer = () => {
     const name = newPlayer.trim()
@@ -90,18 +102,13 @@ export default function TruthOrDareGame() {
   const requestMode = (m) => {
     if (m === 'adulto') { setShowAdultModal(true); return }
     setMode(m)
-    resetPrompts()
+    setPrompt(null)
+    setPromptType(null)
   }
 
   const confirmAdult = () => {
     setMode('adulto')
     setShowAdultModal(false)
-    resetPrompts()
-  }
-
-  const resetPrompts = () => {
-    setUsedTruths(new Set())
-    setUsedDares(new Set())
     setPrompt(null)
     setPromptType(null)
   }
@@ -109,27 +116,19 @@ export default function TruthOrDareGame() {
   const startGame = () => {
     if (players.length < 2) { setError('Se necesitan mínimo 2 jugadores'); return }
     setCurrentIdx(0)
-    setLastIdx(null)
-    resetPrompts()
+    setPrompt(null)
+    setPromptType(null)
     setPhase('PLAYING')
   }
 
   const choosePrompt = (type) => {
     const content = truthOrDareContent[mode]
     const pool = type === 'truth' ? content.truths : content.dares
-    const used = type === 'truth' ? usedTruths : usedDares
-    const setUsed = type === 'truth' ? setUsedTruths : setUsedDares
-
-    let available = pool.map((_, i) => i).filter((i) => !used.has(i))
-    if (available.length === 0) {
-      setUsed(new Set())
-      available = pool.map((_, i) => i)
-    }
-
-    const selectedIdx = available[getRandomInt(0, available.length - 1)]
-    setUsed((prev) => new Set([...prev, selectedIdx]))
+    const storageKey = `tor_${type}_${mode}`
+    const picked = pickWithAntiRepeat(pool, storageKey, 8)
     setPromptType(type)
-    setPrompt(pool[selectedIdx])
+    setPrompt(picked)
+    setRevealKey((k) => k + 1)
   }
 
   const nextPlayer = () => {
@@ -140,22 +139,23 @@ export default function TruthOrDareGame() {
       const others = players.map((_, i) => i).filter((i) => i !== currentIdx || players.length === 1)
       next = others[getRandomInt(0, others.length - 1)]
     }
-    setLastIdx(currentIdx)
     setCurrentIdx(next)
     setPrompt(null)
     setPromptType(null)
   }
 
+  const nextCard = () => {
+    choosePrompt(promptType)
+  }
+
   const currentMode = MODES.find((m) => m.id === mode)
 
-  // ── PLAYING phase ──────────────────────────────────────────────────────────
   if (phase === 'PLAYING') {
     const currentPlayer = players[currentIdx]
 
     return (
       <div className="min-h-screen flex flex-col" style={{ background: PAGE_BG }}>
         <div className="max-w-lg sm:max-w-md mx-auto px-5 pt-8 pb-10 w-full">
-          {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <button
@@ -185,10 +185,12 @@ export default function TruthOrDareGame() {
           {/* Prompt display */}
           {prompt ? (
             <div
-              className="rounded-2xl p-5 mb-5 text-center border"
+              key={revealKey}
+              className="rounded-2xl p-5 mb-4 text-center border"
               style={{
                 background: promptType === 'truth' ? '#f0fdf4' : '#fff7ed',
                 borderColor: promptType === 'truth' ? '#86efac' : '#fde68a',
+                animation: 'torReveal 0.35s ease',
               }}
             >
               <span
@@ -205,7 +207,6 @@ export default function TruthOrDareGame() {
               </p>
             </div>
           ) : (
-            /* Truth or Dare buttons */
             <div className="grid grid-cols-2 gap-3 mb-5">
               <button
                 onClick={() => choosePrompt('truth')}
@@ -224,17 +225,25 @@ export default function TruthOrDareGame() {
             </div>
           )}
 
-          {/* Next player button (only after prompt shown) */}
           {prompt && (
-            <button
-              onClick={nextPlayer}
-              className="w-full py-3.5 rounded-2xl font-body font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all active:scale-95"
-            >
-              Siguiente jugador →
-            </button>
+            <div className="space-y-2.5">
+              <button
+                onClick={nextPlayer}
+                className="w-full py-3.5 rounded-2xl font-body font-semibold text-sm text-white transition-all active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)', boxShadow: '0 4px 12px rgba(124,58,237,0.2)' }}
+              >
+                Siguiente jugador →
+              </button>
+              <button
+                onClick={nextCard}
+                className="w-full py-3 rounded-2xl font-body font-medium text-sm text-slate-500 bg-white border border-slate-200 hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+              >
+                <RefreshCw size={13} />
+                Otra carta
+              </button>
+            </div>
           )}
 
-          {/* Players mini-list */}
           <div className="mt-5 flex flex-wrap gap-2 justify-center">
             {players.map((p, i) => (
               <span
@@ -260,7 +269,6 @@ export default function TruthOrDareGame() {
     )
   }
 
-  // ── SETUP phase ────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen flex flex-col" style={{ background: PAGE_BG }}>
       <div className="max-w-lg sm:max-w-md mx-auto px-5 pt-8 pb-10 w-full">
@@ -282,7 +290,6 @@ export default function TruthOrDareGame() {
             <p className="text-rose-600 text-sm font-body bg-rose-50 border border-rose-100 rounded-xl px-3 py-2">{error}</p>
           )}
 
-          {/* Players */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
             <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-3">
               Jugadores · mín. 2
@@ -317,7 +324,6 @@ export default function TruthOrDareGame() {
             </div>
           </div>
 
-          {/* Mode selector */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
             <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-3">
               Modo
@@ -340,7 +346,6 @@ export default function TruthOrDareGame() {
             </div>
           </div>
 
-          {/* Turn order */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
             <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-3">
               Orden de turnos
@@ -373,7 +378,6 @@ export default function TruthOrDareGame() {
             </div>
           </div>
 
-          {/* Start */}
           <button
             onClick={startGame}
             className="w-full py-4 rounded-2xl font-body font-bold text-base text-white transition-all active:scale-95 hover:opacity-90"

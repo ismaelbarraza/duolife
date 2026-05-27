@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Plus, X, RotateCcw } from 'lucide-react'
 import { bottleModes, bottleActions, SPIN_DURATION_MS } from '../../data/bottleData'
-import { getRandomItem, getRandomInt } from '../../utils/random'
+import { getRandomInt, pickWithAntiRepeat } from '../../utils/random'
 
 const PAGE_BG = 'linear-gradient(160deg, #fffbeb 0%, #fdf2f8 50%, #f5f3ff 100%)'
 const POINTER_OFFSET = 0 // degrees — adjust if visual pointer is misaligned
@@ -38,7 +38,7 @@ export default function BottleGame() {
 
   const [players, setPlayers] = useState([])
   const [newPlayer, setNewPlayer] = useState('')
-  const [mode, setMode] = useState('classic')
+  const [mode, setMode] = useState('normal')
   const [rotation, setRotation] = useState(0)
   const [isSpinning, setIsSpinning] = useState(false)
   const [result, setResult] = useState(null)
@@ -81,7 +81,7 @@ export default function BottleGame() {
 
     setTimeout(() => {
       setIsSpinning(false)
-      const action = getRandomItem(bottleActions[mode])
+      const action = pickWithAntiRepeat(bottleActions[mode], `bottle_${mode}`, 8)
       const player = tpi !== null ? players[tpi] : null
       const entry = { player, action, mode }
       setResult(entry)
