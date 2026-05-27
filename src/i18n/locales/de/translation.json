@@ -288,6 +288,17 @@
     "addMember": "+ Mitglied hinzufügen",
     "continue": "Weiter →",
     "finish": "Bereich erstellen ✨",
+    "choiceTitle": "Wie möchtest du beginnen?",
+    "choiceSubtitle": "Wähle eine Option, um fortzufahren",
+    "createSpace": "Neuen Bereich erstellen",
+    "createSpaceDesc": "Starte neu mit deinem eigenen lokalen Bereich",
+    "joinSpace": "Einem Bereich beitreten",
+    "joinSpaceDesc": "Gib einen Einladungscode ein, um beizutreten",
+    "joinSpaceTitle": "Einem Bereich beitreten",
+    "joinSpaceExplanation": "Geteilten Bereichen beizutreten wird verfügbar, wenn Konten und Cloud-Synchronisation verbunden sind.",
+    "inviteCodeLabel": "Einladungscode",
+    "inviteCodePlaceholder": "z.B. DUOLIFE-ABC123",
+    "comingSoonBtn": "Demnächst",
     "errors": {
       "noName": "Bitte gib deinen Namen ein",
       "noSpaceName": "Bitte gib einen Bereichsnamen ein",
@@ -447,7 +458,8 @@
       "codeLabel": "Einladungscode",
       "copyCode": "Code kopieren",
       "copied": "Kopiert!",
-      "emailSoon": "📧 E-Mail-Einladungen bald verfügbar"
+      "emailSoon": "📧 E-Mail-Einladungen bald verfügbar",
+      "previewNote": "Dieser Code ist eine Vorschau. Echte geräteübergreifende Einladungen werden verfügbar, wenn Konten und Cloud-Synchronisation verbunden sind."
     }
   }
 }

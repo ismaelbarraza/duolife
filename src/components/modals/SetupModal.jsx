@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, PlusCircle, Users } from 'lucide-react'
 import { useApp } from '../../hooks/useAppContext'
 import { SPACE_TYPES, AVATAR_EMOJIS } from '../../data/mockData'
 
@@ -16,6 +16,8 @@ const LANGUAGES = [
 export default function SetupModal({ onClose }) {
   const { t, i18n } = useTranslation()
   const { completeSetup } = useApp()
+  // mode: 'choice' | 'create' | 'join'
+  const [mode, setMode] = useState('choice')
   const [step, setStep] = useState(1)
   const [error, setError] = useState('')
 
@@ -79,64 +81,179 @@ export default function SetupModal({ onClose }) {
         className="modal-card bg-white rounded-3xl w-full max-w-sm mx-auto overflow-hidden shadow-xl border border-slate-100"
         style={{ maxHeight: '92svh', overflowY: 'auto' }}
       >
-        {/* Progress bar */}
-        <div className="flex gap-1.5 justify-center pt-6 px-6">
-          {[1, 2].map(n => (
-            <div
-              key={n}
-              className="h-1.5 rounded-full transition-all duration-300"
-              style={{
-                width: n === step ? '36px' : '12px',
-                background: n <= step ? '#8b5cf6' : '#e2e8f0',
-              }}
-            />
-          ))}
-        </div>
+        {mode === 'choice' && (
+          <StepChoice
+            onCreate={() => setMode('create')}
+            onJoin={() => setMode('join')}
+            t={t}
+          />
+        )}
 
-        {step === 1 ? (
-          <StepProfile
-            profile={profile}
-            setProfileField={setProfileField}
-            handleLanguageChange={handleLanguageChange}
-            showEmojiFor={showEmojiFor}
-            setShowEmojiFor={setShowEmojiFor}
-            error={error}
-            onNext={handleStep1Next}
+        {mode === 'join' && (
+          <StepJoin
+            onBack={() => setMode('choice')}
             t={t}
           />
-        ) : (
-          <StepSpace
-            space={space}
-            setSpaceField={setSpaceField}
-            profile={profile}
-            members={members}
-            addMember={addMember}
-            removeMember={removeMember}
-            updateMember={updateMember}
-            canAddMember={canAddMember}
-            currentType={currentType}
-            showEmojiFor={showEmojiFor}
-            setShowEmojiFor={setShowEmojiFor}
-            error={error}
-            onBack={() => { setError(''); setStep(1) }}
-            onFinish={handleFinish}
-            t={t}
-          />
+        )}
+
+        {mode === 'create' && (
+          <>
+            {/* Progress bar */}
+            <div className="flex gap-1.5 justify-center pt-6 px-6">
+              {[1, 2].map(n => (
+                <div
+                  key={n}
+                  className="h-1.5 rounded-full transition-all duration-300"
+                  style={{
+                    width: n === step ? '36px' : '12px',
+                    background: n <= step ? '#8b5cf6' : '#e2e8f0',
+                  }}
+                />
+              ))}
+            </div>
+
+            {step === 1 ? (
+              <StepProfile
+                profile={profile}
+                setProfileField={setProfileField}
+                handleLanguageChange={handleLanguageChange}
+                showEmojiFor={showEmojiFor}
+                setShowEmojiFor={setShowEmojiFor}
+                error={error}
+                onNext={handleStep1Next}
+                onBack={() => { setError(''); setMode('choice') }}
+                t={t}
+              />
+            ) : (
+              <StepSpace
+                space={space}
+                setSpaceField={setSpaceField}
+                profile={profile}
+                members={members}
+                addMember={addMember}
+                removeMember={removeMember}
+                updateMember={updateMember}
+                canAddMember={canAddMember}
+                currentType={currentType}
+                showEmojiFor={showEmojiFor}
+                setShowEmojiFor={setShowEmojiFor}
+                error={error}
+                onBack={() => { setError(''); setStep(1) }}
+                onFinish={handleFinish}
+                t={t}
+              />
+            )}
+          </>
         )}
       </div>
     </div>
   )
 }
 
-function StepProfile({ profile, setProfileField, handleLanguageChange, showEmojiFor, setShowEmojiFor, error, onNext, t }) {
+function StepChoice({ onCreate, onJoin, t }) {
   return (
     <div className="p-6 space-y-5">
-      <div className="text-center">
-        <div className="text-5xl mb-3 inline-block animate-float">
-          {profile.emoji}
+      <div className="text-center pt-2">
+        <div className="text-5xl mb-3 inline-block animate-float">♾</div>
+        <h2 className="font-body font-bold text-xl text-slate-900">{t('setup.choiceTitle')}</h2>
+        <p className="text-slate-400 text-xs font-body uppercase tracking-widest mt-1">{t('setup.choiceSubtitle')}</p>
+      </div>
+
+      <div className="space-y-3 pt-2">
+        <button
+          onClick={onCreate}
+          className="w-full flex items-center gap-4 p-4 rounded-2xl text-left transition-all border hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: '#f5f3ff', borderColor: '#ddd6fe' }}
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#ede9fe' }}>
+            <PlusCircle size={20} style={{ color: '#7c3aed' }} />
+          </div>
+          <div>
+            <div className="font-body font-semibold text-sm text-slate-800">{t('setup.createSpace')}</div>
+            <div className="font-body text-xs text-slate-400 mt-0.5">{t('setup.createSpaceDesc')}</div>
+          </div>
+        </button>
+
+        <button
+          onClick={onJoin}
+          className="w-full flex items-center gap-4 p-4 rounded-2xl text-left transition-all border hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: '#f0fdf4', borderColor: '#bbf7d0' }}
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#dcfce7' }}>
+            <Users size={20} style={{ color: '#16a34a' }} />
+          </div>
+          <div>
+            <div className="font-body font-semibold text-sm text-slate-800">{t('setup.joinSpace')}</div>
+            <div className="font-body text-xs text-slate-400 mt-0.5">{t('setup.joinSpaceDesc')}</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function StepJoin({ onBack, t }) {
+  const [code, setCode] = useState('')
+
+  return (
+    <div className="p-6 space-y-5">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onBack}
+          className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
+        >
+          <ChevronLeft size={16} className="text-slate-600" />
+        </button>
+        <div>
+          <h2 className="font-body font-bold text-xl text-slate-900">{t('setup.joinSpaceTitle')}</h2>
         </div>
-        <h2 className="font-body font-bold text-xl text-slate-900">{t('setup.step1Title')}</h2>
-        <p className="text-slate-400 text-xs font-body uppercase tracking-widest mt-1">{t('setup.step1Sub')}</p>
+      </div>
+
+      <div className="rounded-2xl p-4 bg-amber-50 border border-amber-100">
+        <p className="text-amber-800 font-body text-sm leading-relaxed">
+          {t('setup.joinSpaceExplanation')}
+        </p>
+      </div>
+
+      <div>
+        <label className="text-slate-500 text-xs font-body font-medium uppercase tracking-wider block mb-1.5">
+          {t('setup.inviteCodeLabel')}
+        </label>
+        <input
+          className="input-field"
+          placeholder={t('setup.inviteCodePlaceholder')}
+          value={code}
+          onChange={e => setCode(e.target.value.toUpperCase())}
+          disabled
+        />
+      </div>
+
+      <button
+        disabled
+        className="w-full py-3 rounded-full font-body font-semibold text-sm transition-all cursor-not-allowed"
+        style={{ background: '#f1f5f9', color: '#94a3b8', border: '1px solid #e2e8f0' }}
+      >
+        {t('setup.comingSoonBtn')}
+      </button>
+    </div>
+  )
+}
+
+function StepProfile({ profile, setProfileField, handleLanguageChange, showEmojiFor, setShowEmojiFor, error, onNext, onBack, t }) {
+  return (
+    <div className="p-6 space-y-5">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onBack}
+          className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors flex-shrink-0"
+        >
+          <ChevronLeft size={16} className="text-slate-600" />
+        </button>
+        <div className="flex-1 text-center pr-8">
+          <div className="text-5xl mb-1 inline-block animate-float">{profile.emoji}</div>
+          <h2 className="font-body font-bold text-xl text-slate-900">{t('setup.step1Title')}</h2>
+          <p className="text-slate-400 text-xs font-body uppercase tracking-widest mt-0.5">{t('setup.step1Sub')}</p>
+        </div>
       </div>
 
       {error && (

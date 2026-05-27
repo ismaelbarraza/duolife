@@ -48,7 +48,7 @@ export default function ProductSelector() {
       </div>
 
       {/* Language switcher — top right, unobtrusive */}
-      <div className="flex justify-end px-5 pt-5 max-w-lg md:max-w-2xl mx-auto w-full relative z-10">
+      <div className="flex justify-end px-5 pt-5 max-w-lg md:max-w-2xl mx-auto w-full relative z-30">
         <LanguageSwitcher />
       </div>
 

@@ -40,13 +40,17 @@ export default function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1.5 rounded-2xl overflow-hidden z-50 bg-white border border-slate-100 shadow-md min-w-[130px] max-h-72 overflow-y-auto">
+        <div
+          className="absolute right-0 top-full mt-1.5 rounded-2xl bg-white border border-slate-100 shadow-lg min-w-[140px]"
+          style={{ zIndex: 9999, maxHeight: '18rem', overflowY: 'auto' }}
+        >
           {LANGUAGES.map((lang) => {
             const active = lang.code === i18n.language
             return (
               <button
                 key={lang.code}
-                onClick={() => {
+                onMouseDown={(e) => {
+                  e.stopPropagation()
                   i18n.changeLanguage(lang.code)
                   setOpen(false)
                 }}

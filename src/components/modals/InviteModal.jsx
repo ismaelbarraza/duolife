@@ -66,6 +66,12 @@ export default function InviteModal({ onClose }) {
           </button>
 
           <p className="text-slate-300 text-xs font-body">{t('modals.invite.emailSoon')}</p>
+
+          <div className="rounded-2xl p-3 bg-amber-50 border border-amber-100">
+            <p className="text-amber-700 font-body text-xs leading-relaxed text-center">
+              {t('modals.invite.previewNote')}
+            </p>
+          </div>
         </div>
       </div>
     </div>

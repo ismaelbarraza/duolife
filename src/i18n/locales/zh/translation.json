@@ -288,6 +288,17 @@
     "addMember": "+ 添加成员",
     "continue": "继续 →",
     "finish": "创建空间 ✨",
+    "choiceTitle": "您想如何开始？",
+    "choiceSubtitle": "选择一个选项继续",
+    "createSpace": "创建新空间",
+    "createSpaceDesc": "从头开始创建您自己的本地空间",
+    "joinSpace": "加入空间",
+    "joinSpaceDesc": "输入邀请码加入",
+    "joinSpaceTitle": "加入空间",
+    "joinSpaceExplanation": "加入共享空间将在账户和云同步连接后可用。",
+    "inviteCodeLabel": "邀请码",
+    "inviteCodePlaceholder": "例如 DUOLIFE-ABC123",
+    "comingSoonBtn": "即将推出",
     "errors": {
       "noName": "请输入你的姓名",
       "noSpaceName": "请输入空间名称",
@@ -447,7 +458,8 @@
       "codeLabel": "邀请码",
       "copyCode": "复制邀请码",
       "copied": "已复制！",
-      "emailSoon": "📧 邮件邀请即将推出"
+      "emailSoon": "📧 邮件邀请即将推出",
+      "previewNote": "此代码为预览版。真正的跨设备邀请将在账户和云同步连接后可用。"
     }
   }
 }

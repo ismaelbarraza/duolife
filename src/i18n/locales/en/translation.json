@@ -312,6 +312,17 @@
     "addMember": "+ Add member",
     "continue": "Continue →",
     "finish": "Create Space ✨",
+    "choiceTitle": "How would you like to start?",
+    "choiceSubtitle": "Choose an option to continue",
+    "createSpace": "Create a new Space",
+    "createSpaceDesc": "Start fresh with your own local space",
+    "joinSpace": "Join a Space",
+    "joinSpaceDesc": "Enter an invite code to join",
+    "joinSpaceTitle": "Join a Space",
+    "joinSpaceExplanation": "Joining shared spaces will be available when accounts and cloud sync are connected.",
+    "inviteCodeLabel": "Invite Code",
+    "inviteCodePlaceholder": "e.g. DUOLIFE-ABC123",
+    "comingSoonBtn": "Coming soon",
     "errors": {
       "noName": "Please enter your name",
       "noSpaceName": "Please enter a space name",
@@ -471,7 +482,8 @@
       "codeLabel": "Invite Code",
       "copyCode": "Copy Code",
       "copied": "Copied!",
-      "emailSoon": "📧 Email invitations coming soon"
+      "emailSoon": "📧 Email invitations coming soon",
+      "previewNote": "This code is a preview. Real cross-device invitations will be available when accounts and cloud sync are connected."
     }
   }
 }

@@ -72,7 +72,7 @@ export default function PlayHome() {
       style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #fdf2f8 50%, #f5f3ff 100%)' }}
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between px-5 pt-8 max-w-lg sm:max-w-2xl lg:max-w-4xl mx-auto w-full">
+      <div className="flex items-center justify-between px-5 pt-8 max-w-lg sm:max-w-2xl lg:max-w-4xl mx-auto w-full relative z-10">
         <button
           onClick={() => navigate('/')}
           className="flex items-center gap-1.5 text-sm font-body font-medium text-slate-500 hover:text-slate-800 transition-colors"

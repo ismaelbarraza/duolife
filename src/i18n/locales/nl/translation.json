@@ -288,6 +288,17 @@
     "addMember": "+ Lid toevoegen",
     "continue": "Doorgaan →",
     "finish": "Ruimte aanmaken ✨",
+    "choiceTitle": "Hoe wil je beginnen?",
+    "choiceSubtitle": "Kies een optie om door te gaan",
+    "createSpace": "Een nieuwe Ruimte aanmaken",
+    "createSpaceDesc": "Begin opnieuw met je eigen lokale ruimte",
+    "joinSpace": "Deelnemen aan een Ruimte",
+    "joinSpaceDesc": "Voer een uitnodigingscode in om deel te nemen",
+    "joinSpaceTitle": "Deelnemen aan een Ruimte",
+    "joinSpaceExplanation": "Deelnemen aan gedeelde ruimtes is beschikbaar wanneer accounts en cloudsynchronisatie zijn verbonden.",
+    "inviteCodeLabel": "Uitnodigingscode",
+    "inviteCodePlaceholder": "bijv. DUOLIFE-ABC123",
+    "comingSoonBtn": "Binnenkort",
     "errors": {
       "noName": "Voer je naam in",
       "noSpaceName": "Voer een naam voor de ruimte in",
@@ -447,7 +458,8 @@
       "codeLabel": "Uitnodigingscode",
       "copyCode": "Code kopiëren",
       "copied": "Gekopieerd!",
-      "emailSoon": "📧 E-mailuitnodigingen binnenkort beschikbaar"
+      "emailSoon": "📧 E-mailuitnodigingen binnenkort beschikbaar",
+      "previewNote": "Deze code is een voorbeeld. Echte uitnodigingen tussen apparaten zijn beschikbaar wanneer accounts en cloudsynchronisatie zijn verbonden."
     }
   }
 }

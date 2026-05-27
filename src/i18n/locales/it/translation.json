@@ -312,6 +312,17 @@
     "addMember": "+ Aggiungi membro",
     "continue": "Continua →",
     "finish": "Crea Spazio ✨",
+    "choiceTitle": "Come vuoi iniziare?",
+    "choiceSubtitle": "Scegli un'opzione per continuare",
+    "createSpace": "Crea un nuovo Spazio",
+    "createSpaceDesc": "Inizia da zero con il tuo spazio locale",
+    "joinSpace": "Unisciti a uno Spazio",
+    "joinSpaceDesc": "Inserisci un codice di invito per unirti",
+    "joinSpaceTitle": "Unisciti a uno Spazio",
+    "joinSpaceExplanation": "Unirsi a spazi condivisi sarà disponibile quando gli account e la sincronizzazione cloud saranno connessi.",
+    "inviteCodeLabel": "Codice di Invito",
+    "inviteCodePlaceholder": "es. DUOLIFE-ABC123",
+    "comingSoonBtn": "Prossimamente",
     "errors": {
       "noName": "Inserisci il tuo nome",
       "noSpaceName": "Inserisci un nome per lo spazio",
@@ -471,7 +482,8 @@
       "codeLabel": "Codice di Invito",
       "copyCode": "Copia Codice",
       "copied": "Copiato!",
-      "emailSoon": "📧 Inviti via email prossimamente"
+      "emailSoon": "📧 Inviti via email prossimamente",
+      "previewNote": "Questo codice è un'anteprima. Gli inviti reali tra dispositivi saranno disponibili quando gli account e la sincronizzazione cloud saranno connessi."
     }
   }
 }
