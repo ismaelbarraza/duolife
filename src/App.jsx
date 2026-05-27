@@ -54,8 +54,8 @@ function AppShell() {
         />
       )}
       <main
-        className="relative max-w-lg sm:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28"
-        style={{ minHeight: '100svh', zIndex: 1 }}
+        className="relative max-w-lg sm:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6"
+        style={{ minHeight: '100svh', zIndex: 1, paddingBottom: 'calc(7rem + env(safe-area-inset-bottom))' }}
       >
         {/* Logo strip — clicking returns to product selector */}
         <div className="flex items-center justify-between mb-6">

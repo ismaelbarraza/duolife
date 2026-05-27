@@ -39,16 +39,17 @@ export default function SpaceSwitcher() {
       {/* Sheet overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-end justify-center"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
           style={{ background: 'rgba(15,23,42,0.3)', backdropFilter: 'blur(4px)' }}
           onClick={e => e.target === e.currentTarget && setOpen(false)}
         >
           <div
-            className="bg-white rounded-t-3xl w-full max-w-lg pb-safe border-t border-slate-100"
+            className="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-lg mb-20 sm:mb-0 border-t sm:border border-slate-100 sm:shadow-xl"
             style={{
               animation: 'slideUp 0.25s ease',
               maxHeight: '75svh',
               overflowY: 'auto',
+              paddingBottom: 'env(safe-area-inset-bottom)',
             }}
           >
             {/* Sheet header */}

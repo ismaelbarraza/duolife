@@ -17,7 +17,10 @@ export default function BottomNav() {
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm border-t border-slate-100"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      style={{
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        boxShadow: '0 -2px 12px rgba(0,0,0,0.06)',
+      }}
     >
       <div className="flex items-center justify-around max-w-lg sm:max-w-2xl lg:max-w-4xl mx-auto px-1">
         {NAV_ITEMS.map(({ to, icon: Icon, label, end }) => (
@@ -26,7 +29,7 @@ export default function BottomNav() {
             to={to}
             end={end}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 py-3 sm:py-4 px-2 flex-1 transition-all duration-200 ${
+              `flex flex-col items-center gap-1 py-3 sm:py-4 lg:py-5 px-2 flex-1 transition-all duration-200 ${
                 isActive ? 'nav-active' : 'text-slate-400 hover:text-slate-500'
               }`
             }
